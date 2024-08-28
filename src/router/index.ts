@@ -7,6 +7,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('../views/home.vue')
+    },
+    {
+      path: '/toolbar',
+      name: 'toolbar',
+      component: () => import('../components/toolbar.vue')
     }
   ]
 })

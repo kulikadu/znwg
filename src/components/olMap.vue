@@ -1,0 +1,669 @@
+<template>
+  <div ref="mapCon" id="mapCon"></div>
+  <el-button class="btn-mapping" @click="mapping">成图</el-button>
+  <el-button class="btn-screenshot" @click="screenshot">截屏</el-button>
+  <div class="info" id="info" v-show="isshowInfo">
+    <div class="info-item">
+      <span>PID：</span>
+      <span>{{ pid }}</span>
+    </div>
+    <div class="info-item">
+      <span>值：</span>
+      <span>{{ infoValue }}</span>
+    </div>
+  </div>
+
+  <section id="changeNum" class="changeNum" v-show="isshowNum">
+    <div>
+      <el-radio-group v-model="radio" @change="radioChange">
+        <el-radio :value="1">赋值</el-radio>
+        <el-radio :value="2">加值</el-radio>
+        <el-radio :value="3">减值</el-radio>
+        <el-radio :value="4">最大值</el-radio>
+        <el-radio :value="5">最小值</el-radio>
+      </el-radio-group>
+    </div>
+    <div style="display: flex; flex-wrap: nowrap; justify-content: space-around">
+      <el-input-number v-model="num" :precision="1" :step="0.1" :max="10000" size="small" />
+      <el-button @click="changeValue">确定</el-button>
+    </div>
+  </section>
+
+  <section id="changeNum2" class="changeNum" v-show="isshowNum">
+    <div>
+      <el-radio-group v-model="radio" @change="radioChange">
+        <el-radio :value="1">赋值</el-radio>
+        <el-radio :value="2">加值</el-radio>
+        <el-radio :value="3">减值</el-radio>
+        <el-radio :value="4">最大值</el-radio>
+        <el-radio :value="5">最小值</el-radio>
+      </el-radio-group>
+    </div>
+    <div style="display: flex; flex-wrap: nowrap; justify-content: space-around">
+      <el-input-number v-model="num" :precision="1" :step="0.1" :max="10000" size="small" />
+      <el-button @click="changeValue2">确定</el-button>
+    </div>
+  </section>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import 'ol/ol.css'
+import { Map, View } from 'ol'
+import { Draw } from 'ol/interaction'
+import TileLayer from 'ol/layer/Tile'
+import Layer from 'ol/layer/Layer.js'
+import VectorLayer from 'ol/layer/Vector'
+import VectorSource from 'ol/source/Vector'
+import XYZ from 'ol/source/XYZ'
+import { fromLonLat } from 'ol/proj'
+import GeoJSON from 'ol/format/GeoJSON'
+import { Image as ImageLayer } from 'ol/layer'
+import { OSM, TileWMS, ImageWMS } from 'ol/source'
+import { Fill, Stroke, Style, Text, Circle as CircleStyle } from 'ol/style'
+import Feature from 'ol/Feature'
+import { Circle, LineString, Point, Polygon } from 'ol/geom'
+import * as turf from '@turf/turf'
+import WebGLVectorLayerRenderer from 'ol/renderer/webgl/VectorLayer.js'
+import WebGLPointsLayer from 'ol/layer/WebGLPoints.js'
+import WebGLTile from 'ol/layer/WebGLTile.js'
+import html2canvas from 'html2canvas'
+import fs from 'file-saver'
+
+let pid = ref(null)
+let infoValue = ref(-1)
+let num = ref(-1)
+let radioValue = ref()
+let isshowInfo = true
+let isshowNum = true
+const mapCon = ref(0)
+
+let PID
+const beijing = fromLonLat([116.28, 39.54])
+let map
+let geojsonData_Polygon = {
+  type: 'FeatureCollection',
+  features: []
+}
+let geojsonData_Point = {
+  type: 'FeatureCollection',
+  features: []
+}
+let pids = []
+const key = '9d871cee845e322ca402f38ade03b7b2'
+let type = {
+  1: '赋值',
+  2: '加值',
+  3: '减值',
+  4: '最大值',
+  5: '最小值'
+}
+const radioChange = (val) => {
+  radioValue.value = val
+}
+let info, changeNum, changeNum2
+let currentFeature, selectedFeatures
+onMounted(() => {
+  info = document.getElementById('info')
+  changeNum = document.getElementsByClassName('changeNum')[0]
+  changeNum2 = document.getElementById('changeNum2')
+  const tdtVectorLayer = new TileLayer({
+    className: 'tdt-vector',
+    preload: Infinity,
+    title: '天地图矢量图层',
+    source: new XYZ({
+      url: `http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=${key}`
+    })
+  })
+  const tdtVectorLabelLayer = new TileLayer({
+    className: 'tdt-vector-label',
+    title: '天地图矢量注记图层',
+    source: new XYZ({
+      url: `http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=${key}`
+    })
+  })
+  map = new Map({
+    layers: [tdtVectorLayer, tdtVectorLabelLayer],
+    target: mapCon.value,
+    view: new View({
+      center: beijing,
+      minZoom: 4,
+      zoom: 2
+    })
+  })
+
+  // WMS服务的URL
+  // const wmsUrl = 'http://localhost:8080/geoserver/ZN/wfs?service=WFS&version=1.1.0&request=GetMap&layers=ZN%3Achina&bbox=73.502355%2C3.39716187%2C135.09567%2C53.563269&width=768&height=625&srs=EPSG%3A4326&styles=&format=image%2Fpng';
+  const wmsUrl2 =
+    'http://localhost:8080/geoserver/testArea/wms?service=WMS&version=1.1.0&request=GetMap&layers=testArea%3Achina&bbox=73.502355%2C3.39716187%2C135.09567%2C53.563269&width=768&height=625&srs=EPSG%3A4326&format=image%2Fpng'
+  const wmsUrl =
+    'http://localhost:8080/geoserver/ZN/wfs?service=WFS&version=1.1.0&request=GetMap&layers=ZN%3Achina&bbox=73.502355%2C3.39716187%2C135.09567%2C53.563269&width=768&height=625&srs=EPSG%3A4326&styles=&format=image%2Fpng'
+
+  // 创建WMS图层
+  const wmsLayer = new TileLayer({
+    className: 'wms-vector',
+    title: 'china',
+    preload: Infinity,
+    source: new TileWMS({
+      url: wmsUrl2,
+      // params: {
+      //   LAYERS: 'ZN:china', // 指定WMS层名
+      //   TILED: true, // 请求分块的图片
+      //   STYLE: ''
+      // },
+      serverType: 'geoserver' // WMS服务器类型，可选
+    })
+  })
+
+  // 将 Vector 图层添加到地图中
+  map.addLayer(wmsLayer)
+
+  // fetch('src/assets/rain.json')
+  fetch('src/assets/降水_5.json')
+    // fetch('http://10.111.102.30:8082/znwg-api/test/gridrains?i=5')
+    .then((res) => res.json())
+    .then((data) => {
+      // data = data.data
+      showGrid(data, 5)
+    })
+
+  // fetch('http://10.111.102.19:8082/znwg-api/test/gridrain')
+  //     // fetch('../assets/新建文本文档 (2).json')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //         const polygonLayer22 = new VectorLayer({
+  //             title: 'grid_VectorLayer222',
+  //             opacity: 0.8,
+  //             zIndex: 100,
+  //             source: new VectorSource({
+  //                 features: new GeoJSON().readFeatures(data)
+  //                 // features: new GeoJSON().readFeatures(geojsonData_Point)
+  //             }),
+  //             style: (feature) => {
+  //                 let fill = new Fill()
+  //                 // fill.setColor(feature.get('maxValue') == 10.0 ? 'yellow' : 'red')
+  //                 fill.setColor(getColor(feature.get('minValue')))
+  //                 return new Style({
+  //                     fill: fill
+  //                 })
+  //             }
+  //         })
+
+  //         map.addLayer(polygonLayer22)
+  //         var extent = polygonLayer22.getSource().getExtent()
+  //         map.getView().fit(extent, map.getSize())
+  //     })
+  // map.on('pointermove', showInfo);
+  // map.on('click', showBox);
+})
+const getColor = (value) => {
+  let valueGap = [0.1, 10, 25, 50, 100, 250, 10000]
+  let color = [
+    'rgb(255,255,255)',
+    'rgb(166,242,143)',
+    'rgb(61,186,61)',
+    'rgb(97,184,255)',
+    'rgb(0,0,255)',
+    'rgb(250,0,250)',
+    'rgb(128,0,64)'
+  ]
+  for (let i = 0; i < valueGap.length; i++) {
+    if (value < valueGap[i]) {
+      return color[i]
+    }
+  }
+}
+const showGrid = (data, gap) => {
+  geojsonData_Polygon.features = []
+  geojsonData_Point.features = []
+  const layers = map.getLayers().getArray()
+  //避免图层重复添加，先移除
+  if (layers.length > 0) {
+    layers.forEach((item) => {
+      if (item.values_.title == 'grid_WebGLLayer') {
+        map.removeLayer(item)
+        // map.removeLayer(webglLayer);
+        // WebGLLayer.dispose();
+      }
+    })
+  }
+
+  let latGap = data.lat
+  let lonGap = data.lon
+  // let startlat = data.startlat - latGap / 2
+  // let endlat = data.endlat + latGap / 2
+  // let startlon = data.startlon - lonGap / 2
+  // let endlon = data.endlon + lonGap / 2
+  let startlat = data.startlat
+  let endlat = data.endlat + latGap
+  let startlon = data.startlon
+  let endlon = data.endlon + lonGap
+  let values = data.value
+  let numX = (endlon - startlon) / lonGap
+  let numY = (endlat - startlat) / latGap
+  // numX = Math.ceil(numX) - 1
+  // numY = Math.floor(numY) - 1
+  numX = Math.round(numX)
+  numY = Math.round(numY)
+
+  //创建网格
+  // let gap = 5
+  let newNumX = Math.round(numX / gap)
+  let newNumY = Math.round(numY / gap)
+  for (let i = 0; i < newNumY + 1; i++) {
+    for (let j = 0; j < newNumX + 1; j++) {
+      let pid = j == 0 && i == 0 ? 0 : (i * numX + j) * gap - 1
+      let color = getColor(values[pid])
+
+      let minLat, maxLat, minLon, maxLon
+      minLat = startlat + latGap * i * gap
+      maxLat = minLat + latGap * gap
+      minLon = startlon + lonGap * j * gap
+      maxLon = minLon + lonGap * gap
+
+      // fc.push(
+      //     turf.polygon(
+      //         [
+      //             [
+      //                 [minLon, minLat],
+      //                 [maxLon, minLat],
+      //                 [maxLon, maxLat],
+      //                 [minLon, maxLat],
+      //                 [minLon, minLat]
+      //             ]
+      //         ],
+      //         {
+      //             color: color,
+      //             value: `${values[pid]}`,
+      //             pid: pid
+      //         }
+      //     )
+      // )
+      //创建网格
+      geojsonData_Polygon.features.push({
+        type: 'Feature',
+        properties: {
+          color: color,
+          value: `${values[pid]}`,
+          pid: pid
+        },
+        geometry: {
+          type: 'Polygon',
+          coordinates: [
+            [
+              fromLonLat([minLon, minLat]),
+              fromLonLat([maxLon, minLat]),
+              fromLonLat([maxLon, maxLat]),
+              fromLonLat([minLon, maxLat]),
+              fromLonLat([minLon, minLat])
+            ]
+          ]
+        }
+      })
+
+      //创建格点
+      geojsonData_Point.features.push({
+        type: 'Feature',
+        properties: {
+          color: color,
+          value: `${values[pid]}`,
+          pid: pid
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: fromLonLat([minLon, minLat])
+        }
+      })
+    }
+  }
+  // let ll = JSON.stringify(geojsonData_Point)
+  // fs.saveAs(new Blob([ll], { type: 'application/json' }), 'point.json')
+  // map.on('click', function (evt) {
+  let draw = new Draw({
+    source: new VectorSource(),
+    type: 'Polygon',
+    freehand: true
+  })
+  map.addInteraction(draw)
+
+  selectedFeatures = new VectorLayer({
+    title: 'renderFeatures',
+    source: new VectorSource(),
+    opacity: 1,
+    style: new Style({
+      fill: new Fill({
+        color: 'rgba(255, 255, 0, 0.5)' // 点击后地块的颜色
+      }),
+      stroke: new Stroke({
+        color: '#333',
+        width: 1
+      })
+    }),
+    zIndex: 10
+  })
+  map.addLayer(selectedFeatures)
+
+  draw.on('drawend', function (event) {
+    const olFeature = event.feature
+    pids = []
+    selectedFeatures.getSource().clear()
+    selectedFeatures.getSource().addFeature(olFeature)
+    currentFeature = olFeature
+    // 创建GeoJSON格式器
+    const geojsonFormat = new GeoJSON()
+
+    // 将OpenLayers的Feature转换为GeoJSON的Feature
+    const geojsonFeature = geojsonFormat.writeFeatureObject(olFeature)
+    var ptsWithin = turf.pointsWithinPolygon(geojsonData_Point, geojsonFeature)
+    ptsWithin.features.map((item) => pids.push(item.properties.pid))
+    console.log(pids)
+    map.removeInteraction(draw)
+    showBox2(event)
+  })
+  // })
+
+  const repeatCanvas = document.createElement('canvas')
+  const repeatCtx = repeatCanvas.getContext('2d')
+  let img = new Image()
+  img.src = 'src/assets/images/雨夹雪.png'
+
+  repeatCtx.createPattern(img, 'repeat')
+
+  var fill = new Fill()
+  const polygonLayer = new VectorLayer({
+    title: 'grid_VectorLayer',
+    opacity: 0.8,
+    source: new VectorSource({
+      features: new GeoJSON().readFeatures(geojsonData_Polygon)
+      // features: new GeoJSON().readFeatures(geojsonData_Point)
+    }),
+    style: (feature) => {
+      // let fill = new Fill()
+      // fill.setColor(feature.get('value') > 0.1 ? repeatCtx.createPattern(img, 'repeat') : feature.get('color'))
+      return new Style({
+        fill: new Fill({ color: feature.get('color') }),
+        // fill: fill,
+        stroke: new Stroke({ color: feature.get('color'), width: 0 }),
+        text: new Text({
+          text: feature.get('value'),
+          font: '12px Calibri,sans-serif',
+          fill: new Fill({ color: '#000' }),
+          stroke: new Stroke({
+            color: '#fff',
+            width: 3
+          })
+        })
+      })
+    }
+  })
+
+  map.addLayer(polygonLayer)
+
+  const style = {
+    'fill-color': ['*', ['get', 'color'], [255, 255, 255, 0.6]]
+    // 'text-text': ['*', ['get', 'pid'], ['22']],
+  }
+  class WebGLLayer extends Layer {
+    createRenderer() {
+      return new WebGLVectorLayerRenderer(this, { style })
+    }
+  }
+
+  const webglLayer = new WebGLLayer({
+    title: 'grid_WebGLLayer',
+    source: new VectorSource({
+      features: new GeoJSON().readFeatures(geojsonData_Polygon)
+      // features: new GeoJSON().readFeatures(geojsonData_Point)
+    })
+  })
+  // 将 Vector 图层添加到地图中
+  // map.addLayer(webglLayer)
+
+  // let vectorSource = new VectorSource({
+  //   url: 'https://openlayers.org/en/latest/examples/data/geojson/world-cities.geojson',
+  //   format: new GeoJSON()
+  // });
+  // let pointLayer = new WebGLPointsLayer({
+
+  //   source: vectorSource,
+
+  //   style: {
+  //     'icon-src': 'src/assets/点.png',
+  //     'icon-width': 18,
+  //     'icon-height': 18,
+  //     'icon-color': 'lightyellow',
+  //     'icon-rotate-with-view': false,
+  //     'icon-displacement': [0, 9],
+  //   },
+
+  // });
+  const webglLayer_point = new WebGLPointsLayer({
+    title: 'gridPoint_WebGLLayer',
+    source: new VectorSource({
+      features: new GeoJSON().readFeatures(geojsonData_Point)
+    }),
+    style: {
+      // by using an exponential interpolation with a base of 2 we can make it so that circles will have a fixed size
+      // in world coordinates between zoom level 5 and 15
+      'circle-radius': [
+        'interpolate',
+        ['exponential', 2],
+        ['zoom'],
+        5,
+        1.5,
+        15,
+        1.5 * Math.pow(2, 10)
+      ],
+      'circle-fill-color': ['match', ['get', 'hover'], 1, '#ff3f3f', '#006688'],
+      'circle-displacement': [0, 0],
+      'circle-opacity': 0.5
+    }
+  })
+
+  // map.addLayer(webglLayer_point)
+}
+
+const showInfo = (event) => {
+  const features = map.getFeaturesAtPixel(event.pixel)
+  if (features.length == 0) {
+    isshowInfo = false
+    isshowNum = false
+    info.style.opacity = 0
+    changeNum.style.opacity = 0
+    return
+  }
+  const properties = features[0].getProperties()
+  isshowInfo = true
+  info.style.opacity = 1
+  info.style.left = event.pixel[0] + 20 + 'px'
+  info.style.top = event.pixel[1] + 25 + 'px'
+  pid.value = properties.pid
+  infoValue.value = properties.value
+}
+const showBox = (event) => {
+  const features = map.getFeaturesAtPixel(event.pixel)
+  if (features.length == 0) {
+    isshowInfo = false
+    isshowNum = false
+    info.style.opacity = 0
+    changeNum.style.opacity = 0
+    return
+  }
+  const properties = features[0].getProperties()
+  isshowNum = true
+  changeNum.style.opacity = 1
+  changeNum.style.left = event.pixel[0] - 100 + 'px'
+  changeNum.style.top = event.pixel[1] - 100 + 'px'
+  num.value = properties.value
+  PID = pid.value
+}
+const showBox2 = (event) => {
+  changeNum2.style.opacity = 1
+  changeNum2.style.left = event.target.downPx_[0] - 100 + 'px'
+  changeNum2.style.top = event.target.downPx_[1] - 100 + 'px'
+}
+
+//点击网格订正
+const changeValue = (value) => {
+  let updatetype = type[radioValue.value]
+  let val = num.value
+  changeNum.style.displaye = 'none'
+  fetch(
+    `http://10.111.102.30:8082/znwg-api/test/gridupdate?pid=${PID}&updatetype=${updatetype}&val=${val}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      showGrid(data.data, 5)
+    })
+}
+
+//画圈订正
+const changeValue2 = (value) => {
+  let updatetype = type[radioValue.value]
+  let val = num.value
+  changeNum.style.displaye = 'none'
+
+  const params = {
+    pid: pids,
+    updatetype: updatetype,
+    val: val
+  }
+  const bodyData = JSON.stringify(params)
+  const options = {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: bodyData
+  }
+
+  // fetch(`http://10.111.102.30:8082/znwg-api/test/gridupdates`, options)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //         // selectedFeatures.getSource().clear();
+  //         let layers = map.getLayers().getArray()
+  //         for (let i = 0; i < layers.length; i++) {
+  //             if (layers[i].get('title') == 'renderFeatures') {
+  //                 map.removeLayer(layers[i])
+  //             }
+  //         }
+  //         for (let i = 0; i < layers.length; i++) {
+  //             if (layers[i].get('title') == 'grid_VectorLayer') {
+  //                 map.removeLayer(layers[i])
+  //             }
+  //         }
+  //         showGrid(data.data, 5)
+  //     })
+  //     .catch((err) => console.error(err))
+}
+
+//成图
+const mapping = () => {
+  // if (pointData.length > 0) {
+  let olfeature = currentFeature
+  let coordinates = olfeature.getGeometry().getCoordinates()
+  let turfpolygon = turf.polygon(coordinates)
+
+  let smoothedPolygon = turf.polygonSmooth(turfpolygon, { iterations: 3 })
+  // feature = smoothedPolygon.features[0];
+  let olPolygon = new Polygon([smoothedPolygon.features[0].geometry.coordinates[0]])
+  olfeature = new Feature(olPolygon)
+
+  olfeature.setStyle(
+    new Style({
+      fill: new Fill({
+        // color: 'rgba(255, 255, 0, 0.5)' // 点击后地块的颜色
+        color: getColor(num.value)
+      }),
+      stroke: new Stroke({
+        color: getColor(num.value),
+        width: 1
+      })
+    })
+  )
+
+  // 清除之前选中的要素样式
+  selectedFeatures.getSource().clear()
+  // 将当前点击的要素样式设置为选中状态
+  selectedFeatures.getSource().addFeature(olfeature)
+  // }
+}
+const screenshot = () => {
+  html2canvas(document.querySelector('#mapCon')).then((canvas) => {
+    canvas.toBlob((blob) => {
+      fs.saveAs(blob, '地图截图.png')
+    })
+  })
+}
+</script>
+
+<style lang="less" scoped>
+#mapCon {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.btn-mapping {
+  position: absolute;
+  top: 40px;
+  left: 70px;
+  ::hover {
+    cursor: pointer;
+  }
+}
+.btn-screenshot {
+  position: absolute;
+  top: 40px;
+  left: 110px;
+  ::hover {
+    cursor: pointer;
+  }
+}
+#info {
+  z-index: 1;
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  width: 100px;
+  height: 50px;
+  background: rgba(0, 60, 136, 0.7);
+  color: white;
+  border: 0;
+  transition: opacity 100ms ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .info-item {
+    display: flex;
+    //横向排列
+    justify-content: flex-start;
+    align-items: center;
+    width: 90px;
+  }
+}
+
+.changeNum {
+  z-index: 1;
+  opacity: 0;
+  width: 320px;
+  height: 70px;
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  background-color: rgba(255, 125, 0, 0.8);
+
+  ::v-deep .el-radio-group {
+    align-items: center;
+    display: inline-flex;
+    /* flex-wrap: wrap; */
+    font-size: 0;
+  }
+
+  ::v-deep .el-radio {
+    margin-right: 5px;
+  }
+}
+</style>
