@@ -32,7 +32,7 @@
         </BoxTitle>
         <div class="content-left-dataSource-item">
           <div class="items">
-            <div>
+            <div @click="changeDataSource">
               <span>其他源</span>
             </div>
           </div>
@@ -44,13 +44,22 @@
       <ToolBar class="toolbar" />
     </div>
   </div>
+  <SourceSelect :class="{ sourceSelect: isShow }" v-show="isShow" @close-me="handleClose" />
+  <LayerManage class="layerManage" />
 </template>
 
 <script setup lang="ts">
 import BoxTitle from '../components/boxTitle.vue'
 import ToolBar from '../components/toolbar.vue'
 import OlMap from '../components/olMap.vue'
+import SourceSelect from '../components/sourceSelect.vue'
+import LayerManage from '../components/layerManage.vue'
+import { useSysStore } from '@/stores/sys'
 
+const sysStore = useSysStore()
+
+let isShow = ref()
+isShow.value = false
 // const boxName = ref('')
 let features = ref()
 features.value = [
@@ -95,7 +104,14 @@ features.value = [
     value: '10'
   }
 ]
-
+const changeDataSource = () => {
+  isShow.value = true
+  sysStore.setShowSourceSelect(isShow.value)
+  console.log(isShow.value)
+}
+const handleClose = () => {
+  isShow.value = false
+}
 onMounted(() => {
   // boxName.value = '要素'
 })
@@ -106,6 +122,16 @@ onMounted(() => {
 @titleHeight: 56px;
 @sideWidth: 242px;
 
+.sourceSelect {
+  position: absolute;
+  left: 45%;
+  top: 35%;
+}
+.layerManage {
+  position: absolute;
+  left: 15%;
+  bottom: 15%;
+}
 .main {
   margin: 0;
   padding: 0;
@@ -154,7 +180,7 @@ onMounted(() => {
       .content-left-feature-item {
         width: 220px;
         height: 290px;
-        border: 1px solid gray;
+        border: 1px solid #d7d7d7;
         .items {
           top: 10px;
           position: relative;
@@ -213,10 +239,12 @@ onMounted(() => {
       justify-content: space-evenly;
       align-items: center;
       .content-left-dataSource-item {
-        width: 220px;
+        // width: 220px;
         .items {
-          font-size: 0.8rem;
+          // font-size: 0.8rem;
           div {
+            width: 220px;
+            font-size: 0.8rem;
             width: 100px;
             height: 25px;
             border: 1px solid #d7d7d7;
@@ -225,14 +253,13 @@ onMounted(() => {
             display: flex;
             justify-content: center;
             align-items: center;
-            span {
-              color: #333333;
+            color: #333333;
+
+            &:hover {
+              cursor: pointer;
+              background-color: #2f9bf8;
+              font-size: 0.9rem;
             }
-          }
-          div:hover {
-            cursor: pointer;
-            background-color: #2f9bf8;
-            font-size: 0.9rem;
           }
         }
       }
@@ -252,11 +279,10 @@ onMounted(() => {
     left: @sideWidth;
     width: calc(100% - @sideWidth);
     height: calc(100% - @titleHeight);
-    border: #2f9bf8 solid 1px;
     .toolbar {
       position: absolute;
-      top: 10px;
-      left: 20px;
+      top: 60px;
+      left: 5px;
     }
     .map {
       position: relative;

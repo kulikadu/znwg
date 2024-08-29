@@ -10,3 +10,19 @@ export const useCounterStore = defineStore('counter', () => {
 
   return { count, doubleCount, increment }
 })
+
+export interface SysStore {
+  showSourceSelect: Boolean | null
+}
+
+export const useSysStore = defineStore({
+  id: 'sys',
+  state: (): SysStore => ({
+    showSourceSelect: false
+  }),
+  actions: {
+    setShowSourceSelect(value: Boolean) {
+      this.showSourceSelect = value
+    }
+  }
+})

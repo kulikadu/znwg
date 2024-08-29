@@ -164,7 +164,7 @@ onMounted(() => {
     .then((res) => res.json())
     .then((data) => {
       // data = data.data
-      showGrid(data, 5)
+      // showGrid(data, 5)
     })
 
   // fetch('http://10.111.102.19:8082/znwg-api/test/gridrain')

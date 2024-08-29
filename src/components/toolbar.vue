@@ -3,17 +3,28 @@
     <div class="toolbar-title">
       <span>工具</span>
     </div>
-    <span v-for="(item, index) in iconList" :key="index">
-      <div class="toolbar-item">
-        <img src="@/assets/images/full.svg" />
+    <span v-for="(item, index) in iconList" :key="index" class="toolbar-item">
+      <div>
+        <img :src="getImg(item.iconName)" />
       </div>
     </span>
+    <div class="toolbar-check">
+      <CheckBox />
+      <span>计算极值</span>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-let iconList = ref([{}])
+import CheckBox from '@/components/checkbox.vue'
 
+let iconList = ref([{}])
+let check = ref()
+check.value = false
+const getImg = (name: string) => {
+  let url = import.meta.env.BASE_URL + `src/assets/images/${name}.svg`
+  return url
+}
 iconList.value = [
   {
     iconName: 'full',
@@ -51,26 +62,33 @@ iconList.value = [
     active: false
   }
 ]
+const calcExtremum = () => {
+  check.value = !check.value
+  console.log(check.value)
+}
 </script>
 
 <style lang="less" scoped>
 .toolbar {
   width: 36px;
   height: 350px;
-  border: 1px solid gray;
+  background-color: #ffffff;
+  border: 1px solid #d7d7d7;
   .toolbar-title {
     width: 36px;
     height: 34px;
     display: flex;
     justify-content: center;
     align-items: center;
-    // &::after {
-    //   content: '';
-    //   display: block;
-    //   width: 100%;
-    //   height: 2px;
-    //   background-color: gray;
-    // }
+    flex-direction: column;
+    font-size: 0.9rem;
+
+    &::after {
+      content: '';
+      width: 100%;
+      height: 1px;
+      background-color: #d7d7d7;
+    }
   }
   .toolbar-item {
     width: 36px;
@@ -82,6 +100,29 @@ iconList.value = [
       background-color: #abb9ce;
       cursor: pointer;
     }
+  }
+  .toolbar-check {
+    width: 36px;
+    height: 68px;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    margin-top: 7px;
+    &::before {
+      content: '';
+      width: 100%;
+      height: 1px;
+      background-color: #d7d7d7;
+      position: absolute;
+      top: -3px;
+    }
+  }
+  .toolbar-check > span {
+    text-align: center;
+    margin-top: 5px;
   }
 }
 img {

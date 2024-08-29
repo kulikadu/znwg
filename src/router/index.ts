@@ -12,6 +12,11 @@ const router = createRouter({
       path: '/toolbar',
       name: 'toolbar',
       component: () => import('../components/toolbar.vue')
+    },
+    {
+      path: '/checkbox',
+      name: 'checkbox',
+      component: () => import('../components/checkbox.vue')
     }
   ]
 })
