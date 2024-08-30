@@ -4,7 +4,7 @@
       <span>工具</span>
     </div>
     <span v-for="(item, index) in iconList" :key="index" class="toolbar-item">
-      <div>
+      <div @click="handleClick(item.iconName)">
         <img :src="getImg(item.iconName)" />
       </div>
     </span>
@@ -17,8 +17,14 @@
 
 <script setup lang="ts">
 import CheckBox from '@/components/checkbox.vue'
+import { getView } from '@/assets/Map/map'
+import { Map } from 'ol'
+import { useSysStore } from '@/stores/sys'
 
-let iconList = ref([{}])
+const sysStore = useSysStore()
+let map: Map | null
+onMounted(() => {})
+let iconList = ref()
 let check = ref()
 check.value = false
 const getImg = (name: string) => {
@@ -65,6 +71,62 @@ iconList.value = [
 const calcExtremum = () => {
   check.value = !check.value
   console.log(check.value)
+}
+const handleClick = (name: string) => {
+  switch (name) {
+    case 'full':
+      setFullMap()
+      break
+    case 'pan':
+      setPan()
+      break
+    case 'ploygon':
+      drawPolygon()
+      break
+    // case 'city':
+    //   setPan()
+    //   break
+    // case 'county':
+    //   setFullMap()
+    //   break
+    // case 'u22':
+    //   setPan()
+    //   break
+    // case 'u25':
+    //   setPan()
+    //   break
+  }
+}
+const drawPolygon = () => {
+  if (sysStore.map) {
+    map = sysStore.map as Map
+  } else {
+    console.log('地图不存在')
+  }
+  let draw = sysStore.draw
+  if (draw != null) {
+    map?.addInteraction(draw)
+  }
+}
+const setFullMap = () => {
+  if (sysStore.map) {
+    map = sysStore.map as Map
+  } else {
+    console.log('地图不存在')
+  }
+  let view = getView()
+  map?.setView(view)
+}
+const setPan = () => {
+  if (sysStore.map) {
+    map = sysStore.map as Map
+  } else {
+    console.log('地图不存在')
+  }
+  let draw = sysStore.draw
+  if (draw != null) {
+    map?.removeInteraction(draw)
+  }
 }
 </script>
 

@@ -1,7 +1,9 @@
 <template>
   <div ref="mapCon" id="mapCon"></div>
-  <el-button class="btn-mapping" @click="mapping">成图</el-button>
-  <el-button class="btn-screenshot" @click="screenshot">截屏</el-button>
+  <!-- <el-button class="btn-mapping" @click="mapping">成图</el-button>
+  <el-button class="btn-screenshot" @click="screenshot">截屏</el-button> -->
+  <!-- <el-button class="btn-modi" @click="modi">订正</el-button> -->
+
   <div class="info" id="info" v-show="isshowInfo">
     <div class="info-item">
       <span>PID：</span>
@@ -50,7 +52,8 @@
 import { ref, onMounted } from 'vue'
 import 'ol/ol.css'
 import { Map, View } from 'ol'
-import { Draw } from 'ol/interaction'
+import * as olExtent from 'ol/extent'
+import { Draw, Extent } from 'ol/interaction'
 import TileLayer from 'ol/layer/Tile'
 import Layer from 'ol/layer/Layer.js'
 import VectorLayer from 'ol/layer/Vector'
@@ -69,7 +72,10 @@ import WebGLPointsLayer from 'ol/layer/WebGLPoints.js'
 import WebGLTile from 'ol/layer/WebGLTile.js'
 import html2canvas from 'html2canvas'
 import fs from 'file-saver'
+import { getView } from '@/assets/Map/map'
+import { useSysStore } from '@/stores/sys'
 
+const sysStore = useSysStore()
 let pid = ref(null)
 let infoValue = ref(-1)
 let num = ref(-1)
@@ -79,13 +85,17 @@ let isshowNum = true
 const mapCon = ref(0)
 
 let PID
-const beijing = fromLonLat([116.28, 39.54])
+
 let map
 let geojsonData_Polygon = {
   type: 'FeatureCollection',
   features: []
 }
 let geojsonData_Point = {
+  type: 'FeatureCollection',
+  features: []
+}
+let geojsonData_Point_full = {
   type: 'FeatureCollection',
   features: []
 }
@@ -104,20 +114,24 @@ const radioChange = (val) => {
 let info, changeNum, changeNum2
 let currentFeature, selectedFeatures
 onMounted(() => {
+  sysStore.setHtml(mapCon.value)
+
   info = document.getElementById('info')
   changeNum = document.getElementsByClassName('changeNum')[0]
   changeNum2 = document.getElementById('changeNum2')
+
+  //天地图矢量图层
   const tdtVectorLayer = new TileLayer({
     className: 'tdt-vector',
     preload: Infinity,
-    title: '天地图矢量图层',
     source: new XYZ({
       url: `http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=${key}`
     })
   })
+
+  //天地图矢量注记图层
   const tdtVectorLabelLayer = new TileLayer({
     className: 'tdt-vector-label',
-    title: '天地图矢量注记图层',
     source: new XYZ({
       url: `http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=${key}`
     })
@@ -125,13 +139,11 @@ onMounted(() => {
   map = new Map({
     layers: [tdtVectorLayer, tdtVectorLabelLayer],
     target: mapCon.value,
-    view: new View({
-      center: beijing,
-      minZoom: 4,
-      zoom: 2
-    })
+    view: getView()
   })
-
+  // map.addLayer(tdtVectorLayer)
+  // map.addLayer(tdtVectorLabelLayer)
+  sysStore.setMap(map)
   // WMS服务的URL
   // const wmsUrl = 'http://localhost:8080/geoserver/ZN/wfs?service=WFS&version=1.1.0&request=GetMap&layers=ZN%3Achina&bbox=73.502355%2C3.39716187%2C135.09567%2C53.563269&width=768&height=625&srs=EPSG%3A4326&styles=&format=image%2Fpng';
   const wmsUrl2 =
@@ -139,13 +151,16 @@ onMounted(() => {
   const wmsUrl =
     'http://localhost:8080/geoserver/ZN/wfs?service=WFS&version=1.1.0&request=GetMap&layers=ZN%3Achina&bbox=73.502355%2C3.39716187%2C135.09567%2C53.563269&width=768&height=625&srs=EPSG%3A4326&styles=&format=image%2Fpng'
 
+  const wmsHunan =
+    'http://localhost:8080/geoserver/ZN/wms?service=WMS&version=1.1.0&request=GetMap&layers=ZN%3Ahunan&bbox=108.78612710158455%2C24.63925367381802%2C114.25650291427814%2C30.128722293199303&width=765&height=768&srs=EPSG%3A4326&styles=&format=image%2Fpng'
+
   // 创建WMS图层
   const wmsLayer = new TileLayer({
     className: 'wms-vector',
     title: 'china',
     preload: Infinity,
     source: new TileWMS({
-      url: wmsUrl2,
+      url: wmsHunan,
       // params: {
       //   LAYERS: 'ZN:china', // 指定WMS层名
       //   TILED: true, // 请求分块的图片
@@ -158,13 +173,31 @@ onMounted(() => {
   // 将 Vector 图层添加到地图中
   map.addLayer(wmsLayer)
 
+  selectedFeatures = new VectorLayer({
+    title: 'renderFeatures',
+    source: new VectorSource(),
+    opacity: 1,
+    style: new Style({
+      fill: new Fill({
+        color: 'rgba(255, 255, 0, 0.5)' // 点击后地块的颜色
+      }),
+      stroke: new Stroke({
+        color: '#333',
+        width: 1
+      })
+    }),
+    zIndex: 10
+  })
+  map.addLayer(selectedFeatures)
   // fetch('src/assets/rain.json')
-  fetch('src/assets/降水_5.json')
-    // fetch('http://10.111.102.30:8082/znwg-api/test/gridrains?i=5')
+  // fetch('src/assets/降水_5.json')
+  // fetch('http://10.111.102.30:8082/znwg-api/test/gridrains?i=5')
+  fetch('src/assets/5/1_hunan_5.json')
+    // fetch('http://10.111.101.250:8083/znwg-api/grid/gridElementData?elementId=1&time=6')
     .then((res) => res.json())
     .then((data) => {
-      // data = data.data
-      // showGrid(data, 5)
+      data = data.data
+      showGrid(data, 2)
     })
 
   // fetch('http://10.111.102.19:8082/znwg-api/test/gridrain')
@@ -238,7 +271,7 @@ const showGrid = (data, gap) => {
   let endlat = data.endlat + latGap
   let startlon = data.startlon
   let endlon = data.endlon + lonGap
-  let values = data.value
+  let values = data.value1
   let numX = (endlon - startlon) / lonGap
   let numY = (endlat - startlat) / latGap
   // numX = Math.ceil(numX) - 1
@@ -250,8 +283,8 @@ const showGrid = (data, gap) => {
   // let gap = 5
   let newNumX = Math.round(numX / gap)
   let newNumY = Math.round(numY / gap)
-  for (let i = 0; i < newNumY + 1; i++) {
-    for (let j = 0; j < newNumX + 1; j++) {
+  for (let i = 0; i < newNumY; i++) {
+    for (let j = 0; j < newNumX; j++) {
       let pid = j == 0 && i == 0 ? 0 : (i * numX + j) * gap - 1
       let color = getColor(values[pid])
 
@@ -316,51 +349,33 @@ const showGrid = (data, gap) => {
       })
     }
   }
-  // let ll = JSON.stringify(geojsonData_Point)
-  // fs.saveAs(new Blob([ll], { type: 'application/json' }), 'point.json')
-  // map.on('click', function (evt) {
-  let draw = new Draw({
-    source: new VectorSource(),
-    type: 'Polygon',
-    freehand: true
-  })
-  map.addInteraction(draw)
 
-  selectedFeatures = new VectorLayer({
-    title: 'renderFeatures',
-    source: new VectorSource(),
-    opacity: 1,
-    style: new Style({
-      fill: new Fill({
-        color: 'rgba(255, 255, 0, 0.5)' // 点击后地块的颜色
-      }),
-      stroke: new Stroke({
-        color: '#333',
-        width: 1
+  for (let i = 0; i < numY; i++) {
+    for (let j = 0; j < numX; j++) {
+      let pid = j == 0 && i == 0 ? 0 : i * numX + j - 1
+      let color = getColor(values[pid])
+
+      let minLat, maxLat, minLon, maxLon
+      minLat = startlat + latGap * i
+      maxLat = minLat + latGap
+      minLon = startlon + lonGap * j
+      maxLon = minLon + lonGap
+
+      //创建格点(总数据)
+      geojsonData_Point_full.features.push({
+        type: 'Feature',
+        properties: {
+          color: color,
+          value: `${values[pid]}`,
+          pid: pid
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: fromLonLat([minLon, minLat])
+        }
       })
-    }),
-    zIndex: 10
-  })
-  map.addLayer(selectedFeatures)
-
-  draw.on('drawend', function (event) {
-    const olFeature = event.feature
-    pids = []
-    selectedFeatures.getSource().clear()
-    selectedFeatures.getSource().addFeature(olFeature)
-    currentFeature = olFeature
-    // 创建GeoJSON格式器
-    const geojsonFormat = new GeoJSON()
-
-    // 将OpenLayers的Feature转换为GeoJSON的Feature
-    const geojsonFeature = geojsonFormat.writeFeatureObject(olFeature)
-    var ptsWithin = turf.pointsWithinPolygon(geojsonData_Point, geojsonFeature)
-    ptsWithin.features.map((item) => pids.push(item.properties.pid))
-    console.log(pids)
-    map.removeInteraction(draw)
-    showBox2(event)
-  })
-  // })
+    }
+  }
 
   const repeatCanvas = document.createElement('canvas')
   const repeatCtx = repeatCanvas.getContext('2d')
@@ -396,8 +411,8 @@ const showGrid = (data, gap) => {
       })
     }
   })
-
-  map.addLayer(polygonLayer)
+  sysStore.setGeoPolygonLayer(polygonLayer)
+  // map.addLayer(polygonLayer)
 
   const style = {
     'fill-color': ['*', ['get', 'color'], [255, 255, 255, 0.6]]
@@ -462,7 +477,31 @@ const showGrid = (data, gap) => {
 
   // map.addLayer(webglLayer_point)
 }
+let draw = new Draw({
+  source: new VectorSource(),
+  type: 'Polygon',
+  freehand: true
+})
+sysStore.setDraw(draw)
+// map.addInteraction(draw)
 
+draw.on('drawend', function (event) {
+  const olFeature = event.feature
+  pids = []
+  selectedFeatures.getSource().clear()
+  selectedFeatures.getSource().addFeature(olFeature)
+  currentFeature = olFeature
+  // 创建GeoJSON格式器
+  const geojsonFormat = new GeoJSON()
+
+  // 将OpenLayers的Feature转换为GeoJSON的Feature
+  const geojsonFeature = geojsonFormat.writeFeatureObject(olFeature)
+  var ptsWithin = turf.pointsWithinPolygon(geojsonData_Point_full, geojsonFeature)
+  ptsWithin.features.map((item) => pids.push(item.properties.pid))
+  console.log(pids)
+  map.removeInteraction(draw)
+  showBox2(event)
+})
 const showInfo = (event) => {
   const features = map.getFeaturesAtPixel(event.pixel)
   if (features.length == 0) {
@@ -519,6 +558,7 @@ const changeValue = (value) => {
 
 //画圈订正
 const changeValue2 = (value) => {
+  changeNum2.style.opacity = 0
   let updatetype = type[radioValue.value]
   let val = num.value
   changeNum.style.displaye = 'none'
@@ -536,23 +576,26 @@ const changeValue2 = (value) => {
   }
 
   // fetch(`http://10.111.102.30:8082/znwg-api/test/gridupdates`, options)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //         // selectedFeatures.getSource().clear();
-  //         let layers = map.getLayers().getArray()
-  //         for (let i = 0; i < layers.length; i++) {
-  //             if (layers[i].get('title') == 'renderFeatures') {
-  //                 map.removeLayer(layers[i])
-  //             }
-  //         }
-  //         for (let i = 0; i < layers.length; i++) {
-  //             if (layers[i].get('title') == 'grid_VectorLayer') {
-  //                 map.removeLayer(layers[i])
-  //             }
-  //         }
-  //         showGrid(data.data, 5)
-  //     })
-  //     .catch((err) => console.error(err))
+  fetch(`http://10.111.101.250:8083/znwg-api/grid/gridupdates`, options)
+    .then((res) => res.json())
+    .then((data) => {
+      // selectedFeatures.getSource().clear();
+      let layers = map.getLayers().getArray()
+      for (let i = 0; i < layers.length; i++) {
+        if (layers[i].get('title') == 'renderFeatures') {
+          map.removeLayer(layers[i])
+        }
+      }
+      for (let i = 0; i < layers.length; i++) {
+        if (layers[i].get('title') == 'grid_VectorLayer') {
+          map.removeLayer(layers[i])
+        }
+      }
+      showGrid(data.data, 2)
+      let layer = sysStore.geoPolygonLayer
+      map.addLayer(layer)
+    })
+    .catch((err) => console.error(err))
 }
 
 //成图
@@ -601,6 +644,7 @@ const screenshot = () => {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: #f9f8f6;
 }
 .btn-mapping {
   position: absolute;
@@ -613,7 +657,15 @@ const screenshot = () => {
 .btn-screenshot {
   position: absolute;
   top: 40px;
-  left: 110px;
+  left: 140px;
+  ::hover {
+    cursor: pointer;
+  }
+}
+.btn-modi {
+  position: absolute;
+  top: 40px;
+  left: 220px;
   ::hover {
     cursor: pointer;
   }

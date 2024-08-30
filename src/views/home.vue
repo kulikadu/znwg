@@ -15,7 +15,7 @@
         <div class="content-left-feature-item">
           <div v-for="(item, index) in features" :key="index" class="items">
             <div class="item">
-              <div>
+              <div @click="handleClick(item.value)">
                 <span>{{ item.name }}</span>
               </div>
               <span>(无数据)</span>
@@ -46,6 +46,20 @@
   </div>
   <SourceSelect :class="{ sourceSelect: isShow }" v-show="isShow" @close-me="handleClose" />
   <LayerManage class="layerManage" />
+  <div
+    style="
+      position: absolute;
+      bottom: 5px;
+      left: 287px;
+      border-radius: 10px;
+      width: 1414px;
+      height: 78px;
+      overflow: hidden;
+      box-shadow: 1px 1px 34px 1px rgba(0, 0, 0, 0.3);
+    "
+  >
+    <img src="@/assets/images/timeline.png" alt="" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -68,7 +82,7 @@ features.value = [
     value: '1'
   },
   {
-    name: '相太',
+    name: '相态',
     value: '2'
   },
   {
@@ -104,6 +118,15 @@ features.value = [
     value: '10'
   }
 ]
+
+const handleClick = (value: string) => {
+  if (value == '1') {
+    let layer = sysStore.geoPolygonLayer
+    let map = sysStore.map
+    map?.addLayer(layer)
+  }
+}
+
 const changeDataSource = () => {
   isShow.value = true
   sysStore.setShowSourceSelect(isShow.value)
