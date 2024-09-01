@@ -86,9 +86,6 @@ const close = () => {
 @contentH: 280px;
 
 .box {
-  position: absolute;
-  left: 45%;
-  top: 35%;
   width: 356px;
   height: 373px;
   border: 1px solid #d7d7d7;

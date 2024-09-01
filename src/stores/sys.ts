@@ -15,31 +15,51 @@ export const useCounterStore = defineStore('counter', () => {
 
 export interface SysStore {
   showSourceSelect: Boolean | null
-  geoPolygonLayer: any
+  businessLayer: any
+  businessLayer2: any
+  businessFullPoint: any
   map: Map | null
   draw: Draw | null
+  showIsosurfaces: Boolean | null
+  showGrid: Boolean | null
 }
 
 export const useSysStore = defineStore({
   id: 'sys',
   state: (): SysStore => ({
     showSourceSelect: false,
-    geoPolygonLayer: null,
+    businessLayer: null,
+    businessLayer2: null,
+    businessFullPoint: null,
     map: null,
-    draw: null
+    draw: null,
+    showIsosurfaces: false,
+    showGrid: true
   }),
   actions: {
     setShowSourceSelect(value: Boolean) {
       this.showSourceSelect = value
     },
-    setGeoPolygonLayer(value: any) {
-      this.geoPolygonLayer = value
+    setBusinessLayer(value: any) {
+      this.businessLayer = value
+    },
+    setBusinessLayer2(value: any) {
+      this.businessLayer2 = value
+    },
+    setBusinessFullPoint(value: any) {
+      this.businessFullPoint = value
     },
     setMap(value: Map) {
       this.map = value
     },
     setDraw(value: Draw) {
       this.draw = value
+    },
+    setShowIsosurfaces(value: Boolean) {
+      this.showIsosurfaces = value
+    },
+    setShowGrid(value: Boolean) {
+      this.showGrid = value
     }
   }
 })

@@ -7,9 +7,10 @@
 <script setup lang="ts">
 let check = ref()
 check.value = false
+const emit = defineEmits(['getCheckStatus'])
 const calcExtremum = () => {
   check.value = !check.value
-  console.log(check.value)
+  emit('getCheckStatus', check.value)
 }
 </script>
 

@@ -19,6 +19,7 @@
 import CheckBox from '@/components/checkbox.vue'
 import { getView } from '@/assets/Map/map'
 import { Map } from 'ol'
+import { Draw } from 'ol/interaction'
 import { useSysStore } from '@/stores/sys'
 
 const sysStore = useSysStore()
@@ -97,16 +98,16 @@ const handleClick = (name: string) => {
     //   break
   }
 }
+
+// 绘制多边形
 const drawPolygon = () => {
   if (sysStore.map) {
     map = sysStore.map as Map
   } else {
     console.log('地图不存在')
   }
-  let draw = sysStore.draw
-  if (draw != null) {
-    map?.addInteraction(draw)
-  }
+  let draw = sysStore.draw as Draw
+  map?.addInteraction(draw)
 }
 const setFullMap = () => {
   if (sysStore.map) {

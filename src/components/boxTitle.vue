@@ -2,7 +2,7 @@
   <div class="boxTitle">
     <div class="title-line"></div>
     <div class="title-text">
-      <slot></slot>
+      <slot name="title"></slot>
     </div>
   </div>
 </template>
