@@ -128,25 +128,52 @@ onMounted(() => {
 
   // 视图改变时，再次绘制范围
 
-  map.getView().on('change', (e) => {
+  map.on('moveend', (e) => {
     createExtentSource(sourceExtent)
     let businessLayer = sysStore.businessLayer
+    let layer = map.getAllLayers()[3]
+    let source = layer.getSource()
+
     // map?.removeLayer(businessLayer)
-    map.removeLayer(map.getAllLayers()[3])
-    let style = businessLayer.getStyle()
+    map.removeLayer(layer)
+    // let style = businessLayer.getStyle()
     if (businessLayer) {
-      businessLayer = new VectorLayer({
-        source: businessLayer.getSource(),
+      layer = new VectorLayer({
+        // source: businessLayer.getSource(),
+        source: source,
         style: function (feature) {
           const calculateExtent = map.getView().calculateExtent()
           const extent = feature.getGeometry().getExtent()
           // const isTrue = isInExtent(calculateExtent, extent)
           const isWithinExtent = containsExtent(calculateExtent, extent)
-          return isWithinExtent ? style : null
+          return isWithinExtent
+            ? new Style({
+                fill: new Fill({ color: feature.get('color') }),
+                stroke: new Stroke({ color: feature.get('color'), width: 0 }),
+                text: new Text({
+                  text: [
+                    `${feature.get('pid')}`,
+                    '',
+                    '10px Calibri,sans-serif',
+                    '\n',
+                    '',
+                    `${feature.get('value2')}`,
+                    '10px Calibri,sans-serif'
+                  ],
+                  overflow: true,
+                  font: '12px Calibri,sans-serif',
+                  fill: new Fill({ color: '#000' }),
+                  stroke: new Stroke({
+                    color: '#fff',
+                    width: 3
+                  })
+                })
+              })
+            : null
         }
       })
-      sysStore.setBusinessLayer(businessLayer)
-      map.addLayer(businessLayer)
+      // sysStore.setBusinessLayer(businessLayer)
+      map.addLayer(layer)
     }
   })
 })
@@ -170,7 +197,7 @@ const createExtentSource = (sourceExtent) => {
   // 创建一个样式
   const style = new Style({
     fill: new Fill({
-      color: 'rgba(255, 255, 255, 0.1)'
+      color: 'rgba(255, 0, 0, 1)'
     }),
     stroke: new Stroke({
       color: '#ffcc33',
