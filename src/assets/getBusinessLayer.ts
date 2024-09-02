@@ -164,11 +164,14 @@ export const getBusinessLayer = (data: any, gap: number) => {
       // let fill = new Fill()
       // fill.setColor(feature.get('value') > 0.1 ? repeatCtx.createPattern(img, 'repeat') : feature.get('color'))
       return new Style({
+        image: new CircleStyle(),
+
         fill: new Fill({ color: feature.get('color') }),
         stroke: new Stroke({ color: feature.get('color'), width: 0 }),
         text: new Text({
           text: [
-            `${feature.get('pid')}`,
+            // `${feature.get('pid')}`,
+            '',
             '10px Calibri,sans-serif'
             // '\n',
             // '',
@@ -224,25 +227,7 @@ export const getBusinessLayer = (data: any, gap: number) => {
     title: 'grid_WebGLLayer',
     source: new VectorSource({
       features: new GeoJSON().readFeatures(geojsonData_Polygon)
-      // features: new GeoJSON().readFeatures(geojsonData_Point)
     })
-    // style: (feature) => {
-    //   // let fill = new Fill()
-    //   // fill.setColor(feature.get('value') > 0.1 ? repeatCtx.createPattern(img, 'repeat') : feature.get('color'))
-    //   return new Style({
-    //     fill: new Fill({ color: feature.get('color') }),
-    //     stroke: new Stroke({ color: feature.get('color'), width: 0 }),
-    //     text: new Text({
-    //       text: '444',
-    //       font: '12px Calibri,sans-serif',
-    //       fill: new Fill({ color: '#000' }),
-    //       stroke: new Stroke({
-    //         color: '#fff',
-    //         width: 3
-    //       })
-    //     })
-    //   })
-    // }
   })
 
   sysStore.setBusinessLayer2(businessLayer2)

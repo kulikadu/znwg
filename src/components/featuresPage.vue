@@ -21,7 +21,7 @@
 import BoxTitle from './boxTitle.vue'
 import { useSysStore } from '@/stores/sys'
 import { getBusinessLayer } from '@/assets/getBusinessLayer'
-import type BaseLayer from 'ol/layer/Base'
+import { getSourceUrl, getSourceTimeUrl } from '@/api'
 
 const sysStore = useSysStore()
 
@@ -72,7 +72,7 @@ let index = 0
 const handleClick = (value: string) => {
   if (value != null) {
     let url = `src/assets/5/${value}_hunan_5.json`
-    // let url = `http://10.111.101.250:8083/znwg-api/grid/gridElementData?elementId=${value}&time=6`
+    // let url = `${getSourceUrl}?elementId=${value}&time=${6}`
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -83,7 +83,8 @@ const handleClick = (value: string) => {
         let businessLayer2 = sysStore.businessLayer2
         map?.removeLayer(businessLayer)
         map?.removeLayer(businessLayer2)
-        let layers = getBusinessLayer(data, 6 - index)
+        // let layers = getBusinessLayer(data, 6 - index)
+        let layers = getBusinessLayer(data, 2)
         index++
         //layers[0]：格点值；layers[1]：等值面
         if (sysStore.showGrid) {

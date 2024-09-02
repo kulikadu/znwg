@@ -60,12 +60,14 @@ import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import XYZ from 'ol/source/XYZ'
 import { fromLonLat } from 'ol/proj'
+import { containsExtent } from 'ol/extent'
 import GeoJSON from 'ol/format/GeoJSON'
 import { Image as ImageLayer } from 'ol/layer'
 import { OSM, TileWMS, ImageWMS } from 'ol/source'
 import { Fill, Stroke, Style, Text, Circle as CircleStyle } from 'ol/style'
 import Feature from 'ol/Feature'
 import { Circle, LineString, Point, Polygon } from 'ol/geom'
+import { fromExtent } from 'ol/geom/Polygon'
 import * as turf from '@turf/turf'
 import WebGLVectorLayerRenderer from 'ol/renderer/webgl/VectorLayer.js'
 import WebGLPointsLayer from 'ol/layer/WebGLPoints.js'
@@ -110,7 +112,80 @@ onMounted(() => {
 
   // map.on('pointermove', showInfo);
   // map.on('click', showBox);
+
+  // 绘制红色范围
+  const sourceExtent = new VectorSource()
+  const layerExtent = new VectorLayer({
+    source: sourceExtent
+  })
+  map.addLayer(layerExtent)
+
+  let style = new Style({
+    fill: new Fill({
+      color: 'rgba(255, 0, 0, 1)'
+    })
+  })
+
+  // 视图改变时，再次绘制范围
+
+  map.getView().on('change', (e) => {
+    createExtentSource(sourceExtent)
+    let businessLayer = sysStore.businessLayer
+    // map?.removeLayer(businessLayer)
+    map.removeLayer(map.getAllLayers()[3])
+    let style = businessLayer.getStyle()
+    if (businessLayer) {
+      businessLayer = new VectorLayer({
+        source: businessLayer.getSource(),
+        style: function (feature) {
+          const calculateExtent = map.getView().calculateExtent()
+          const extent = feature.getGeometry().getExtent()
+          // const isTrue = isInExtent(calculateExtent, extent)
+          const isWithinExtent = containsExtent(calculateExtent, extent)
+          return isWithinExtent ? style : null
+        }
+      })
+      sysStore.setBusinessLayer(businessLayer)
+      map.addLayer(businessLayer)
+    }
+  })
 })
+
+// 范围
+const createExtentSource = (sourceExtent) => {
+  const [x1, y1, x2, y2] = map.getView().calculateExtent(map.getSize())
+  // 创建一个多边形的坐标数组
+  let geometry = new Polygon([
+    [
+      fromLonLat([x1, y2]),
+      fromLonLat([x1, y1]),
+      fromLonLat([x2, y1]),
+      fromLonLat([x2, y2]),
+      fromLonLat([x1, y2])
+    ]
+  ])
+
+  let feature = new Feature(geometry)
+
+  // 创建一个样式
+  const style = new Style({
+    fill: new Fill({
+      color: 'rgba(255, 255, 255, 0.1)'
+    }),
+    stroke: new Stroke({
+      color: '#ffcc33',
+      width: 2
+    })
+  })
+  sourceExtent.addFeature(feature)
+}
+
+// 判断点标记是否在范围内
+function isInExtent(Extent, Point) {
+  return (
+    Extent[0] <= Point[0] && Point[0] <= Extent[2] && Extent[1] <= Point[1] && Point[1] <= Extent[3]
+  )
+}
 //初始化地图
 const initMap = () => {
   //天地图矢量图层
@@ -204,6 +279,7 @@ draw.on('drawend', function (event) {
   map.removeInteraction(draw)
   showBox2(event)
 })
+
 const showInfo = (event) => {
   const features = map.getFeaturesAtPixel(event.pixel)
   if (features.length == 0) {
@@ -312,23 +388,25 @@ const mapping = () => {
   let olPolygon = new Polygon([smoothedPolygon.features[0].geometry.coordinates[0]])
   olfeature = new Feature(olPolygon)
 
-  olfeature.setStyle(
-    new Style({
-      fill: new Fill({
-        // color: 'rgba(255, 255, 0, 0.5)' // 点击后地块的颜色
-        color: getColor(num.value)
-      }),
-      stroke: new Stroke({
-        color: getColor(num.value),
-        width: 1
+  olfeature
+    .setStyle(
+      new Style({
+        fill: new Fill({
+          // color: 'rgba(255, 255, 0, 0.5)' // 点击后地块的颜色
+          color: getColor(num.value)
+        }),
+        stroke: new Stroke({
+          color: getColor(num.value),
+          width: 1
+        })
       })
-    })
-  )
+    )
 
-  // 清除之前选中的要素样式
-  selectedFeatures.getSource().clear()
+    // 清除之前选中的要素样式
+    .getSource()
+    .clear()
   // 将当前点击的要素样式设置为选中状态
-  selectedFeatures.getSource().addFeature(olfeature)
+  selectedFeatselectedFeaturesures.getSource().addFeature(olfeature)
   // }
 }
 const screenshot = () => {
