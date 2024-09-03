@@ -22,6 +22,7 @@ import BoxTitle from './boxTitle.vue'
 import { useSysStore } from '@/stores/sys'
 import { getBusinessLayer } from '@/assets/getBusinessLayer'
 import { getSourceUrl, getSourceTimeUrl } from '@/api'
+import type BaseLayer from 'ol/layer/Base'
 
 const sysStore = useSysStore()
 
@@ -71,8 +72,9 @@ features.value = [
 let index = 0
 const handleClick = (value: string) => {
   if (value != null) {
-    let url = `src/assets/5/${value}_hunan_5.json`
-    // let url = `${getSourceUrl}?elementId=${value}&time=${6}`
+    let time = ['4', '5'].includes(value) ? 24 : 6
+    // let url = `src/assets/5/${value}_hunan_5.json`
+    let url = `${getSourceUrl}?elementId=${value}&time=${time}&type=5`
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -81,18 +83,18 @@ const handleClick = (value: string) => {
         //businessLayer:格点值；businessLayer2：等值面
         let businessLayer = sysStore.businessLayer
         let businessLayer2 = sysStore.businessLayer2
-        map?.removeLayer(businessLayer)
+        map?.removeLayer(businessLayer as BaseLayer)
         map?.removeLayer(businessLayer2)
         // let layers = getBusinessLayer(data, 6 - index)
-        let layers = getBusinessLayer(data, 2)
+        let layers = getBusinessLayer(data, 10, value)
         index++
         //layers[0]：格点值；layers[1]：等值面
         if (sysStore.showGrid) {
-          map?.addLayer(layers[0])
+          map?.addLayer(layers[0] as BaseLayer)
         } else if (sysStore.showIsosurfaces) {
-          map?.addLayer(layers[1])
+          map?.addLayer(layers[1] as BaseLayer)
         } else {
-          map?.addLayer(layers[0])
+          map?.addLayer(layers[0] as BaseLayer)
           sysStore.setShowGrid(true)
         }
       })

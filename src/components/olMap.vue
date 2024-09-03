@@ -113,105 +113,110 @@ onMounted(() => {
   // map.on('pointermove', showInfo);
   // map.on('click', showBox);
 
-  // 绘制红色范围
-  const sourceExtent = new VectorSource()
-  const layerExtent = new VectorLayer({
-    source: sourceExtent
-  })
-  map.addLayer(layerExtent)
-
-  let style = new Style({
-    fill: new Fill({
-      color: 'rgba(255, 0, 0, 1)'
-    })
-  })
-
+  // 创建一个样式
+  // const style = new Style({
+  //   fill: new Fill({
+  //     color: 'rgba(255, 0, 0, 1)'
+  //   }),
+  //   stroke: new Stroke({
+  //     color: '#ffcc33',
+  //     width: 20
+  //   })
+  // })
+  // // 绘制红色范围
+  // const sourceExtent = new VectorSource()
+  // const layerExtent = new VectorLayer({
+  //   source: sourceExtent,
+  //   style: style
+  // })
+  // map.addLayer(layerExtent)
   // 视图改变时，再次绘制范围
 
-  map.on('moveend', (e) => {
-    createExtentSource(sourceExtent)
-    let businessLayer = sysStore.businessLayer
-    let layer = map.getAllLayers()[3]
-    let source = layer.getSource()
+  // map.on('moveend', (e) => {
+  //   // let extent = map.getView().calculateExtent(map.getSize())
+  //   // // 在这里编写加载数据的逻辑，例如使用 extent 变量
+  //   // // extent = transformExtent(extent, 'EPSG:3857', 'EPSG:4326')
+  //   // console.log('视口边界变化，加载相关数据:', extent)
+  //   // createExtentPolygon(map, extent[0], extent[2], extent[1], extent[3])
+  //   // createExtentSource(sourceExtent, layerExtent)
+  //   let layers = map.getLayers().getArray()
 
-    // map?.removeLayer(businessLayer)
-    map.removeLayer(layer)
-    // let style = businessLayer.getStyle()
-    if (businessLayer) {
-      layer = new VectorLayer({
-        // source: businessLayer.getSource(),
-        source: source,
-        style: function (feature) {
-          const calculateExtent = map.getView().calculateExtent()
-          const extent = feature.getGeometry().getExtent()
-          // const isTrue = isInExtent(calculateExtent, extent)
-          const isWithinExtent = containsExtent(calculateExtent, extent)
-          return isWithinExtent
-            ? new Style({
-                fill: new Fill({ color: feature.get('color') }),
-                stroke: new Stroke({ color: feature.get('color'), width: 0 }),
-                text: new Text({
-                  text: [
-                    `${feature.get('pid')}`,
-                    '',
-                    '10px Calibri,sans-serif',
-                    '\n',
-                    '',
-                    `${feature.get('value2')}`,
-                    '10px Calibri,sans-serif'
-                  ],
-                  overflow: true,
-                  font: '12px Calibri,sans-serif',
-                  fill: new Fill({ color: '#000' }),
-                  stroke: new Stroke({
-                    color: '#fff',
-                    width: 3
-                  })
-                })
-              })
-            : null
-        }
-      })
-      // sysStore.setBusinessLayer(businessLayer)
-      map.addLayer(layer)
-    }
-  })
+  //   let businessSource, layer
+  //   layers.map((item) => {
+  //     if (item.get('title') === 'grid_VectorLayer') {
+  //       businessSource = item.getSource()
+  //       layer = item
+  //     }
+  //   })
+
+  //   // let style = businessLayer.getStyle()
+  //   if (layer) {
+  //     let businessLayer = new VectorLayer({
+  //       // source: businessLayer.getSource(),
+  //       source: businessSource,
+  //       style: (feature) => {
+  //         const calculateExtent = map.getView().calculateExtent()
+  //         const extent = feature.getGeometry().getExtent()
+  //         // const isTrue = isInExtent(calculateExtent, extent)
+  //         // const isWithinExtent = containsExtent(calculateExtent, extent)
+  //         const isWithinExtent = olExtent.intersects(calculateExtent, extent)
+  //         return isWithinExtent
+  //           ? new Style({
+  //               fill: new Fill({ color: feature.get('color') }),
+  //               stroke: new Stroke({ color: feature.get('color'), width: 0 }),
+  //               text: new Text({
+  //                 text: [
+  //                   `${feature.get('value1')}`,
+  //                   '10px Calibri,sans-serif',
+  //                   '\n',
+  //                   '',
+  //                   `${feature.get('value2')}`,
+  //                   '10px Calibri,sans-serif'
+  //                 ],
+  //                 overflow: true,
+  //                 // font: '12px Calibri,sans-serif',
+  //                 fill: new Fill({ color: '#000' }),
+  //                 stroke: new Stroke({
+  //                   color: '#fff',
+  //                   width: 3
+  //                 })
+  //               })
+  //             })
+  //           : null
+  //       }
+  //     })
+  //     sysStore.setBusinessLayer(businessLayer)
+  //     // map.addLayer(businessLayer)
+  //   }
+  // })
 })
 
 // 范围
-const createExtentSource = (sourceExtent) => {
-  const [x1, y1, x2, y2] = map.getView().calculateExtent(map.getSize())
-  // 创建一个多边形的坐标数组
-  let geometry = new Polygon([
-    [
-      fromLonLat([x1, y2]),
-      fromLonLat([x1, y1]),
-      fromLonLat([x2, y1]),
-      fromLonLat([x2, y2]),
-      fromLonLat([x1, y2])
-    ]
-  ])
+// const createExtentSource = (sourceExtent, layerExtent) => {
+//   const [x1, y1, x2, y2] = map.getView().calculateExtent(map.getSize())
+//   // 创建一个多边形的坐标数组
+//   let geometry = new Polygon([
+//     [
+//       fromLonLat([x1, y2]),
+//       fromLonLat([x1, y1]),
+//       fromLonLat([x2, y1]),
+//       fromLonLat([x2, y2]),
+//       fromLonLat([x1, y2])
+//     ]
+//   ])
 
-  let feature = new Feature(geometry)
+//   let feature = new Feature(geometry)
 
-  // 创建一个样式
-  const style = new Style({
-    fill: new Fill({
-      color: 'rgba(255, 0, 0, 1)'
-    }),
-    stroke: new Stroke({
-      color: '#ffcc33',
-      width: 2
-    })
-  })
-  sourceExtent.addFeature(feature)
-}
+//   sourceExtent.addFeature(feature)
+//   layerExtent.getSource().refresh()
+// }
 
 // 判断点标记是否在范围内
 function isInExtent(Extent, Point) {
   return (
     Extent[0] <= Point[0] && Point[0] <= Extent[2] && Extent[1] <= Point[1] && Point[1] <= Extent[3]
   )
+  ix
 }
 //初始化地图
 const initMap = () => {
@@ -345,6 +350,7 @@ const showBox2 = (event) => {
   changeNum2.style.opacity = 1
   changeNum2.style.left = event.target.downPx_[0] - 100 + 'px'
   changeNum2.style.top = event.target.downPx_[1] - 100 + 'px'
+  q
 }
 
 //点击网格订正

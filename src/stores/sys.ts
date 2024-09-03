@@ -2,6 +2,8 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { Map } from 'ol'
 import { Draw } from 'ol/interaction'
+import BaseTileLayer from 'ol/layer/BaseTile'
+import BaseLayer from 'ol/layer/Base'
 
 export const useCounterStore = defineStore('counter', () => {
   const count = ref(0)
@@ -15,8 +17,9 @@ export const useCounterStore = defineStore('counter', () => {
 
 export interface SysStore {
   showSourceSelect: Boolean | null
-  businessLayer: any
+  businessLayer: BaseLayer | null
   businessLayer2: any
+  businessPolygon: any
   businessFullPoint: any
   map: Map | null
   draw: Draw | null
@@ -30,6 +33,7 @@ export const useSysStore = defineStore({
     showSourceSelect: false,
     businessLayer: null,
     businessLayer2: null,
+    businessPolygon: null,
     businessFullPoint: null,
     map: null,
     draw: null,
@@ -45,6 +49,9 @@ export const useSysStore = defineStore({
     },
     setBusinessLayer2(value: any) {
       this.businessLayer2 = value
+    },
+    setBusinessPolygon(value: any) {
+      this.businessPolygon = value
     },
     setBusinessFullPoint(value: any) {
       this.businessFullPoint = value

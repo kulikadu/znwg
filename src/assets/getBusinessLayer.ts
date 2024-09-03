@@ -22,7 +22,7 @@ let geojsonData_Point_full: any = {
   features: []
 }
 
-export const getBusinessLayer = (data: any, gap: number) => {
+export const getBusinessLayer = (data: any, gap: number, id: string) => {
   const sysStore = useSysStore()
   geojsonData_Polygon.features = []
   geojsonData_Point.features = []
@@ -82,7 +82,7 @@ export const getBusinessLayer = (data: any, gap: number) => {
         properties: {
           color: color,
           value1: `${values1[pid]}`,
-          value2: `${values2[pid]}`,
+          value2: `${['1', '7'].includes(id) ? values2[pid] : null}`,
           pid: pid
         },
         geometry: {
@@ -105,7 +105,7 @@ export const getBusinessLayer = (data: any, gap: number) => {
         properties: {
           color: color,
           value1: `${values1[pid]}`,
-          value2: `${values2[pid]}`,
+          value2: `${['1', '7'].includes(id) ? values2[pid] : null}`,
           pid: pid
         },
         geometry: {
@@ -115,7 +115,7 @@ export const getBusinessLayer = (data: any, gap: number) => {
       })
     }
   }
-
+  // sysStore.setBusinessPolygon(geojsonData_Polygon)
   for (let i = 0; i < numY; i++) {
     for (let j = 0; j < numX; j++) {
       let pid = j == 0 && i == 0 ? 0 : i * numX + j - 1
@@ -133,7 +133,7 @@ export const getBusinessLayer = (data: any, gap: number) => {
         properties: {
           color: color,
           value1: `${values1[pid]}`,
-          value2: `${values2[pid]}`,
+          value2: `${['1', '7'].includes(id) ? values2[pid] : null}`,
           pid: pid
         },
         geometry: {
@@ -160,27 +160,24 @@ export const getBusinessLayer = (data: any, gap: number) => {
     source: new VectorSource({
       features: new GeoJSON().readFeatures(geojsonData_Polygon)
     }),
-    style: (feature, resolution) => {
+    style: (feature) => {
       // let fill = new Fill()
       // fill.setColor(feature.get('value') > 0.1 ? repeatCtx.createPattern(img, 'repeat') : feature.get('color'))
       return new Style({
-        image: new CircleStyle(),
-
         fill: new Fill({ color: feature.get('color') }),
         stroke: new Stroke({ color: feature.get('color'), width: 0 }),
         text: new Text({
           text: [
-            // `${feature.get('pid')}`,
-            '',
-            '10px Calibri,sans-serif'
+            `${feature.get('value1')}`,
+            '12px Calibri,sans-serif'
             // '\n',
             // '',
             // `${feature.get('value2')}`,
             // '10px Calibri,sans-serif'
           ],
-          // text: resolution < 5000 ? feature.get('value1') : '444',
+          // text: feature.get('value1'),
+          // font: '12px Calibri,sans-serif',
           overflow: true,
-          font: '12px Calibri,sans-serif',
           fill: new Fill({ color: '#000' }),
           stroke: new Stroke({
             color: '#fff',
@@ -191,28 +188,33 @@ export const getBusinessLayer = (data: any, gap: number) => {
     }
   })
 
-  //等直面图层
-  let geo = JSON.parse(data.geoJson)
+  //等直面图层,相态和风向没有
+  let businessLayer2
+  if (['2', '7'].includes(id)) {
+    businessLayer2 = null
+  } else {
+    let geo = JSON.parse(data.geoJson)
 
-  let businessLayer2 = new VectorLayer({
-    title: 'isosurfaces_VectorLayer',
-    opacity: 0.8,
-    zIndex: 100,
-    source: new VectorSource({
-      features: new GeoJSON().readFeatures(geo, {
-        dataProjection: 'EPSG:4326', // GeoJSON 数据的原始投影
-        featureProjection: 'EPSG:3857' // 要转换到的目标投影
-      })
-    }),
-    style: (feature) => {
-      let fill = new Fill()
-      fill.setColor(getColor(feature.get('minValue')))
-      // fill.setColor('rgb(0,255,255)')
-      return new Style({
-        fill: fill
-      })
-    }
-  })
+    businessLayer2 = new VectorLayer({
+      title: 'isosurfaces_VectorLayer',
+      opacity: 0.8,
+      zIndex: 100,
+      source: new VectorSource({
+        features: new GeoJSON().readFeatures(geo, {
+          dataProjection: 'EPSG:4326', // GeoJSON 数据的原始投影
+          featureProjection: 'EPSG:3857' // 要转换到的目标投影
+        })
+      }),
+      style: (feature) => {
+        let fill = new Fill()
+        fill.setColor(getColor(feature.get('minValue')))
+        // fill.setColor('rgb(0,255,255)')
+        return new Style({
+          fill: fill
+        })
+      }
+    })
+  }
 
   const style = {
     'fill-color': ['*', ['get', 'color'], [255, 255, 255, 0.6]]

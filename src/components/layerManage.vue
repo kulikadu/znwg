@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import CheckBox from '@/components/checkbox.vue'
 import { useSysStore } from '@/stores/sys'
+import type BaseLayer from 'ol/layer/Base'
 
 let sysStore = useSysStore()
 
@@ -40,11 +41,11 @@ const handleClick = (value: boolean) => {
   let map = sysStore.map
   if (businessLayer) {
     if (value) {
-      map?.removeLayer(businessLayer)
+      map?.removeLayer(businessLayer as BaseLayer)
       map?.removeLayer(businessLayer2)
-      map?.addLayer(businessLayer)
+      map?.addLayer(businessLayer as BaseLayer)
     } else {
-      map?.removeLayer(businessLayer)
+      map?.removeLayer(businessLayer as BaseLayer)
     }
   } else {
     alert('请先选择要素')
@@ -57,7 +58,7 @@ const handleClick2 = (value: boolean) => {
   let map = sysStore.map
   if (businessLayer2) {
     if (sysStore.showIsosurfaces) {
-      map?.removeLayer(businessLayer)
+      map?.removeLayer(businessLayer as BaseLayer)
       map?.removeLayer(businessLayer2)
       map?.addLayer(businessLayer2)
       // var extent = layer.getSource().getExtent()
