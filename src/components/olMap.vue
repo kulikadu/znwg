@@ -350,7 +350,6 @@ const showBox2 = (event) => {
   changeNum2.style.opacity = 1
   changeNum2.style.left = event.target.downPx_[0] - 100 + 'px'
   changeNum2.style.top = event.target.downPx_[1] - 100 + 'px'
-  q
 }
 
 //点击网格订正
@@ -387,7 +386,7 @@ const changeValue2 = (value) => {
   }
 
   // fetch(`http://10.111.102.30:8082/znwg-api/test/gridupdates`, options)
-  fetch(`http://10.111.101.250:8083/znwg-api/grid/gridupdates`, options)
+  fetch(`http://10.111.101.243:8083/znwg-api/grid/gridupdates`, options)
     .then((res) => res.json())
     .then((data) => {
       // selectedFeatures.getSource().clear();
@@ -403,8 +402,8 @@ const changeValue2 = (value) => {
         }
       }
 
-      let layer = getBusinessLayer(data.data, 2)
-      map.addLayer(layer)
+      let businessLayers = getBusinessLayer(data.data, 2)
+      map.addLayer(businessLayers[0])
     })
     .catch((err) => console.error(err))
 }

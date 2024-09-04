@@ -86,7 +86,7 @@ const handleClick = (value: string) => {
         map?.removeLayer(businessLayer as BaseLayer)
         map?.removeLayer(businessLayer2)
         // let layers = getBusinessLayer(data, 6 - index)
-        let layers = getBusinessLayer(data, 10, value)
+        let layers = getBusinessLayer(data, 5, value)
         index++
         //layers[0]：格点值；layers[1]：等值面
         if (sysStore.showGrid) {

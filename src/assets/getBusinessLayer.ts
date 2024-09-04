@@ -2,11 +2,12 @@ import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import { fromLonLat } from 'ol/proj'
 import GeoJSON from 'ol/format/GeoJSON'
-import { Fill, Stroke, Style, Text, Circle as CircleStyle } from 'ol/style'
+import { Fill, Stroke, Style, Text, Circle as CircleStyle, Icon } from 'ol/style'
 import { useSysStore } from '@/stores/sys'
 import type { Color } from 'ol/color'
 import { Layer } from 'ol/layer'
 import WebGLVectorLayerRenderer from 'ol/renderer/webgl/VectorLayer'
+import { asColorLike } from 'ol/colorlike'
 // import axios from 'axios'
 
 let geojsonData_Polygon: any = {
@@ -160,11 +161,18 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     source: new VectorSource({
       features: new GeoJSON().readFeatures(geojsonData_Polygon)
     }),
-    style: (feature) => {
-      // let fill = new Fill()
-      // fill.setColor(feature.get('value') > 0.1 ? repeatCtx.createPattern(img, 'repeat') : feature.get('color'))
+    style: (feature, resolution) => {
+      let fill = new Fill()
+      fill.setColor(
+        feature.get('value1') > 0.1 ? repeatCtx.createPattern(img, 'repeat') : feature.get('color')
+      )
+      let ll = asColorLike({
+        src: 'src/assets/images/雨夹雪.png'
+      })
+
       return new Style({
         fill: new Fill({ color: feature.get('color') }),
+        // fill: fill,
         stroke: new Stroke({ color: feature.get('color'), width: 0 }),
         text: new Text({
           text: [
@@ -187,6 +195,26 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       })
     }
   })
+
+  // var cnv = document.createElement('canvas')
+  // var ctx = cnv.getContext('2d')
+  // var img2 = new Image()
+  // img2.src = 'src/assets/images/雨夹雪.png'
+  // img2.onload = function () {
+  //   var pattern = ctx?.createPattern(img2, 'repeat')
+  //   businessLayer.setStyle(
+  //     new Style({
+  //       stroke: new Stroke({
+  //         color: 'red',
+  //         lineDash: [5],
+  //         width: 2
+  //       }),
+  //       fill: new Fill({
+  //         color: pattern
+  //       })
+  //     })
+  //   )
+  // }
 
   //等直面图层,相态和风向没有
   let businessLayer2
