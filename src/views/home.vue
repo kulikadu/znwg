@@ -5,7 +5,8 @@
       <ToolBar class="toolbar" />
     </div>
     <div class="title">
-      <img src="../assets/images/title.png" alt="" />
+      <img src="../assets/images/title-icon.png" alt="" />
+      <span>智能网格</span>
       <div class="title_menu">
         <span>格点订正</span>
       </div>
@@ -65,8 +66,19 @@ onMounted(() => {
     height: @titleHeight;
     background-color: rgb(47, 155, 248);
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     img {
-      width: @titleImgWidth;
+      // width: @titleImgWidth;
+      width: 36px;
+      height: 36px;
+    }
+    span {
+      font-family: 'PingFang SC ', 'PingFang SC', sans-serif;
+      font-weight: 650;
+      font-style: normal;
+      font-size: 28px;
+      color: #ffffff;
     }
     .title_menu {
       margin-left: 50px;
@@ -76,8 +88,16 @@ onMounted(() => {
       justify-content: left;
       align-items: center;
       color: #ffff;
+      span {
+        font-family: '微软雅黑 Bold', '微软雅黑 Regular', '微软雅黑', sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 17px;
+        margin-right: 40px;
+      }
       span:hover {
         cursor: pointer;
+        color: rgba(119, 233, 255, 1);
       }
     }
     .title_end {

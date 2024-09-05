@@ -8,6 +8,8 @@ import type { Color } from 'ol/color'
 import { Layer } from 'ol/layer'
 import WebGLVectorLayerRenderer from 'ol/renderer/webgl/VectorLayer'
 import { asColorLike } from 'ol/colorlike'
+import { getColorByType } from './getColorByType'
+
 // import axios from 'axios'
 
 let geojsonData_Polygon: any = {
@@ -51,7 +53,7 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     for (let j = 0; j < newNumX; j++) {
       // let pid = j == 0 && i == 0 ? 0 : (i * numX + j) * gap - 1
       let pid = (i * numX + j) * gap
-      let color = getColor(values1[pid])
+      let color = getColor(id, values1[pid])
 
       let minLat, maxLat, minLon, maxLon
       minLat = startlat + latGap * i * gap
@@ -120,7 +122,7 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   for (let i = 0; i < numY; i++) {
     for (let j = 0; j < numX; j++) {
       let pid = j == 0 && i == 0 ? 0 : i * numX + j - 1
-      let color = getColor(values1[pid])
+      let color = getColor(id, values1[pid])
 
       let minLat, maxLat, minLon, maxLon
       minLat = startlat + latGap * i
@@ -163,9 +165,9 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     }),
     style: (feature, resolution) => {
       let fill = new Fill()
-      fill.setColor(
-        feature.get('value1') > 0.1 ? repeatCtx.createPattern(img, 'repeat') : feature.get('color')
-      )
+      // fill.setColor(
+      //   feature.get('value1') > 0.1 ? repeatCtx.createPattern(img, 'repeat') : feature.get('color')
+      // )
       let ll = asColorLike({
         src: 'src/assets/images/雨夹雪.png'
       })
@@ -235,7 +237,7 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       }),
       style: (feature) => {
         let fill = new Fill()
-        fill.setColor(getColor(feature.get('minValue')))
+        fill.setColor(getColor(id, feature.get('minValue')))
         // fill.setColor('rgb(0,255,255)')
         return new Style({
           fill: fill
@@ -268,21 +270,17 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
 }
 
 //根据value获取颜色
-const getColor = (value: number) => {
+const getColor = (id: string, value: number) => {
   if (value == undefined) return 'rgb(255,255,255)'
 
-  let valueGap = [0.1, 10, 25, 50, 100, 250, 10000]
-  let color = [
-    'rgb(255,255,255)',
-    'rgb(166,242,143)',
-    'rgb(61,186,61)',
-    'rgb(97,184,255)',
-    'rgb(0,0,255)',
-    'rgb(250,0,250)',
-    'rgb(128,0,64)'
-  ]
+  let valueGap = getColorByType(id).value
+  let color = getColorByType(id).color
+
   for (let i = 0; i < valueGap.length; i++) {
     if (value < valueGap[i]) {
+      return color[i]
+    }
+    if (value > valueGap[i] && i == valueGap.length - 1) {
       return color[i]
     }
   }

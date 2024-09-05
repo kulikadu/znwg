@@ -401,8 +401,13 @@ const changeValue2 = (value) => {
           map.removeLayer(layers[i])
         }
       }
+      for (let i = 0; i < layers.length; i++) {
+        if (layers[i].get('title') == 'isosurfaces_VectorLayer') {
+          map.removeLayer(layers[i])
+        }
+      }
 
-      let businessLayers = getBusinessLayer(data.data, 2)
+      let businessLayers = getBusinessLayer(data.data, 2, sysStore.currentFeature)
       map.addLayer(businessLayers[0])
     })
     .catch((err) => console.error(err))
@@ -519,7 +524,7 @@ const screenshot = () => {
   position: absolute;
   bottom: 60px;
   left: 0;
-  background-color: rgba(255, 125, 0, 0.8);
+  background-color: rgb(204, 236, 236);
 
   ::v-deep .el-radio-group {
     align-items: center;

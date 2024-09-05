@@ -15,6 +15,7 @@
       </div>
     </div>
   </div>
+  <Legend :class="{ legend: true }" :legendData="legendData"></Legend>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +24,7 @@ import { useSysStore } from '@/stores/sys'
 import { getBusinessLayer } from '@/assets/getBusinessLayer'
 import { getSourceUrl, getSourceTimeUrl } from '@/api'
 import type BaseLayer from 'ol/layer/Base'
+import { getColorByType } from '@/assets/getColorByType'
 
 const sysStore = useSysStore()
 
@@ -70,11 +72,18 @@ features.value = [
   }
 ]
 let index = 0
+
+let legendData = ref()
+let isshowLegend = ref(true)
 const handleClick = (value: string) => {
   if (value != null) {
+    console.log(value)
     let time = ['4', '5'].includes(value) ? 24 : 6
     // let url = `src/assets/5/${value}_hunan_5.json`
     let url = `${getSourceUrl}?elementId=${value}&time=${time}&type=5`
+    isshowLegend.value = false
+    legendData.value = getColorByType(value)
+    sysStore.setCurrentFeature(value)
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -164,5 +173,10 @@ const handleClick = (value: string) => {
     height: 2px;
     background-color: #d7d7d7;
   }
+}
+.legend {
+  position: fixed;
+  bottom: 200px;
+  right: 100px;
 }
 </style>

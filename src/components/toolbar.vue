@@ -8,10 +8,10 @@
         <img :src="getImg(item.iconName)" />
       </div>
     </span>
-    <div class="toolbar-check">
+    <!-- <div class="toolbar-check">
       <CheckBox />
       <span>计算极值</span>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -134,7 +134,7 @@ const setPan = () => {
 <style lang="less" scoped>
 .toolbar {
   width: 36px;
-  height: 350px;
+  height: calc(350 - 36);
   background-color: #ffffff;
   border: 1px solid #d7d7d7;
   .toolbar-title {
@@ -165,6 +165,7 @@ const setPan = () => {
     }
   }
   .toolbar-check {
+    display: none;
     width: 36px;
     height: 68px;
     font-size: 0.8rem;

@@ -25,6 +25,7 @@ export interface SysStore {
   draw: Draw | null
   showIsosurfaces: Boolean | null
   showGrid: Boolean | null
+  currentFeature: String | Number
 }
 
 export const useSysStore = defineStore({
@@ -38,7 +39,8 @@ export const useSysStore = defineStore({
     map: null,
     draw: null,
     showIsosurfaces: false,
-    showGrid: true
+    showGrid: true,
+    currentFeature: ''
   }),
   actions: {
     setShowSourceSelect(value: Boolean) {
@@ -67,6 +69,9 @@ export const useSysStore = defineStore({
     },
     setShowGrid(value: Boolean) {
       this.showGrid = value
+    },
+    setCurrentFeature(value: String | Number) {
+      this.currentFeature = value
     }
   }
 })

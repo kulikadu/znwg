@@ -5,7 +5,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './views/home.vue'
-// import App from './components/sourceSelect.vue'
+// import App from './components/legend.vue'
 import router from './router'
 // import axios from './http/index'
 
