@@ -28,7 +28,7 @@ export const getColorByType = (type: string | number) => {
     case '10': //能见度
       return color10
     default:
-      return { value: [], color: [] }
+      return { value: [], dse: [], color: [] }
   }
 }
 /**
