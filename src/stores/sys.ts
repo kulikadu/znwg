@@ -16,6 +16,8 @@ export const useCounterStore = defineStore('counter', () => {
 })
 
 export interface SysStore {
+  // host: String
+  geoserverHost: String
   showSourceSelect: Boolean | null
   businessLayer: BaseLayer | null
   businessLayer2: any
@@ -31,6 +33,8 @@ export interface SysStore {
 export const useSysStore = defineStore({
   id: 'sys',
   state: (): SysStore => ({
+    // host: '10.111.101.246:3001',
+    geoserverHost: '10.111.101.246:8080', //geoserver地址和端口
     showSourceSelect: false,
     businessLayer: null,
     businessLayer2: null,
@@ -43,6 +47,12 @@ export const useSysStore = defineStore({
     currentFeature: ''
   }),
   actions: {
+    // setHost(value: String) {
+    //   this.host = value
+    // },
+    setGeoserverHost(value: String) {
+      this.geoserverHost = value
+    },
     setShowSourceSelect(value: Boolean) {
       this.showSourceSelect = value
     },

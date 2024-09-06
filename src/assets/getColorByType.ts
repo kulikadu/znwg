@@ -1,5 +1,10 @@
 import type { Color } from 'ol/color'
 
+/**
+ *
+ * @param type 要素编号
+ * @returns 返回带颜色数组的对象
+ */
 export const getColorByType = (type: string | number) => {
   switch (type) {
     case '1': //降水
@@ -26,7 +31,11 @@ export const getColorByType = (type: string | number) => {
       return { value: [], color: [] }
   }
 }
-
+/**
+ * value：图例数值范围
+ * des：图例描述
+ * color：图例颜色
+ */
 const color1 = {
   value: [0.1, 10, 25, 50, 100, 250],
   des: ['无降水', '0.1~9.9', '10~24.9', '25~49.9', '50~99.9', '100~249.9', '≥250'],

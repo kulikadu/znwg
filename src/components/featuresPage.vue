@@ -7,7 +7,7 @@
     <div class="content-left-feature-item">
       <div v-for="(item, index) in features" :key="index" class="items">
         <div class="item">
-          <div @click="handleClick(item.value)">
+          <div @click="handleClick(item.value, index)" :class="{ active: activeIndex === index }">
             <span>{{ item.name }}</span>
           </div>
           <span>(无数据)</span>
@@ -27,7 +27,7 @@ import type BaseLayer from 'ol/layer/Base'
 import { getColorByType } from '@/assets/getColorByType'
 
 const sysStore = useSysStore()
-
+const activeIndex = ref(-1)
 let features = ref()
 features.value = [
   {
@@ -75,12 +75,13 @@ let index = 0
 
 let legendData = ref()
 let isshowLegend = ref(true)
-const handleClick = (value: string) => {
+const handleClick = (value: string, index: number) => {
+  activeIndex.value = index
   if (value != null) {
     console.log(value)
     let time = ['4', '5'].includes(value) ? 24 : 6
-    // let url = `src/assets/5/${value}_hunan_5.json`
-    let url = `${getSourceUrl}?elementId=${value}&time=${time}&type=5`
+    let url = `src/assets/5/${value}_hunan_5.json`
+    // let url = `${getSourceUrl}?elementId=${value}&time=${time}&type=5`
     isshowLegend.value = false
     legendData.value = getColorByType(value)
     sysStore.setCurrentFeature(value)
@@ -95,7 +96,8 @@ const handleClick = (value: string) => {
         map?.removeLayer(businessLayer as BaseLayer)
         map?.removeLayer(businessLayer2)
         // let layers = getBusinessLayer(data, 6 - index)
-        let layers = getBusinessLayer(data, 5, value)
+
+        let layers = getBusinessLayer(data, 5, value) //data：原始数据;gap：抽稀系数;value：要素编号
         index++
         //layers[0]：格点值；layers[1]：等值面
         if (sysStore.showGrid) {
@@ -152,10 +154,10 @@ const handleClick = (value: string) => {
             background-color: #2f9bf8;
             font-size: 0.9rem;
           }
-          &:active {
-            background-color: #2f9bf8;
-            font-size: 0.9rem;
-          }
+          // &:active {
+          //   background-color: #2f9bf8;
+          //   font-size: 0.9rem;
+          // }
           span {
             color: #333333;
           }
@@ -176,7 +178,11 @@ const handleClick = (value: string) => {
 }
 .legend {
   position: fixed;
-  bottom: 200px;
-  right: 100px;
+  bottom: 350px;
+  right: 0;
+}
+.active {
+  background-color: #2f9bf8;
+  // color: white;
 }
 </style>

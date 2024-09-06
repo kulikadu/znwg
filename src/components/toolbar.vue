@@ -3,8 +3,14 @@
     <div class="toolbar-title">
       <span>工具</span>
     </div>
-    <span v-for="(item, index) in iconList" :key="index" class="toolbar-item">
-      <div @click="handleClick(item.iconName)">
+    <span
+      v-for="(item, index) in iconList"
+      :key="index"
+      class="toolbar-item"
+      @click="handleClick(item.iconName, index)"
+      :class="{ active: activeIndex === index }"
+    >
+      <div>
         <img :src="getImg(item.iconName)" />
       </div>
     </span>
@@ -23,6 +29,8 @@ import { Draw } from 'ol/interaction'
 import { useSysStore } from '@/stores/sys'
 
 const sysStore = useSysStore()
+
+const activeIndex = ref(-1)
 let map: Map | null
 onMounted(() => {})
 let iconList = ref()
@@ -73,7 +81,8 @@ const calcExtremum = () => {
   check.value = !check.value
   console.log(check.value)
 }
-const handleClick = (name: string) => {
+const handleClick = (name: string, index: number) => {
+  activeIndex.value = index
   switch (name) {
     case 'full':
       setFullMap()
@@ -192,5 +201,9 @@ const setPan = () => {
 img {
   width: 18px;
   height: 18px;
+}
+.active {
+  background-color: #abb9ce;
+  // color: white;
 }
 </style>

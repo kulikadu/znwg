@@ -12,6 +12,7 @@ import { getColorByType } from './getColorByType'
 
 // import axios from 'axios'
 
+//抽稀后的格点数据
 let geojsonData_Polygon: any = {
   type: 'FeatureCollection',
   features: []
@@ -20,11 +21,19 @@ let geojsonData_Point: any = {
   type: 'FeatureCollection',
   features: []
 }
+//全数据量的格点数据
 let geojsonData_Point_full: any = {
   type: 'FeatureCollection',
   features: []
 }
 
+/**
+ *
+ * @param data 源数据;
+ * @param gap 抽稀系数
+ * @param id 要素编号
+ * @returns 返回2个图层：格点填色图层、等直面图层
+ */
 export const getBusinessLayer = (data: any, gap: number, id: string) => {
   const sysStore = useSysStore()
   geojsonData_Polygon.features = []

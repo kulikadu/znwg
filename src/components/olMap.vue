@@ -245,8 +245,8 @@ const initMap = () => {
   // map.addLayer(tdtVectorLabelLayer)
   sysStore.setMap(map)
   // WMS服务的URL
-  const wms =
-    'http://localhost:8080/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=chine%E5%9B%BE%E5%B1%82&bbox=73.498962%2C3.832541%2C135.087387%2C53.558498&width=768&height=620&srs=EPSG%3A4326&format=image%2Fpng'
+
+  const wms = `http://${sysStore.geoserverHost}/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=chine%E5%9B%BE%E5%B1%82&bbox=73.498962%2C3.832541%2C135.087387%2C53.558498&width=768&height=620&srs=EPSG%3A4326&format=image%2Fpng`
   // 创建WMS图层
   let wmsLayer = new TileLayer({
     className: 'wms-vector',
@@ -407,7 +407,8 @@ const changeValue2 = (value) => {
         }
       }
 
-      let businessLayers = getBusinessLayer(data.data, 2, sysStore.currentFeature)
+      //data：原始数据;gap：抽稀系数;value：要素编号
+      let businessLayers = getBusinessLayer(data.data, 5, sysStore.currentFeature)
       map.addLayer(businessLayers[0])
     })
     .catch((err) => console.error(err))

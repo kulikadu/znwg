@@ -5,12 +5,14 @@
       <ToolBar class="toolbar" />
     </div>
     <div class="title">
-      <img src="../assets/images/title-icon.png" alt="" />
-      <span>智能网格</span>
+      <!-- <img src="../assets/images/title-icon.png" alt="" /> -->
+      <span>智能预报服务系统</span>
       <div class="title_menu">
         <span>格点订正</span>
       </div>
-      <div class="title_end"></div>
+      <div class="title_end">
+        <img style="width: 100%; height: 100%" src="@/assets/images/账户.png" alt="" />
+      </div>
     </div>
     <div class="content-left">
       <FeaturesPage />
@@ -79,6 +81,8 @@ onMounted(() => {
       font-style: normal;
       font-size: 28px;
       color: #ffffff;
+      width: @sideWidth;
+      text-align: center;
     }
     .title_menu {
       margin-left: 50px;
