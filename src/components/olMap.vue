@@ -46,6 +46,17 @@
       <el-button @click="changeValue2">确定</el-button>
     </div>
   </section>
+  <div
+    id="info2"
+    style="
+      position: absolute;
+      width: 200px;
+      height: 100px;
+      bottom: 300px;
+      left: 300px;
+      border: 1px solid red;
+    "
+  ></div>
 </template>
 
 <script setup>
@@ -54,6 +65,8 @@ import 'ol/ol.css'
 import { Map, View } from 'ol'
 import * as olExtent from 'ol/extent'
 import { Draw, Extent } from 'ol/interaction'
+import * as Format from 'ol/format'
+import { and as andFilter, equalTo as equalToFilter, like as likeFilter } from 'ol/format/filter.js'
 import TileLayer from 'ol/layer/Tile'
 import Layer from 'ol/layer/Layer.js'
 import VectorLayer from 'ol/layer/Vector'
@@ -282,6 +295,75 @@ const initMap = () => {
     zIndex: 10
   })
   map.addLayer(selectedFeatures)
+
+  // map.on('singleclick', function (evt) {
+  //   let featureRequest = new Format.WFS().writeGetFeature({
+  //     srsName: 'EPSG:3857', // 投影坐标系
+  //     featureNS: 'http://china.com', // 命名空间 URI
+  //     featurePrefix: 'china', // 工作区名称
+  //     featureTypes: ['hunan_city'], // 查询图层，可以是同一个工作区下的多个图层，用逗号隔开
+  //     outputFormat: 'application/json', // 输出格式
+  //     filter: Format.filter.like('name') // 过滤条件，例如模糊查询
+  //   })
+
+  //   fetch('http://localhost:8080/geoserver/china/hunan_city?', {
+  //     method: 'POST',
+  //     body: new XMLSerializer().serializeToString(featureRequest)
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data.totalFeatures !== 0) {
+  //         console.log(data)
+  //         let vectorSource = new VectorSource()
+  //         let features = new Format.GeoJSON().readFeatures(data)
+  //         vectorSource.addFeatures(features)
+  //         let extent = transformExtent(vectorSource.getExtent(), 'EPSG:4326', 'EPSG:3857')
+  //         map.getView().fit(extent)
+  //       }
+  //     })
+  // })
+  //点击查询
+  map.on('singleclick', function (evt) {
+    // generate a GetFeature request
+    const featureRequest = new Format.WFS().writeGetFeature({
+      srcName: 'EPSG:4326',
+      featureNS: 'http://localhost:8080/geoserver/china/wfs',
+      featureTypes: ['china:hunan_city'],
+      outputFormat: 'application/json',
+      filter: equalToFilter('name', '永州市')
+    })
+
+    // then post the request and add the received features to a layer
+    fetch('http://localhost:8080/geoserver/china/wfs', {
+      method: 'POST',
+      body: new XMLSerializer().serializeToString(featureRequest)
+    })
+      .then(function (response) {
+        return response.json()
+      })
+      .then(function (json) {
+        const features = new GeoJSON().readFeatures(json, {
+          dataProjection: 'EPSG:4326', // GeoJSON 数据的原始投影
+          featureProjection: 'EPSG:3857' // 要转换到的目标投影
+        })
+        let vectorSource = new VectorSource()
+        vectorSource.addFeatures(features)
+        let layer = new VectorLayer({
+          source: vectorSource,
+          style: new Style({
+            fill: new Fill({
+              color: 'rgba(255, 0, 0, 1)' // 点击后地块的颜色
+            }),
+            stroke: new Stroke({
+              color: '#333',
+              width: 1
+            })
+          })
+        })
+        map.getView().fit(vectorSource.getExtent())
+        map.addLayer(layer)
+      })
+  })
 }
 
 let draw = new Draw({

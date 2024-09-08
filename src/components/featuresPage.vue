@@ -80,8 +80,8 @@ const handleClick = (value: string, index: number) => {
   if (value != null) {
     console.log(value)
     let time = ['4', '5'].includes(value) ? 24 : 6
-    // let url = `src/assets/5/${value}_hunan_5.json`
-    let url = `${getSourceUrl}?elementId=${value}&time=${time}&type=5`
+    let url = `src/assets/5/${value}_hunan_5.json`
+    // let url = `${getSourceUrl}?elementId=${value}&time=${time}&type=5`
     isshowLegend.value = false
     legendData.value = getColorByType(value)
     sysStore.setCurrentFeature(value)

@@ -15,8 +15,8 @@ const pathSrc = path.resolve(__dirname, 'src')
 export default defineConfig({
   //指定项目ip地址
   server: {
-    host: '10.111.101.246',
-    port: 3001
+    // host: '10.111.101.246',
+    // port: 3001
   },
   plugins: [
     vue(),

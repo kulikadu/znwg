@@ -34,7 +34,8 @@ export const useSysStore = defineStore({
   id: 'sys',
   state: (): SysStore => ({
     // host: '10.111.101.246:3001',
-    geoserverHost: '10.111.101.246:8080', //geoserver地址和端口
+    // geoserverHost: '10.111.101.246:8080', //geoserver地址和端口
+    geoserverHost: 'localhost:8080', //geoserver地址和端口
     showSourceSelect: false,
     businessLayer: null,
     businessLayer2: null,
