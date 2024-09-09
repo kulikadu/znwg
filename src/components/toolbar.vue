@@ -93,12 +93,12 @@ const handleClick = (name: string, index: number) => {
     case 'ploygon':
       drawPolygon()
       break
-    // case 'city':
-    //   setPan()
-    //   break
-    // case 'county':
-    //   setFullMap()
-    //   break
+    case 'city':
+      selectCity()
+      break
+    case 'county':
+      selectCountry()
+      break
     // case 'u22':
     //   setPan()
     //   break
@@ -138,6 +138,17 @@ const setPan = () => {
     map?.removeInteraction(draw)
   }
 }
+
+//市选择
+const selectCity = () => {
+  if (sysStore.map) {
+    map = sysStore.map as Map
+  } else {
+    console.log('地图不存在')
+  }
+}
+//根据点击查询wms范围来筛选格点
+const getGridValueByClick = () => {}
 </script>
 
 <style lang="less" scoped>

@@ -67,7 +67,10 @@ import * as olExtent from 'ol/extent'
 import { Draw, Extent } from 'ol/interaction'
 import * as Format from 'ol/format'
 import { and as andFilter, equalTo as equalToFilter, like as likeFilter } from 'ol/format/filter.js'
+import Intersects from 'ol/format/filter/Intersects.js'
+import { within } from 'ol/format/filter'
 import TileLayer from 'ol/layer/Tile'
+import { transform } from 'ol/proj'
 import Layer from 'ol/layer/Layer.js'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
@@ -90,6 +93,11 @@ import fs from 'file-saver'
 import { getView } from '@/assets/Map/map'
 import { useSysStore } from '@/stores/sys'
 import { getBusinessLayer } from '@/assets/getBusinessLayer'
+
+// import { fromLonLat } from 'ol/proj'
+import { Select } from 'ol/interaction'
+import { MousePosition, OverviewMap, ScaleLine } from 'ol/control'
+import { singleClick } from 'ol/events/condition'
 
 const sysStore = useSysStore()
 let pid = ref(null)
@@ -261,19 +269,20 @@ const initMap = () => {
 
   const wms = `http://${sysStore.geoserverHost}/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=chine%E5%9B%BE%E5%B1%82&bbox=73.498962%2C3.832541%2C135.087387%2C53.558498&width=768&height=620&srs=EPSG%3A4326&format=image%2Fpng`
   // 创建WMS图层
+  let tileWms = new TileWMS({
+    url: wms,
+    // params: {
+    //   LAYERS: 'ZN:china', // 指定WMS层名
+    //   TILED: true, // 请求分块的图片
+    //   STYLE: ''
+    // },
+    serverType: 'geoserver' // WMS服务器类型，可选
+  })
   let wmsLayer = new TileLayer({
     className: 'wms-vector',
     title: 'china',
     preload: Infinity,
-    source: new TileWMS({
-      url: wms,
-      // params: {
-      //   LAYERS: 'ZN:china', // 指定WMS层名
-      //   TILED: true, // 请求分块的图片
-      //   STYLE: ''
-      // },
-      serverType: 'geoserver' // WMS服务器类型，可选
-    })
+    source: tileWms
   })
   map.addLayer(wmsLayer)
 
@@ -296,73 +305,43 @@ const initMap = () => {
   })
   map.addLayer(selectedFeatures)
 
-  // map.on('singleclick', function (evt) {
-  //   let featureRequest = new Format.WFS().writeGetFeature({
-  //     srsName: 'EPSG:3857', // 投影坐标系
-  //     featureNS: 'http://china.com', // 命名空间 URI
-  //     featurePrefix: 'china', // 工作区名称
-  //     featureTypes: ['hunan_city'], // 查询图层，可以是同一个工作区下的多个图层，用逗号隔开
-  //     outputFormat: 'application/json', // 输出格式
-  //     filter: Format.filter.like('name') // 过滤条件，例如模糊查询
-  //   })
+  // 监听点击事件(市、县格点订正)
+  let mapClick = map.on('singleclick', function (event) {
+    let geoPoint = new Point(event.coordinate)
+    let url = tileWms.getFeatureInfoUrl(
+      geoPoint.getCoordinates(),
+      map.getView().getResolution(),
+      map.getView().getProjection(),
+      {
+        // INFO_FORMAT: 'text/html',
+        INFO_FORMAT: 'application/json',
+        QUERY_LAYERS: 'china:hunan_country'
+      }
+    )
+    if (url) {
+      fetch(url)
+        .then((response) => response.json())
+        // .then((response) => response.text())
+        .then((json) => {
+          const features = new GeoJSON().readFeatures(json)
 
-  //   fetch('http://localhost:8080/geoserver/china/hunan_city?', {
-  //     method: 'POST',
-  //     body: new XMLSerializer().serializeToString(featureRequest)
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.totalFeatures !== 0) {
-  //         console.log(data)
-  //         let vectorSource = new VectorSource()
-  //         let features = new Format.GeoJSON().readFeatures(data)
-  //         vectorSource.addFeatures(features)
-  //         let extent = transformExtent(vectorSource.getExtent(), 'EPSG:4326', 'EPSG:3857')
-  //         map.getView().fit(extent)
-  //       }
-  //     })
-  // })
-  //点击查询
-  map.on('singleclick', function (evt) {
-    // generate a GetFeature request
-    const featureRequest = new Format.WFS().writeGetFeature({
-      srcName: 'EPSG:4326',
-      featureNS: 'http://localhost:8080/geoserver/china/wfs',
-      featureTypes: ['china:hunan_city'],
-      outputFormat: 'application/json',
-      filter: equalToFilter('name', '永州市')
-    })
-
-    // then post the request and add the received features to a layer
-    fetch('http://localhost:8080/geoserver/china/wfs', {
-      method: 'POST',
-      body: new XMLSerializer().serializeToString(featureRequest)
-    })
-      .then(function (response) {
-        return response.json()
-      })
-      .then(function (json) {
-        const features = new GeoJSON().readFeatures(json, {
-          dataProjection: 'EPSG:4326', // GeoJSON 数据的原始投影
-          featureProjection: 'EPSG:3857' // 要转换到的目标投影
-        })
-        let vectorSource = new VectorSource()
-        vectorSource.addFeatures(features)
-        let layer = new VectorLayer({
-          source: vectorSource,
-          style: new Style({
-            fill: new Fill({
-              color: 'rgba(255, 0, 0, 1)' // 点击后地块的颜色
-            }),
-            stroke: new Stroke({
-              color: '#333',
-              width: 1
-            })
+          selectedFeatures.getSource().clear()
+          selectedFeatures.getSource().addFeature(features[0])
+          let text = new Text({
+            text: features[0].get('name'),
+            fill: new Fill({ color: 'black' }),
+            stroke: new Stroke({ color: 'white', width: 1 })
           })
+          selectedFeatures.getStyle().setText(text)
+
+          let businessFullPoint = sysStore.businessFullPoint
+          pids = []
+          var ptsWithin = turf.pointsWithinPolygon(businessFullPoint, json)
+          ptsWithin.features.map((item) => pids.push(item.properties.pid))
+          console.log(pids)
+          showBox2(event)
         })
-        map.getView().fit(vectorSource.getExtent())
-        map.addLayer(layer)
-      })
+    }
   })
 }
 
@@ -380,11 +359,9 @@ draw.on('drawend', function (event) {
   selectedFeatures.getSource().clear()
   selectedFeatures.getSource().addFeature(olFeature)
   currentFeature = olFeature
-  // 创建GeoJSON格式器
-  const geojsonFormat = new GeoJSON()
 
   // 将OpenLayers的Feature转换为GeoJSON的Feature
-  const geojsonFeature = geojsonFormat.writeFeatureObject(olFeature)
+  const geojsonFeature = new GeoJSON().writeFeatureObject(olFeature)
   let businessFullPoint = sysStore.businessFullPoint
 
   var ptsWithin = turf.pointsWithinPolygon(businessFullPoint, geojsonFeature)
@@ -394,6 +371,57 @@ draw.on('drawend', function (event) {
   showBox2(event)
 })
 
+// 获取与绘制图形相交的市、县数据
+const getDataByIntersects = (olFeature) => {
+  const featureRequest = new Format.WFS().writeGetFeature({
+    srcName: 'EPSG:4326',
+    featureNS: 'http://localhost:8080/geoserver/china/wfs',
+    featurePrefix: 'china', // 工作区名称
+    featureTypes: ['china:hunan_city', 'china:hunan_country'],
+    outputFormat: 'application/json',
+    // filter: equalToFilter('name', '永州市')
+    // filter: bboxFilter(evt.coordinate, 0.01, 'EPSG:3857')
+    filter: new Intersects('the_geom', olFeature.getGeometry(), 'EPSG:3857')
+  })
+
+  // then post the request and add the received features to a layer
+  fetch('http://localhost:8080/geoserver/china/wfs', {
+    method: 'POST',
+    body: new XMLSerializer().serializeToString(featureRequest)
+  })
+    .then(function (response) {
+      return response.json()
+    })
+    .then(function (json) {
+      const features = new GeoJSON().readFeatures(json, {
+        dataProjection: 'EPSG:4326', // GeoJSON 数据的原始投影
+        featureProjection: 'EPSG:3857' // 要转换到的目标投影
+      })
+      let vectorSource = new VectorSource()
+      vectorSource.addFeatures(features)
+      let layer = new VectorLayer({
+        source: vectorSource,
+        style: (feature) => {
+          return new Style({
+            fill: new Fill({
+              color: 'rgba(255, 0, 0, 0.7)'
+            }),
+            stroke: new Stroke({
+              color: '#333',
+              width: 1
+            }),
+            text: new Text({
+              text: feature.get('name'),
+              fill: new Fill({ color: 'black' }),
+              stroke: new Stroke({ color: 'white', width: 2 })
+            })
+          })
+        }
+      })
+      map.getView().fit(vectorSource.getExtent())
+      map.addLayer(layer)
+    })
+}
 const showInfo = (event) => {
   const features = map.getFeaturesAtPixel(event.pixel)
   if (features.length == 0) {
@@ -430,8 +458,13 @@ const showBox = (event) => {
 }
 const showBox2 = (event) => {
   changeNum2.style.opacity = 1
-  changeNum2.style.left = event.target.downPx_[0] - 100 + 'px'
-  changeNum2.style.top = event.target.downPx_[1] - 100 + 'px'
+  if (event.target.downPx_) {
+    changeNum2.style.left = event.target.downPx_[0] - 100 + 'px'
+    changeNum2.style.top = event.target.downPx_[1] - 100 + 'px'
+  } else {
+    changeNum2.style.left = event.pixel_[0] - 100 + 'px'
+    changeNum2.style.top = event.pixel_[1] - 100 + 'px'
+  }
 }
 
 //点击网格订正
