@@ -110,7 +110,7 @@ const mapCon = ref()
 
 let PID
 
-let map
+let map, tileWms
 let pids = []
 const key = '9d871cee845e322ca402f38ade03b7b2'
 let type = {
@@ -269,7 +269,7 @@ const initMap = () => {
 
   const wms = `http://${sysStore.geoserverHost}/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=chine%E5%9B%BE%E5%B1%82&bbox=73.498962%2C3.832541%2C135.087387%2C53.558498&width=768&height=620&srs=EPSG%3A4326&format=image%2Fpng`
   // 创建WMS图层
-  let tileWms = new TileWMS({
+  tileWms = new TileWMS({
     url: wms,
     // params: {
     //   LAYERS: 'ZN:china', // 指定WMS层名
@@ -306,43 +306,44 @@ const initMap = () => {
   map.addLayer(selectedFeatures)
 
   // 监听点击事件(市、县格点订正)
-  let mapClick = map.on('singleclick', function (event) {
-    let geoPoint = new Point(event.coordinate)
-    let url = tileWms.getFeatureInfoUrl(
-      geoPoint.getCoordinates(),
-      map.getView().getResolution(),
-      map.getView().getProjection(),
-      {
-        // INFO_FORMAT: 'text/html',
-        INFO_FORMAT: 'application/json',
-        QUERY_LAYERS: 'china:hunan_country'
-      }
-    )
-    if (url) {
-      fetch(url)
-        .then((response) => response.json())
-        // .then((response) => response.text())
-        .then((json) => {
-          const features = new GeoJSON().readFeatures(json)
-
-          selectedFeatures.getSource().clear()
-          selectedFeatures.getSource().addFeature(features[0])
-          let text = new Text({
-            text: features[0].get('name'),
-            fill: new Fill({ color: 'black' }),
-            stroke: new Stroke({ color: 'white', width: 1 })
-          })
-          selectedFeatures.getStyle().setText(text)
-
-          let businessFullPoint = sysStore.businessFullPoint
-          pids = []
-          var ptsWithin = turf.pointsWithinPolygon(businessFullPoint, json)
-          ptsWithin.features.map((item) => pids.push(item.properties.pid))
-          console.log(pids)
-          showBox2(event)
-        })
+  map.on('singleclick', (event) => getGridValueByClick(event.coordinate, 'city'))
+}
+const getGridValueByClick = (coordinate, name) => {
+  let geoPoint = new Point(coordinate)
+  let url = tileWms.getFeatureInfoUrl(
+    geoPoint.getCoordinates(),
+    map.getView().getResolution(),
+    map.getView().getProjection(),
+    {
+      // INFO_FORMAT: 'text/html',
+      INFO_FORMAT: 'application/json',
+      QUERY_LAYERS: `china:hunan_${name}`
     }
-  })
+  )
+  if (url) {
+    fetch(url)
+      .then((response) => response.json())
+      // .then((response) => response.text())
+      .then((json) => {
+        const features = new GeoJSON().readFeatures(json)
+
+        selectedFeatures.getSource().clear()
+        selectedFeatures.getSource().addFeature(features[0])
+        let text = new Text({
+          text: features[0].get('name'),
+          fill: new Fill({ color: 'black' }),
+          stroke: new Stroke({ color: 'white', width: 1 })
+        })
+        selectedFeatures.getStyle().setText(text)
+
+        let businessFullPoint = sysStore.businessFullPoint
+        pids = []
+        var ptsWithin = turf.pointsWithinPolygon(businessFullPoint, json)
+        ptsWithin.features.map((item) => pids.push(item.properties.pid))
+        console.log(pids)
+        showBox2(event)
+      })
+  }
 }
 
 let draw = new Draw({

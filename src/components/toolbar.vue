@@ -148,7 +148,6 @@ const selectCity = () => {
   }
 }
 //根据点击查询wms范围来筛选格点
-const getGridValueByClick = () => {}
 </script>
 
 <style lang="less" scoped>
