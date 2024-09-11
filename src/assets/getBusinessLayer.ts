@@ -9,6 +9,8 @@ import { Layer } from 'ol/layer'
 import WebGLVectorLayerRenderer from 'ol/renderer/webgl/VectorLayer'
 import { asColorLike } from 'ol/colorlike'
 import { getColorByType } from './getColorByType'
+import * as turf from '@turf/turf'
+import { transform } from 'ol/proj'
 
 // import axios from 'axios'
 
@@ -165,6 +167,66 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
 
   // var fill = new Fill()
 
+  let geo = JSON.parse(data.geoJson)
+  //找极值:
+  let maxValues = [],
+    maxValueFeatures: any = [],
+    values: any = [],
+    max2 = [],
+    maxValue: number
+  if (id == '1') {
+    for (let i = 0; i < geo.features.length; i++) {
+      maxValues.push(geo.features[i].properties.maxValue)
+    }
+
+    let max = Math.max(...maxValues)
+
+    let featuresFull = new GeoJSON().readFeatures(geo, {
+      dataProjection: 'EPSG:3857', // GeoJSON 数据的原始投影
+      featureProjection: 'EPSG:4326' // 要转换到的目标投影
+    })
+
+    // featuresFull.map((value: any) => {
+    //   if (value.getProperties().maxValue == max) {
+    //     maxValueFeatures.push(value)
+    //   }
+    // })
+    geo.features.map((value: any) => {
+      if (value.properties.maxValue == max) {
+        maxValueFeatures.push(value)
+      }
+    })
+    let fea = {
+      type: 'FeatureCollection',
+      features: maxValueFeatures
+    }
+    // 将FeatureCollection中的每个Feature的几何对象转换坐标系
+    fea.features.forEach(function (feature: any) {
+      let geometry = feature.geometry
+      if (geometry) {
+        var coordinates = geometry.coordinates
+        var transformedCoordinates = coordinates[0].map(function (coords) {
+          return coords.map((coord) => {
+            return transform(coord, 'EPSG:4326', 'EPSG:3857')
+          })
+        })
+        geometry.coordinates = transformedCoordinates
+      }
+    })
+
+    let businessFullPoint = sysStore.businessFullPoint
+    // let ptsWithin = turf.pointsWithinPolygon(businessFullPoint, fea)
+    let ptsWithin = turf.pointsWithinPolygon(geojsonData_Point_full, fea)
+    console.log('所有最大值的feature:', maxValueFeatures)
+    for (let i = 0; i < maxValueFeatures.length; i++) {
+      ptsWithin = turf.pointsWithinPolygon(businessFullPoint, maxValueFeatures[i])
+      ptsWithin.features.map((item) => values.push(item?.properties?.values1))
+      max2.push(Math.max(...values))
+    }
+    //最大的格点值
+    maxValue = Math.max(...max2)
+  }
+
   //格点图层
   let businessLayer = new VectorLayer({
     title: 'grid_VectorLayer',
@@ -174,35 +236,47 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     }),
     style: (feature, resolution) => {
       let fill = new Fill()
-      // fill.setColor(
-      //   feature.get('value1') > 0.1 ? repeatCtx.createPattern(img, 'repeat') : feature.get('color')
-      // )
-      let ll = asColorLike({
-        src: 'src/assets/images/雨夹雪.png'
-      })
-
-      return new Style({
-        fill: new Fill({ color: feature.get('color') }),
-        // fill: fill,
-        stroke: new Stroke({ color: feature.get('color'), width: 0 }),
-        text: new Text({
+      let text = new Text()
+      if (feature.get('value1') == maxValue) {
+        text = new Text({
           text: [
-            `${feature.get('value1')}`,
-            '12px Calibri,sans-serif'
+            `${Math.round(maxValue)}`,
+            `18px Calibri,sans-serif`
             // '\n',
             // '',
             // `${feature.get('value2')}`,
             // '10px Calibri,sans-serif'
           ],
-          // text: feature.get('value1'),
-          // font: '12px Calibri,sans-serif',
           overflow: true,
-          fill: new Fill({ color: '#000' }),
+          fill: new Fill({ color: 'red' }),
           stroke: new Stroke({
             color: '#fff',
             width: 3
           })
         })
+      } else {
+        text = new Text({
+          text: [
+            `${feature.get('value1')}`,
+            `12px Calibri,sans-serif`
+            // '\n',
+            // '',
+            // `${feature.get('value2')}`,
+            // '10px Calibri,sans-serif'
+          ],
+          overflow: true,
+          fill: new Fill({ color: 'red' }),
+          stroke: new Stroke({
+            color: '#fff',
+            width: 3
+          })
+        })
+      }
+      return new Style({
+        fill: new Fill({ color: feature.get('color') }),
+        // fill: fill,
+        stroke: new Stroke({ color: feature.get('color'), width: 0 }),
+        text: text
       })
     }
   })
@@ -232,8 +306,6 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   if (['2', '7'].includes(id)) {
     businessLayer2 = null
   } else {
-    let geo = JSON.parse(data.geoJson)
-
     businessLayer2 = new VectorLayer({
       title: 'isosurfaces_VectorLayer',
       opacity: 0.8,

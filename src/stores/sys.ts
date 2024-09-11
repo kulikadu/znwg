@@ -1,3 +1,10 @@
+/*
+ * @Author: wangyilin
+ * @Date: 2024-09-05 08:49:05
+ * @LastEditors: wangyilin
+ * @LastEditTime: 2024-09-11 12:15:41
+ *
+ */
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { Map } from 'ol'
@@ -28,6 +35,9 @@ export interface SysStore {
   showIsosurfaces: Boolean | null
   showGrid: Boolean | null
   currentFeature: String | Number
+  pids: Array<String>
+  selectedFeatures: any
+  showBox2: Function | null
 }
 
 export const useSysStore = defineStore({
@@ -45,7 +55,10 @@ export const useSysStore = defineStore({
     draw: null,
     showIsosurfaces: false,
     showGrid: true,
-    currentFeature: ''
+    currentFeature: '',
+    pids: [],
+    selectedFeatures: null,
+    showBox2: null
   }),
   actions: {
     // setHost(value: String) {
@@ -83,6 +96,15 @@ export const useSysStore = defineStore({
     },
     setCurrentFeature(value: String | Number) {
       this.currentFeature = value
+    },
+    setPids(value: Array<String>) {
+      this.pids = value
+    },
+    setSelectedFeatures(value: any) {
+      this.selectedFeatures = value
+    },
+    setShowBox2(value: Function) {
+      this.showBox2 = value
     }
   }
 })

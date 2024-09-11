@@ -90,9 +90,10 @@ import WebGLPointsLayer from 'ol/layer/WebGLPoints.js'
 import WebGLTile from 'ol/layer/WebGLTile.js'
 import html2canvas from 'html2canvas'
 import fs from 'file-saver'
-import { getView } from '@/assets/Map/map'
+import { getView, getTileWms, getGridValueByClick } from '@/assets/Map/map'
 import { useSysStore } from '@/stores/sys'
 import { getBusinessLayer } from '@/assets/getBusinessLayer'
+import { fetchGet, fetchPost, getUpdateUrl } from '@/api'
 
 // import { fromLonLat } from 'ol/proj'
 import { Select } from 'ol/interaction'
@@ -267,17 +268,8 @@ const initMap = () => {
   sysStore.setMap(map)
   // WMS服务的URL
 
-  const wms = `http://${sysStore.geoserverHost}/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=chine%E5%9B%BE%E5%B1%82&bbox=73.498962%2C3.832541%2C135.087387%2C53.558498&width=768&height=620&srs=EPSG%3A4326&format=image%2Fpng`
   // 创建WMS图层
-  tileWms = new TileWMS({
-    url: wms,
-    // params: {
-    //   LAYERS: 'ZN:china', // 指定WMS层名
-    //   TILED: true, // 请求分块的图片
-    //   STYLE: ''
-    // },
-    serverType: 'geoserver' // WMS服务器类型，可选
-  })
+  tileWms = getTileWms()
   let wmsLayer = new TileLayer({
     className: 'wms-vector',
     title: 'china',
@@ -304,47 +296,54 @@ const initMap = () => {
     zIndex: 10
   })
   map.addLayer(selectedFeatures)
-
+  sysStore.setSelectedFeatures(selectedFeatures)
   // 监听点击事件(市、县格点订正)
-  map.on('singleclick', (event) => getGridValueByClick(event.coordinate, 'city'))
+  // map.on('singleclick', async (event) => {
+  //   let status = await getGridValueByClick(event.coordinate, 'hunan_city')
+  //   status == 1 ? showBox2(event.coordinate) : null
+  // })
 }
-const getGridValueByClick = (coordinate, name) => {
-  let geoPoint = new Point(coordinate)
-  let url = tileWms.getFeatureInfoUrl(
-    geoPoint.getCoordinates(),
-    map.getView().getResolution(),
-    map.getView().getProjection(),
-    {
-      // INFO_FORMAT: 'text/html',
-      INFO_FORMAT: 'application/json',
-      QUERY_LAYERS: `china:hunan_${name}`
-    }
-  )
-  if (url) {
-    fetch(url)
-      .then((response) => response.json())
-      // .then((response) => response.text())
-      .then((json) => {
-        const features = new GeoJSON().readFeatures(json)
+// const getGridValueByClick = (event, name) => {
+//   let geoPoint = new Point(event.coordinate)
+//   let url = tileWms.getFeatureInfoUrl(
+//     geoPoint.getCoordinates(),
+//     map.getView().getResolution(),
+//     map.getView().getProjection(),
+//     {
+//       // INFO_FORMAT: 'text/html',
+//       INFO_FORMAT: 'application/json',
+//       QUERY_LAYERS: `china:hunan_${name}`
+//     }
+//   )
+//   if (url) {
+//     fetch(url)
+//       .then((response) => response.json())
+//       // .then((response) => response.text())
+//       .then((json) => {
+//         const features = new GeoJSON().readFeatures(json)
 
-        selectedFeatures.getSource().clear()
-        selectedFeatures.getSource().addFeature(features[0])
-        let text = new Text({
-          text: features[0].get('name'),
-          fill: new Fill({ color: 'black' }),
-          stroke: new Stroke({ color: 'white', width: 1 })
-        })
-        selectedFeatures.getStyle().setText(text)
+//         selectedFeatures.getSource().clear()
+//         selectedFeatures.getSource().addFeature(features[0])
+//         let text = new Text({
+//           text: features[0].get('name'),
+//           fill: new Fill({ color: 'black' }),
+//           stroke: new Stroke({ color: 'white', width: 1 })
+//         })
+//         selectedFeatures.getStyle().setText(text)
 
-        let businessFullPoint = sysStore.businessFullPoint
-        pids = []
-        var ptsWithin = turf.pointsWithinPolygon(businessFullPoint, json)
-        ptsWithin.features.map((item) => pids.push(item.properties.pid))
-        console.log(pids)
-        showBox2(event)
-      })
-  }
-}
+//         let businessFullPoint = sysStore.businessFullPoint
+//         if (businessFullPoint == null) {
+//           alert('请先选择数据源！')
+//         } else {
+//           pids = []
+//           var ptsWithin = turf.pointsWithinPolygon(businessFullPoint, json)
+//           ptsWithin.features.map((item) => pids.push(item.properties.pid))
+//           console.log(pids)
+//           showBox2(event)
+//         }
+//       })
+//   }
+// }
 
 let draw = new Draw({
   source: new VectorSource(),
@@ -467,6 +466,7 @@ const showBox2 = (event) => {
     changeNum2.style.top = event.pixel_[1] - 100 + 'px'
   }
 }
+sysStore.setShowBox2(showBox2)
 
 //点击网格订正
 const changeValue = (value) => {
@@ -482,8 +482,8 @@ const changeValue = (value) => {
     })
 }
 
-//画圈订正
-const changeValue2 = (value) => {
+//订正
+const changeValue2 = async (value) => {
   changeNum2.style.opacity = 0
   let updatetype = type[radioValue.value]
   let val = num.value
@@ -495,39 +495,28 @@ const changeValue2 = (value) => {
     val: val
   }
   const bodyData = JSON.stringify(params)
-  const options = {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: bodyData
+
+  let data = await fetchPost(getUpdateUrl, bodyData)
+  let layers = map.getLayers().getArray()
+  for (let i = 0; i < layers.length; i++) {
+    if (layers[i].get('title') == 'renderFeatures') {
+      map.removeLayer(layers[i])
+    }
+  }
+  for (let i = 0; i < layers.length; i++) {
+    if (layers[i].get('title') == 'grid_VectorLayer') {
+      map.removeLayer(layers[i])
+    }
+  }
+  for (let i = 0; i < layers.length; i++) {
+    if (layers[i].get('title') == 'isosurfaces_VectorLayer') {
+      map.removeLayer(layers[i])
+    }
   }
 
-  // fetch(`http://10.111.102.30:8082/znwg-api/test/gridupdates`, options)
-  fetch(`http://10.111.101.243:8083/znwg-api/grid/gridupdates`, options)
-    .then((res) => res.json())
-    .then((data) => {
-      // selectedFeatures.getSource().clear();
-      let layers = map.getLayers().getArray()
-      for (let i = 0; i < layers.length; i++) {
-        if (layers[i].get('title') == 'renderFeatures') {
-          map.removeLayer(layers[i])
-        }
-      }
-      for (let i = 0; i < layers.length; i++) {
-        if (layers[i].get('title') == 'grid_VectorLayer') {
-          map.removeLayer(layers[i])
-        }
-      }
-      for (let i = 0; i < layers.length; i++) {
-        if (layers[i].get('title') == 'isosurfaces_VectorLayer') {
-          map.removeLayer(layers[i])
-        }
-      }
-
-      //data：原始数据;gap：抽稀系数;value：要素编号
-      let businessLayers = getBusinessLayer(data.data, 5, sysStore.currentFeature)
-      map.addLayer(businessLayers[0])
-    })
-    .catch((err) => console.error(err))
+  //data：原始数据;gap：抽稀系数;value：要素编号
+  let businessLayers = getBusinessLayer(data.data, 5, sysStore.currentFeature)
+  map.addLayer(businessLayers[0])
 }
 
 //成图

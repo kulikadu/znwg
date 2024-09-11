@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import CheckBox from '@/components/checkbox.vue'
-import { getView } from '@/assets/Map/map'
+import { getView, getGridValueByClick } from '@/assets/Map/map'
 import { Map } from 'ol'
 import { Draw } from 'ol/interaction'
 import { useSysStore } from '@/stores/sys'
@@ -81,6 +81,14 @@ const calcExtremum = () => {
   check.value = !check.value
   console.log(check.value)
 }
+let queryName = ''
+const clickHandler = async (event: any) => {
+  let status = await getGridValueByClick(event.coordinate, queryName)
+
+  let showBox2 = sysStore.showBox2!
+  status == 1 ? showBox2(event) : null
+}
+
 const handleClick = (name: string, index: number) => {
   activeIndex.value = index
   switch (name) {
@@ -115,6 +123,7 @@ const drawPolygon = () => {
   } else {
     console.log('地图不存在')
   }
+  setPan()
   let draw = sysStore.draw as Draw
   map?.addInteraction(draw)
 }
@@ -137,6 +146,7 @@ const setPan = () => {
   if (draw != null) {
     map?.removeInteraction(draw)
   }
+  map?.un('singleclick', clickHandler)
 }
 
 //市选择
@@ -146,6 +156,23 @@ const selectCity = () => {
   } else {
     console.log('地图不存在')
   }
+
+  setPan()
+  queryName = 'hunan_city'
+  map?.on('singleclick', clickHandler)
+}
+
+//县选择
+const selectCountry = () => {
+  if (sysStore.map) {
+    map = sysStore.map as Map
+  } else {
+    console.log('地图不存在')
+  }
+
+  setPan()
+  queryName = 'hunan_country'
+  map?.on('singleclick', clickHandler)
 }
 //根据点击查询wms范围来筛选格点
 </script>
