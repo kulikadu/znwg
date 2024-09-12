@@ -44,10 +44,14 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   let latGap = data.lat
   let lonGap = data.lon
 
-  let startlat = data.startlat
-  let endlat = data.endlat + latGap
-  let startlon = data.startlon
-  let endlon = data.endlon + lonGap
+  // let startlat = data.startlat
+  // let endlat = data.endlat + latGap
+  // let startlon = data.startlon
+  // let endlon = data.endlon + lonGap
+  let startlat = data.startlat - latGap / 2
+  let endlat = data.endlat + latGap / 2
+  let startlon = data.startlon - lonGap / 2
+  let endlon = data.endlon + lonGap / 2
   let values1 = data.value1 //格点值
   let values2 = data.value2 //相态
   let numX = (endlon - startlon) / lonGap
@@ -169,28 +173,20 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
 
   let geo = JSON.parse(data.geoJson)
   //找极值:
-  let maxValues = [],
+  let maxValues: number[] = [],
     maxValueFeatures: any = [],
-    values: any = [],
-    max2 = [],
-    maxValue: number
-  if (id == '1') {
-    for (let i = 0; i < geo.features.length; i++) {
-      maxValues.push(geo.features[i].properties.maxValue)
+    values: number[] = [],
+    maxGridValue: number = 0
+  if (id === '1' && geo && geo.features) {
+    for (const feature of geo.features) {
+      const maxValue = feature.properties?.maxValue
+      if (typeof maxValue === 'number') {
+        maxValues.push(maxValue)
+      }
     }
 
     let max = Math.max(...maxValues)
 
-    let featuresFull = new GeoJSON().readFeatures(geo, {
-      dataProjection: 'EPSG:3857', // GeoJSON 数据的原始投影
-      featureProjection: 'EPSG:4326' // 要转换到的目标投影
-    })
-
-    // featuresFull.map((value: any) => {
-    //   if (value.getProperties().maxValue == max) {
-    //     maxValueFeatures.push(value)
-    //   }
-    // })
     geo.features.map((value: any) => {
       if (value.properties.maxValue == max) {
         maxValueFeatures.push(value)
@@ -205,26 +201,33 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       let geometry = feature.geometry
       if (geometry) {
         var coordinates = geometry.coordinates
-        var transformedCoordinates = coordinates[0].map(function (coords) {
-          return coords.map((coord) => {
+        var transformedCoordinates = coordinates[0].map(function (coords: any) {
+          return coords.map((coord: any) => {
             return transform(coord, 'EPSG:4326', 'EPSG:3857')
           })
         })
-        geometry.coordinates = transformedCoordinates
+        geometry.coordinates[0] = transformedCoordinates
       }
     })
 
-    let businessFullPoint = sysStore.businessFullPoint
-    // let ptsWithin = turf.pointsWithinPolygon(businessFullPoint, fea)
     let ptsWithin = turf.pointsWithinPolygon(geojsonData_Point_full, fea)
     console.log('所有最大值的feature:', maxValueFeatures)
-    for (let i = 0; i < maxValueFeatures.length; i++) {
-      ptsWithin = turf.pointsWithinPolygon(businessFullPoint, maxValueFeatures[i])
-      ptsWithin.features.map((item) => values.push(item?.properties?.values1))
-      max2.push(Math.max(...values))
+    if (ptsWithin.features.length > 0) {
+      ptsWithin.features.map((item) => {
+        values.push(item?.properties?.value1)
+      })
+      //最大的格点值
+      maxGridValue = Math.max(...values)
+      sysStore.setMaxGridValue(maxGridValue)
+      console.log({ maxGridValue })
+
+      //最大格点值的坐标
+      geojsonData_Point_full.features.forEach((feature: any) => {
+        if (feature.properties.value1 == maxGridValue) {
+          sysStore.setExtremumCoordinate(feature.geometry.coordinates)
+        }
+      })
     }
-    //最大的格点值
-    maxValue = Math.max(...max2)
   }
 
   //格点图层
@@ -236,46 +239,26 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     }),
     style: (feature, resolution) => {
       let fill = new Fill()
-      let text = new Text()
-      if (feature.get('value1') == maxValue) {
-        text = new Text({
-          text: [
-            `${Math.round(maxValue)}`,
-            `18px Calibri,sans-serif`
-            // '\n',
-            // '',
-            // `${feature.get('value2')}`,
-            // '10px Calibri,sans-serif'
-          ],
-          overflow: true,
-          fill: new Fill({ color: 'red' }),
-          stroke: new Stroke({
-            color: '#fff',
-            width: 3
-          })
+      let text = new Text({
+        text: [
+          `${feature.get('value1')}`,
+          `12px Calibri,sans-serif`
+          // '\n',
+          // '',
+          // `${feature.get('value2')}`,
+          // '10px Calibri,sans-serif'
+        ],
+        overflow: true,
+        fill: new Fill({ color: 'black' }),
+        stroke: new Stroke({
+          color: '#fff',
+          width: 3
         })
-      } else {
-        text = new Text({
-          text: [
-            `${feature.get('value1')}`,
-            `12px Calibri,sans-serif`
-            // '\n',
-            // '',
-            // `${feature.get('value2')}`,
-            // '10px Calibri,sans-serif'
-          ],
-          overflow: true,
-          fill: new Fill({ color: 'red' }),
-          stroke: new Stroke({
-            color: '#fff',
-            width: 3
-          })
-        })
-      }
+      })
       return new Style({
         fill: new Fill({ color: feature.get('color') }),
         // fill: fill,
-        stroke: new Stroke({ color: feature.get('color'), width: 0 }),
+        stroke: new Stroke({ color: 'black', width: 1 }),
         text: text
       })
     }
@@ -306,12 +289,13 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   if (['2', '7'].includes(id)) {
     businessLayer2 = null
   } else {
+    let geo2 = JSON.parse(data.geoJson)
     businessLayer2 = new VectorLayer({
       title: 'isosurfaces_VectorLayer',
       opacity: 0.8,
       zIndex: 100,
       source: new VectorSource({
-        features: new GeoJSON().readFeatures(geo, {
+        features: new GeoJSON().readFeatures(geo2, {
           dataProjection: 'EPSG:4326', // GeoJSON 数据的原始投影
           featureProjection: 'EPSG:3857' // 要转换到的目标投影
         })
@@ -327,6 +311,32 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     })
   }
 
+  let bus3 = new VectorLayer({
+    title: 'grid_VectorLayer2',
+    opacity: 0.8,
+    zIndex: 10,
+    source: new VectorSource({
+      features: new GeoJSON().readFeatures(geojsonData_Point_full)
+    }),
+    style: (feature) => {
+      return new Style({
+        text: new Text({
+          // text: Math.round(maxGridValue as number).toString(), // 文本内容
+          text: `${feature.get('value1')}`, // 文本内容
+          font: '12px sans-serif', // 字体样式
+          fill: new Fill({
+            color: 'red' // 文本颜色
+          }),
+          stroke: new Stroke({
+            color: '#fff', // 文本轮廓颜色
+            width: 3 // 文本轮廓宽度
+          })
+        })
+      })
+    }
+  })
+  let map = sysStore.map
+  map?.addLayer(bus3)
   const style = {
     'fill-color': ['*', ['get', 'color'], [255, 255, 255, 0.6]]
   }

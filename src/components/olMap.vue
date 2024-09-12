@@ -46,17 +46,6 @@
       <el-button @click="changeValue2">确定</el-button>
     </div>
   </section>
-  <div
-    id="info2"
-    style="
-      position: absolute;
-      width: 200px;
-      height: 100px;
-      bottom: 300px;
-      left: 300px;
-      border: 1px solid red;
-    "
-  ></div>
 </template>
 
 <script setup>

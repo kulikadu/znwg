@@ -2,7 +2,7 @@
  * @Author: wangyilin
  * @Date: 2024-09-05 08:49:05
  * @LastEditors: wangyilin
- * @LastEditTime: 2024-09-11 12:15:41
+ * @LastEditTime: 2024-09-12 16:05:33
  *
  */
 import { ref, computed } from 'vue'
@@ -38,6 +38,8 @@ export interface SysStore {
   pids: Array<String>
   selectedFeatures: any
   showBox2: Function | null
+  maxGridValue: Number
+  extremumCoordinate: [Number, Number]
 }
 
 export const useSysStore = defineStore({
@@ -58,7 +60,9 @@ export const useSysStore = defineStore({
     currentFeature: '',
     pids: [],
     selectedFeatures: null,
-    showBox2: null
+    showBox2: null,
+    maxGridValue: 0,
+    extremumCoordinate: [0, 0]
   }),
   actions: {
     // setHost(value: String) {
@@ -105,6 +109,12 @@ export const useSysStore = defineStore({
     },
     setShowBox2(value: Function) {
       this.showBox2 = value
+    },
+    setMaxGridValue(value: Number) {
+      this.maxGridValue = value
+    },
+    setExtremumCoordinate(value: [Number, Number]) {
+      this.extremumCoordinate = value
     }
   }
 })
