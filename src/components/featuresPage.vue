@@ -22,7 +22,7 @@
 import BoxTitle from './boxTitle.vue'
 import { useSysStore } from '@/stores/sys'
 import { getBusinessLayer } from '@/assets/getBusinessLayer'
-import { getSourceUrl, getSourceTimeUrl } from '@/api'
+import { getSourceUrl, getSourceTimeUrl, fetchGet } from '@/api'
 import type BaseLayer from 'ol/layer/Base'
 import { getColorByType } from '@/assets/getColorByType'
 
@@ -75,7 +75,7 @@ let index = 0
 
 let legendData = ref()
 let isshowLegend = ref(true)
-const handleClick = (value: string, index: number) => {
+const handleClick = async (value: string, index: number) => {
   activeIndex.value = index
   if (value != null) {
     console.log(value)
@@ -85,30 +85,29 @@ const handleClick = (value: string, index: number) => {
     isshowLegend.value = false
     legendData.value = getColorByType(value)
     sysStore.setCurrentFeature(value)
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        data = data.data
-        let map = sysStore.map
-        //businessLayer:格点值；businessLayer2：等值面
-        let businessLayer = sysStore.businessLayer
-        let businessLayer2 = sysStore.businessLayer2
-        map?.removeLayer(businessLayer as BaseLayer)
-        map?.removeLayer(businessLayer2)
-        // let layers = getBusinessLayer(data, 6 - index)
 
-        let layers = getBusinessLayer(data, 1, value) //data：原始数据;gap：抽稀系数;value：要素编号
-        index++
-        //layers[0]：格点值；layers[1]：等值面
-        if (sysStore.showGrid) {
-          map?.addLayer(layers[0] as BaseLayer)
-        } else if (sysStore.showIsosurfaces) {
-          map?.addLayer(layers[1] as BaseLayer)
-        } else {
-          map?.addLayer(layers[0] as BaseLayer)
-          sysStore.setShowGrid(true)
-        }
-      })
+    //获取要素数据
+    let data: any = await fetchGet(url)
+    data = data.data
+    let map = sysStore.map
+    //businessLayer:格点值；businessLayer2：等值面
+    let businessLayer = sysStore.businessLayer
+    let businessLayer2 = sysStore.businessLayer2
+    map?.removeLayer(businessLayer as BaseLayer)
+    map?.removeLayer(businessLayer2)
+    // let layers = getBusinessLayer(data, 6 - index)
+
+    let layers = getBusinessLayer(data, 5, value) //data：原始数据;gap：抽稀系数;value：要素编号
+    index++
+    //layers[0]：格点值；layers[1]：等值面
+    if (sysStore.showGrid) {
+      map?.addLayer(layers[0] as BaseLayer)
+    } else if (sysStore.showIsosurfaces) {
+      map?.addLayer(layers[1] as BaseLayer)
+    } else {
+      map?.addLayer(layers[0] as BaseLayer)
+      sysStore.setShowGrid(true)
+    }
   }
 }
 </script>

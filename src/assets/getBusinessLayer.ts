@@ -40,6 +40,7 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   const sysStore = useSysStore()
   geojsonData_Polygon.features = []
   geojsonData_Point.features = []
+  geojsonData_Point_full.features = []
 
   let latGap = data.lat
   let lonGap = data.lon
@@ -48,10 +49,13 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   // let endlat = data.endlat + latGap
   // let startlon = data.startlon
   // let endlon = data.endlon + lonGap
+
+  //以格点值为中心构建网格
   let startlat = data.startlat - latGap / 2
   let endlat = data.endlat + latGap / 2
   let startlon = data.startlon - lonGap / 2
   let endlon = data.endlon + lonGap / 2
+
   let values1 = data.value1 //格点值
   let values2 = data.value2 //相态
   let numX = (endlon - startlon) / lonGap
@@ -66,7 +70,6 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   let newNumY = Math.round(numY / gap)
   for (let i = 0; i < newNumY; i++) {
     for (let j = 0; j < newNumX; j++) {
-      // let pid = j == 0 && i == 0 ? 0 : (i * numX + j) * gap - 1
       let pid = (i * numX + j) * gap
       let color = getColor(id, values1[pid])
 
@@ -134,6 +137,12 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     }
   }
   // sysStore.setBusinessPolygon(geojsonData_Polygon)
+
+  //原始格点不做偏移
+  startlat = data.startlat
+  endlat = data.endlat + latGap
+  startlon = data.startlon
+  endlon = data.endlon + lonGap
   for (let i = 0; i < numY; i++) {
     for (let j = 0; j < numX; j++) {
       let pid = j == 0 && i == 0 ? 0 : i * numX + j - 1
@@ -171,62 +180,65 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
 
   // var fill = new Fill()
 
-  let geo = JSON.parse(data.geoJson)
-  //找极值:
-  let maxValues: number[] = [],
-    maxValueFeatures: any = [],
-    values: number[] = [],
-    maxGridValue: number = 0
-  if (id === '1' && geo && geo.features) {
-    for (const feature of geo.features) {
-      const maxValue = feature.properties?.maxValue
-      if (typeof maxValue === 'number') {
-        maxValues.push(maxValue)
+  //只有降雨有极值
+  if (id == '1') {
+    let geo = JSON.parse(data.geoJson)
+    //找极值:
+    let maxValues: number[] = [],
+      maxValueFeatures: any = [],
+      values: number[] = [],
+      maxGridValue: number = 0
+    if (id === '1' && geo && geo.features) {
+      for (const feature of geo.features) {
+        const maxValue = feature.properties?.maxValue
+        if (typeof maxValue === 'number') {
+          maxValues.push(maxValue)
+        }
       }
-    }
 
-    let max = Math.max(...maxValues)
+      let max = Math.max(...maxValues)
 
-    geo.features.map((value: any) => {
-      if (value.properties.maxValue == max) {
-        maxValueFeatures.push(value)
-      }
-    })
-    let fea = {
-      type: 'FeatureCollection',
-      features: maxValueFeatures
-    }
-    // 将FeatureCollection中的每个Feature的几何对象转换坐标系
-    fea.features.forEach(function (feature: any) {
-      let geometry = feature.geometry
-      if (geometry) {
-        var coordinates = geometry.coordinates
-        var transformedCoordinates = coordinates[0].map(function (coords: any) {
-          return coords.map((coord: any) => {
-            return transform(coord, 'EPSG:4326', 'EPSG:3857')
-          })
-        })
-        geometry.coordinates[0] = transformedCoordinates
-      }
-    })
-
-    let ptsWithin = turf.pointsWithinPolygon(geojsonData_Point_full, fea)
-    console.log('所有最大值的feature:', maxValueFeatures)
-    if (ptsWithin.features.length > 0) {
-      ptsWithin.features.map((item) => {
-        values.push(item?.properties?.value1)
-      })
-      //最大的格点值
-      maxGridValue = Math.max(...values)
-      sysStore.setMaxGridValue(maxGridValue)
-      console.log({ maxGridValue })
-
-      //最大格点值的坐标
-      geojsonData_Point_full.features.forEach((feature: any) => {
-        if (feature.properties.value1 == maxGridValue) {
-          sysStore.setExtremumCoordinate(feature.geometry.coordinates)
+      geo.features.map((value: any) => {
+        if (value.properties.maxValue == max) {
+          maxValueFeatures.push(value)
         }
       })
+      let fea = {
+        type: 'FeatureCollection',
+        features: maxValueFeatures
+      }
+      // 将FeatureCollection中的每个Feature的几何对象转换坐标系
+      fea.features.forEach(function (feature: any) {
+        let geometry = feature.geometry
+        if (geometry) {
+          var coordinates = geometry.coordinates
+          var transformedCoordinates = coordinates[0].map(function (coords: any) {
+            return coords.map((coord: any) => {
+              return transform(coord, 'EPSG:4326', 'EPSG:3857')
+            })
+          })
+          geometry.coordinates[0] = transformedCoordinates
+        }
+      })
+
+      let ptsWithin = turf.pointsWithinPolygon(geojsonData_Point_full, fea)
+      console.log('所有最大值的feature:', maxValueFeatures)
+      if (ptsWithin.features.length > 0) {
+        ptsWithin.features.map((item) => {
+          values.push(item?.properties?.value1)
+        })
+        //最大的格点值
+        maxGridValue = Math.max(...values)
+        sysStore.setMaxGridValue(maxGridValue)
+        console.log({ maxGridValue })
+
+        //最大格点值的坐标
+        geojsonData_Point_full.features.forEach((feature: any) => {
+          if (feature.properties.value1 == maxGridValue) {
+            sysStore.setExtremumCoordinate(feature.geometry.coordinates)
+          }
+        })
+      }
     }
   }
 
@@ -311,32 +323,6 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     })
   }
 
-  let bus3 = new VectorLayer({
-    title: 'grid_VectorLayer2',
-    opacity: 0.8,
-    zIndex: 10,
-    source: new VectorSource({
-      features: new GeoJSON().readFeatures(geojsonData_Point_full)
-    }),
-    style: (feature) => {
-      return new Style({
-        text: new Text({
-          // text: Math.round(maxGridValue as number).toString(), // 文本内容
-          text: `${feature.get('value1')}`, // 文本内容
-          font: '12px sans-serif', // 字体样式
-          fill: new Fill({
-            color: 'red' // 文本颜色
-          }),
-          stroke: new Stroke({
-            color: '#fff', // 文本轮廓颜色
-            width: 3 // 文本轮廓宽度
-          })
-        })
-      })
-    }
-  })
-  let map = sysStore.map
-  map?.addLayer(bus3)
   const style = {
     'fill-color': ['*', ['get', 'color'], [255, 255, 255, 0.6]]
   }

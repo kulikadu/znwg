@@ -2,7 +2,7 @@
  * @Author: wangyilin
  * @Date: 2024-09-05 08:49:05
  * @LastEditors: wangyilin
- * @LastEditTime: 2024-09-11 13:38:50
+ * @LastEditTime: 2024-09-13 04:05:51
  *
  */
 
@@ -92,7 +92,7 @@ export const getGridValueByClick = async (coordinate: Array<number>, name: strin
     }
   )
   if (url) {
-    let json = await fetchGet(url, '')
+    let json = await fetchGet(url)
     const features = new GeoJSON().readFeatures(json)
     let businessFullPoint = sysStore.businessFullPoint
     if (businessFullPoint == null) {

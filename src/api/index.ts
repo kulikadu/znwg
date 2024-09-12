@@ -2,7 +2,7 @@
  * @Author: wangyilin
  * @Date: 2024-09-05 08:49:05
  * @LastEditors: wangyilin
- * @LastEditTime: 2024-09-11 13:55:57
+ * @LastEditTime: 2024-09-13 04:03:49
  *
  */
 //原始格点数据，参数：time=6,elementId=1
@@ -14,7 +14,7 @@ export const getSourceTimeUrl = 'http://10.111.101.243:8083/znwg-api/grid/Elemen
 //要素订正更新地址
 export const getUpdateUrl = 'http://10.111.101.243:8083/znwg-api/grid/gridupdates'
 //fetch的get请求
-export const fetchGet = (url: string, params: string) => {
+export const fetchGet = (url: string, params: string = '') => {
   return new Promise((resolve, reject) => {
     fetch(url + params)
       .then((res) => res.json())

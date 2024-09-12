@@ -16,8 +16,8 @@
     </span>
     <div class="toolbar-check">
       <!-- <CheckBox /> -->
-      <el-checkbox size="large" @change="changeEvent" />
-      <span>计算极值</span>
+      <el-checkbox size="large" v-model="checked" @change="changeEvent" :disabled="isDisabled" />
+      <span :class="{ disabled: isDisabled }">计算极值</span>
     </div>
   </div>
 </template>
@@ -38,6 +38,8 @@ import { useSysStore } from '@/stores/sys'
 const sysStore = useSysStore()
 
 const activeIndex = ref(-1)
+const isDisabled = ref(false)
+const checked = ref(false)
 let map: Map | null
 onMounted(() => {})
 let iconList = ref()
@@ -116,34 +118,41 @@ const changeEvent = (val: boolean) => {
   let maxGridValue = sysStore.maxGridValue,
     extremumCoordinate = sysStore.extremumCoordinate
   map = sysStore.map as Map
-  let style = new Style({
-    text: new Text({
-      // text: Math.round(maxGridValue as number).toString(), // 文本内容
-      text: `${extremumCoordinate[0].toString()},${extremumCoordinate[1].toString()}`, // 文本内容
-      font: '36px sans-serif', // 字体样式
-      fill: new Fill({
-        color: 'red' // 文本颜色
-      }),
-      stroke: new Stroke({
-        color: '#fff', // 文本轮廓颜色
-        width: 3 // 文本轮廓宽度
-      })
-    })
-  })
-  let feature = new Feature({
-    geometry: new Point(extremumCoordinate as [number, number])
-  })
 
-  let vectorLayer = new VectorLayer({
-    source: new VectorSource({
-      features: [feature]
-    }),
-    style: style
-  })
+  let layers = map.getLayers().getArray()
+  for (let layer of layers) {
+    if (layer.get('title') === 'extremumLayer') {
+      map.removeLayer(layer)
+      return
+    }
+  }
+
   if (val) {
-    map.addLayer(vectorLayer)
-  } else {
-    map.removeLayer(vectorLayer)
+    map.addLayer(
+      new VectorLayer({
+        title: 'extremumLayer',
+        source: new VectorSource({
+          features: [
+            new Feature({
+              geometry: new Point(extremumCoordinate as [number, number])
+            })
+          ]
+        }),
+        style: new Style({
+          text: new Text({
+            text: Math.round(maxGridValue as number).toString(), // 文本内容
+            font: '36px sans-serif', // 字体样式
+            fill: new Fill({
+              color: 'red' // 文本颜色
+            }),
+            stroke: new Stroke({
+              color: '#fff', // 文本轮廓颜色
+              width: 3 // 文本轮廓宽度
+            })
+          })
+        })
+      })
+    )
   }
 }
 
@@ -175,6 +184,8 @@ const setFullMap = () => {
   let view = getView()
   map?.setView(view)
 }
+
+//漫游
 const setPan = () => {
   if (sysStore.map) {
     map = sysStore.map as Map
@@ -214,6 +225,19 @@ const selectCountry = () => {
   map?.on('singleclick', clickHandler)
 }
 //根据点击查询wms范围来筛选格点
+
+watch(
+  () => sysStore.currentFeature,
+  (newValue, oldValue) => {
+    if (newValue == 1 || newValue == '1') {
+      isDisabled.value = false
+    } else {
+      isDisabled.value = true
+      changeEvent(false)
+      checked.value = false
+    }
+  }
+)
 </script>
 
 <style lang="less" scoped>
@@ -293,6 +317,8 @@ img {
 }
 .active {
   background-color: #abb9ce;
-  // color: white;
+}
+.disabled {
+  color: rgb(220, 223, 230);
 }
 </style>
