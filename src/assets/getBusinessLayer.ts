@@ -171,14 +171,6 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     }
   }
   sysStore.setBusinessFullPoint(geojsonData_Point_full)
-  const repeatCanvas = document.createElement('canvas')
-  const repeatCtx = repeatCanvas.getContext('2d')!
-  let img = new Image()
-  img.src = 'src/assets/images/雨夹雪.png'
-
-  repeatCtx.createPattern(img, 'repeat')
-
-  // var fill = new Fill()
 
   //只有降雨有极值
   if (id == '1') {
@@ -242,6 +234,14 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     }
   }
 
+  const repeatCanvas = document.createElement('canvas')
+  const repeatCtx = repeatCanvas.getContext('2d')!
+  let img = new Image()
+  img.src = 'src/assets/images/雨夹雪.png'
+
+  repeatCtx.createPattern(img, 'repeat')
+
+  // let fill = new Fill()
   //格点图层
   let businessLayer = new VectorLayer({
     title: 'grid_VectorLayer',
@@ -251,14 +251,15 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     }),
     style: (feature, resolution) => {
       let fill = new Fill()
+      fill.setColor(img)
       let text = new Text({
         text: [
           `${feature.get('value1')}`,
-          `12px Calibri,sans-serif`
-          // '\n',
-          // '',
-          // `${feature.get('value2')}`,
-          // '10px Calibri,sans-serif'
+          `12px Calibri,sans-serif`,
+          '\n',
+          '',
+          `${feature.get('value2')}`,
+          '10px Calibri,sans-serif'
         ],
         overflow: true,
         fill: new Fill({ color: 'black' }),
@@ -268,7 +269,7 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
         })
       })
       return new Style({
-        fill: new Fill({ color: feature.get('color') }),
+        // fill: new Fill({ color: feature.get('color') }),
         // fill: fill,
         stroke: new Stroke({ color: 'black', width: 1 }),
         text: text
@@ -276,6 +277,27 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     }
   })
 
+  let bus3 = new VectorLayer({
+    title: 'grid_VectorLayer3',
+    opacity: 0.8,
+    zIndex: 99,
+    source: new VectorSource({
+      features: new GeoJSON().readFeatures(geojsonData_Point_full)
+    }),
+    style: (feature, resolution) => {
+      let fill = new Fill()
+      // fill.setColor(img)
+      return new Style({
+        // fill: fill,
+        image: new Icon({
+          src: 'src/assets/images/雨夹雪.png',
+          size: [160, 160],
+          rotation: 90
+        })
+      })
+    }
+  })
+  sysStore.map?.addLayer(bus3)
   // var cnv = document.createElement('canvas')
   // var ctx = cnv.getContext('2d')
   // var img2 = new Image()

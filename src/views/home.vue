@@ -1,7 +1,12 @@
 <template>
   <div class="main">
     <div class="content">
-      <OlMap class="map" />
+      <!-- <Two v-show="isShowTwo" />
+      <Three v-show="isShowThree" />
+      <Four v-show="isShowFour" />
+      <Five v-show="isShowFive" />
+      <Six v-show="isShowSix" /> -->
+      <OlMap class="map" v-show="false" />
       <ToolBar class="toolbar" />
     </div>
     <div class="title">
@@ -35,6 +40,13 @@
   >
     <img src="@/assets/images/timeline.png" alt="" />
   </div>
+  <div class="splitView">
+    <ElButton @click="take2View">二屏</ElButton>
+    <ElButton @click="take3View">三屏</ElButton>
+    <ElButton @click="take4View">四屏</ElButton>
+    <ElButton @click="take5View">五屏</ElButton>
+    <ElButton @click="take6View">六屏</ElButton>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -43,10 +55,50 @@ import OlMap from '../components/olMap.vue'
 import LayerManage from '../components/layerManage.vue'
 import FeaturesPage from '@/components/featuresPage.vue'
 import SourcePage from '@/components/sourcePage.vue'
+import Two from '@/components/splitview/two.vue'
+import Three from '@/components/splitview/three.vue'
+import Four from '@/components/splitview/four.vue'
+import Five from '@/components/splitview/five.vue'
+import Six from '@/components/splitview/six.vue'
+import { ElButton } from 'element-plus'
+
+const isShowTwo = ref(false)
+const isShowThree = ref(false)
+const isShowFour = ref(false)
+const isShowFive = ref(false)
+const isShowSix = ref(false)
 
 onMounted(() => {
   // boxName.value = '要素'
 })
+
+const initShow = () => {
+  isShowTwo.value = false
+  isShowThree.value = false
+  isShowFour.value = false
+  isShowFive.value = false
+  isShowSix.value = false
+}
+const take2View = () => {
+  initShow()
+  isShowTwo.value = !isShowTwo.value
+}
+const take3View = () => {
+  initShow()
+  isShowThree.value = !isShowThree.value
+}
+const take4View = () => {
+  initShow()
+  isShowFour.value = !isShowFour.value
+}
+const take5View = () => {
+  initShow()
+  isShowFive.value = !isShowFive.value
+}
+const take6View = () => {
+  initShow()
+  isShowSix.value = !isShowSix.value
+}
 </script>
 
 <style lang="less" scoped>
@@ -133,5 +185,18 @@ onMounted(() => {
       height: 100%;
     }
   }
+}
+.splitView {
+  position: absolute;
+  width: 242px;
+  height: 170px;
+  bottom: 240px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: flex-end;
 }
 </style>
