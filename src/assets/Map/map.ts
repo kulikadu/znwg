@@ -2,7 +2,7 @@
  * @Author: wangyilin
  * @Date: 2024-09-05 08:49:05
  * @LastEditors: wangyilin
- * @LastEditTime: 2024-09-13 04:05:51
+ * @LastEditTime: 2024-09-14 11:42:55
  *
  */
 
@@ -115,5 +115,20 @@ export const getGridValueByClick = async (coordinate: Array<number>, name: strin
       console.log(pids)
       return 1
     }
+  }
+}
+
+// 获取正方形feature的像素边长
+export const getSquarePixelSideLength = (map: Map, squareFeature: Feature) => {
+  let resolution = map.getView().getResolution()!
+  let extent = squareFeature.getGeometry()?.getExtent()
+  if (extent !== undefined) {
+    let widthInPixels = (extent[2] - extent[0]) / resolution
+    let heightInPixels = (extent[3] - extent[1]) / resolution
+
+    // 正方形的像素边长应该是宽度和高度的最小值，因为分辨率是恒定的
+    let pixelSideLength: number = Math.min(widthInPixels, heightInPixels)
+
+    return pixelSideLength
   }
 }

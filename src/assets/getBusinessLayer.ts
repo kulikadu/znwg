@@ -11,6 +11,7 @@ import { asColorLike } from 'ol/colorlike'
 import { getColorByType } from './getColorByType'
 import * as turf from '@turf/turf'
 import { transform } from 'ol/proj'
+import { getSquarePixelSideLength } from '@/assets/Map/map'
 
 // import axios from 'axios'
 
@@ -238,10 +239,13 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   const repeatCtx = repeatCanvas.getContext('2d')!
   let img = new Image()
   img.src = 'src/assets/images/雨夹雪.png'
+  img.style.width = `${123}px`
+  img.style.height = `${123}px`
 
-  repeatCtx.createPattern(img, 'repeat')
+  // repeatCtx.createPattern(img, 'repeat')
 
   // let fill = new Fill()
+  let lll: number
   //格点图层
   let businessLayer = new VectorLayer({
     title: 'grid_VectorLayer',
@@ -250,16 +254,21 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       features: new GeoJSON().readFeatures(geojsonData_Polygon)
     }),
     style: (feature, resolution) => {
+      // let img = new Image()
+      // img.src = 'src/assets/images/雨夹雪.png'
+      lll = getSquarePixelSideLength(sysStore.map, feature)
+      // img.style.width = `${lll}px`
+      // img.style.height = `${lll}px`
       let fill = new Fill()
       fill.setColor(img)
       let text = new Text({
         text: [
-          `${feature.get('value1')}`,
-          `12px Calibri,sans-serif`,
-          '\n',
-          '',
-          `${feature.get('value2')}`,
-          '10px Calibri,sans-serif'
+          // `${feature.get('value1')}`,
+          // `12px Calibri,sans-serif`,
+          // '\n',
+          // '',
+          // `${feature.get('value2')}`,
+          // '10px Calibri,sans-serif'
         ],
         overflow: true,
         fill: new Fill({ color: 'black' }),
@@ -270,7 +279,7 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       })
       return new Style({
         // fill: new Fill({ color: feature.get('color') }),
-        // fill: fill,
+        fill: fill,
         stroke: new Stroke({ color: 'black', width: 1 }),
         text: text
       })
@@ -288,16 +297,16 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       let fill = new Fill()
       // fill.setColor(img)
       return new Style({
-        // fill: fill,
         image: new Icon({
           src: 'src/assets/images/雨夹雪.png',
-          size: [160, 160],
-          rotation: 90
+          size: [28, 28]
+          // rotation: 90
         })
       })
     }
   })
-  sysStore.map?.addLayer(bus3)
+  // sysStore.map?.addLayer(bus3)
+
   // var cnv = document.createElement('canvas')
   // var ctx = cnv.getContext('2d')
   // var img2 = new Image()
