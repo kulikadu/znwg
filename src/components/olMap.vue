@@ -33,12 +33,12 @@
 
   <section id="changeNum2" class="changeNum" v-show="isshowNum">
     <div>
-      <el-radio-group @change="radioChange">
-        <el-radio :value="1">赋值</el-radio>
-        <el-radio :value="2">加值</el-radio>
-        <el-radio :value="3">减值</el-radio>
-        <el-radio :value="4">最大值</el-radio>
-        <el-radio :value="5">最小值</el-radio>
+      <el-radio-group @change="radioChange" v-model="radio">
+        <el-radio value="赋值">赋值</el-radio>
+        <el-radio value="加值">加值</el-radio>
+        <el-radio value="减值">减值</el-radio>
+        <el-radio value="最大值">最大值</el-radio>
+        <el-radio value="最小值">最小值</el-radio>
       </el-radio-group>
     </div>
     <div style="display: flex; flex-wrap: nowrap; justify-content: space-around">
@@ -52,6 +52,7 @@
 import { ref, onMounted } from 'vue'
 import 'ol/ol.css'
 import { Map, View } from 'ol'
+import Graticule from 'ol/layer/Graticule'
 import * as olExtent from 'ol/extent'
 import { Draw, Extent } from 'ol/interaction'
 import * as Format from 'ol/format'
@@ -103,13 +104,7 @@ let PID
 let map, tileWms
 let pids = []
 const key = '9d871cee845e322ca402f38ade03b7b2'
-let type = {
-  1: '赋值',
-  2: '加值',
-  3: '减值',
-  4: '最大值',
-  5: '最小值'
-}
+const radio = ref('赋值')
 const radioChange = (val) => {
   radioValue.value = val
 }
@@ -227,7 +222,6 @@ function isInExtent(Extent, Point) {
   return (
     Extent[0] <= Point[0] && Point[0] <= Extent[2] && Extent[1] <= Point[1] && Point[1] <= Extent[3]
   )
-  ix
 }
 //初始化地图
 const initMap = () => {
@@ -247,11 +241,27 @@ const initMap = () => {
       url: `http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=${key}`
     })
   })
+
+  //经纬度网
+  const graticule = new Graticule({
+    // the style to use for the lines, optional.
+    strokeStyle: new Stroke({
+      color: 'rgba(255,120,0,0)',
+      width: 2,
+      lineDash: [0.5, 4]
+    }),
+    showLabels: true,
+    wrapX: true,
+    lonLabelPosition: 0.1,
+    latLabelPosition: 0.1
+    // intervals: [180, 10]
+  })
   map = new Map({
     layers: [],
     target: mapCon.value,
     view: getView()
   })
+  map.addLayer(graticule)
   // map.addLayer(tdtVectorLayer)
   // map.addLayer(tdtVectorLabelLayer)
   sysStore.setMap(map)
@@ -259,13 +269,30 @@ const initMap = () => {
 
   // 创建WMS图层
   tileWms = getTileWms()
+  // let wmsLayer = new TileLayer({
+  //   className: 'wms-vector',
+  //   title: 'china',
+  //   preload: Infinity,
+  //   source: tileWms
+  // })
   let wmsLayer = new TileLayer({
     className: 'wms-vector',
     title: 'china',
     preload: Infinity,
-    source: tileWms
+    source: new TileWMS({
+      url: 'http://localhost:8080/geoserver/ZN/wms?service=WMS&version=1.1.0&request=GetMap&layers=ZN%3Achina&bbox=73.502355%2C3.39716187%2C135.09567%2C53.563269&width=768&height=625&srs=EPSG%3A4326&styles=&format=image%2Fpng'
+    })
+  })
+  let wmsLayer2 = new TileLayer({
+    className: 'wms-vector',
+    title: 'hunan',
+    preload: Infinity,
+    source: new TileWMS({
+      url: 'http://localhost:8080/geoserver/ZN/wms?service=WMS&version=1.1.0&request=GetMap&layers=ZN%3Ahunan&bbox=108.78612710158455%2C24.63925367381802%2C114.25650291427814%2C30.128722293199303&width=765&height=768&srs=EPSG%3A4326&styles=&format=image%2Fpng'
+    })
   })
   map.addLayer(wmsLayer)
+  map.addLayer(wmsLayer2)
 
   //创建覆盖层
 
@@ -343,6 +370,8 @@ sysStore.setDraw(draw)
 // map.addInteraction(draw)
 
 draw.on('drawend', function (event) {
+  let businessFullPoint = sysStore.businessFullPoint
+  if (businessFullPoint == null) return alert('请先选择要素！')
   const olFeature = event.feature
   pids = []
   selectedFeatures.getSource().clear()
@@ -351,8 +380,6 @@ draw.on('drawend', function (event) {
 
   // 将OpenLayers的Feature转换为GeoJSON的Feature
   const geojsonFeature = new GeoJSON().writeFeatureObject(olFeature)
-  let businessFullPoint = sysStore.businessFullPoint
-
   var ptsWithin = turf.pointsWithinPolygon(businessFullPoint, geojsonFeature)
   ptsWithin.features.map((item) => pids.push(item.properties.pid))
   console.log(pids)
@@ -474,13 +501,13 @@ const changeValue = (value) => {
 //订正
 const changeValue2 = async (value) => {
   changeNum2.style.opacity = 0
-  let updatetype = type[radioValue.value]
+  // let updatetype = type[radioValue.value]
   let val = num.value
   changeNum.style.displaye = 'none'
 
   const params = {
     pid: pids,
-    updatetype: updatetype,
+    updatetype: radioValue.value,
     val: val
   }
   const bodyData = JSON.stringify(params)
@@ -620,16 +647,25 @@ const screenshot = () => {
   bottom: 60px;
   left: 0;
   background-color: rgb(204, 236, 236);
-
-  ::v-deep .el-radio-group {
+  :deep(.el-radio-group) {
     align-items: center;
     display: inline-flex;
     /* flex-wrap: wrap; */
     font-size: 0;
   }
 
-  ::v-deep .el-radio {
+  :deep(.el-radio) {
     margin-right: 5px;
   }
+  // ::v-deep .el-radio-group {
+  //   align-items: center;
+  //   display: inline-flex;
+  //   /* flex-wrap: wrap; */
+  //   font-size: 0;
+  // }
+
+  // ::v-deep .el-radio {
+  //   margin-right: 5px;
+  // }
 }
 </style>

@@ -7,7 +7,7 @@
       <Five v-show="isShowFive" />
       <Six v-show="isShowSix" /> -->
       <OlMap class="map" v-show="false" />
-      <ToolBar class="toolbar" />
+      <!-- <ToolBar class="toolbar" /> -->
     </div>
     <div class="title">
       <!-- <img src="../assets/images/title-icon.png" alt="" /> -->
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <LayerManage class="layerManage" />
+  <!-- <LayerManage class="layerManage" />
   <div
     style="
       position: absolute;
@@ -39,7 +39,7 @@
     "
   >
     <img src="@/assets/images/timeline.png" alt="" />
-  </div>
+  </div> -->
   <div class="splitView">
     <ElButton @click="take2View">二屏</ElButton>
     <ElButton @click="take3View">三屏</ElButton>
@@ -47,6 +47,11 @@
     <ElButton @click="take5View">五屏</ElButton>
     <ElButton @click="take6View">六屏</ElButton>
   </div>
+  <div class="mapping">
+    <ElButton @click="mapping">成图</ElButton>
+    <ElButton @click="screenshot">出图</ElButton>
+  </div>
+  <div class="overPan"></div>
 </template>
 
 <script setup lang="ts">
@@ -61,6 +66,11 @@ import Four from '@/components/splitview/four.vue'
 import Five from '@/components/splitview/five.vue'
 import Six from '@/components/splitview/six.vue'
 import { ElButton } from 'element-plus'
+import { Fill, Stroke, Style, Text, Circle as CircleStyle } from 'ol/style'
+import { useSysStore } from '@/stores/sys'
+import { Map } from 'ol'
+
+const sysStore = useSysStore()
 
 const isShowTwo = ref(false)
 const isShowThree = ref(false)
@@ -98,6 +108,13 @@ const take5View = () => {
 const take6View = () => {
   initShow()
   isShowSix.value = !isShowSix.value
+}
+
+const mapping = () => {
+  let map = sysStore.map as Map
+  map.getLayers().forEach((layer) => {
+    if (layer.get('title') === 'china') map.removeLayer(layer)
+  })
 }
 </script>
 
@@ -198,5 +215,22 @@ const take6View = () => {
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: flex-end;
+}
+.mapping {
+  position: absolute;
+  width: 242px;
+  height: 30px;
+  bottom: 100px;
+}
+.overPan {
+  position: absolute;
+  width: 1678px;
+  height: 873px;
+  top: 56px;
+  left: 242px;
+  border: 1px red solid;
+  background-color: rgba(223, 175, 175, 0.582);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* 裁剪出中心的长方形洞 */
+  pointer-events: none; /* 忽略鼠标事件 */
 }
 </style>

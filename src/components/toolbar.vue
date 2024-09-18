@@ -284,16 +284,17 @@ watch(
     flex-direction: column;
     position: relative;
     margin-top: 7px;
-    /deep/ .el-checkbox__inner:after {
+    :deep(.el-checkbox__inner:after) {
       height: 9px;
       left: 6px;
       top: 2px;
       width: 3px;
     }
-    /deep/ .el-checkbox.el-checkbox--large {
+
+    :deep(.el-checkbox.el-checkbox--large) {
       height: 20px;
     }
-    /deep/ .el-checkbox.el-checkbox--large .el-checkbox__inner {
+    :deep(.el-checkbox.el-checkbox--large .el-checkbox__inner) {
       height: 18px;
       width: 18px;
     }
