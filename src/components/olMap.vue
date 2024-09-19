@@ -252,9 +252,31 @@ const initMap = () => {
     }),
     showLabels: true,
     wrapX: true,
-    lonLabelPosition: 0.1,
-    latLabelPosition: 0.1
-    // intervals: [180, 10]
+    intervals: [10, 2],
+    lonLabelPosition: 0.12,
+    latLabelPosition: 0.1,
+    lonLabelStyle: new Text({
+      font: '30px Calibri,sans-serif',
+      textBaseline: 'middle',
+      fill: new Fill({
+        color: 'rgba(0,0,0,1)'
+      }),
+      stroke: new Stroke({
+        color: 'rgba(255,255,255,1)',
+        width: 3
+      })
+    }),
+    latLabelStyle: new Text({
+      font: '30px Calibri,sans-serif',
+      textBaseline: 'middle',
+      fill: new Fill({
+        color: 'rgba(0,0,0,1)'
+      }),
+      stroke: new Stroke({
+        color: 'rgba(255,255,255,1)',
+        width: 3
+      })
+    })
   })
   map = new Map({
     layers: [],
@@ -284,7 +306,7 @@ const initMap = () => {
     })
   })
   let wmsLayer2 = new TileLayer({
-    className: 'wms-vector',
+    className: 'wms-vector2',
     title: 'hunan',
     preload: Infinity,
     source: new TileWMS({
@@ -587,30 +609,37 @@ const screenshot = () => {
   padding: 0;
   background-color: #f9f8f6;
 }
+
 .btn-mapping {
   position: absolute;
   top: 40px;
   left: 70px;
+
   ::hover {
     cursor: pointer;
   }
 }
+
 .btn-screenshot {
   position: absolute;
   top: 40px;
   left: 140px;
+
   ::hover {
     cursor: pointer;
   }
 }
+
 .btn-modi {
   position: absolute;
   top: 40px;
   left: 220px;
+
   ::hover {
     cursor: pointer;
   }
 }
+
 #info {
   z-index: 1;
   opacity: 0;
@@ -647,6 +676,7 @@ const screenshot = () => {
   bottom: 60px;
   left: 0;
   background-color: rgb(204, 236, 236);
+
   :deep(.el-radio-group) {
     align-items: center;
     display: inline-flex;
@@ -657,6 +687,7 @@ const screenshot = () => {
   :deep(.el-radio) {
     margin-right: 5px;
   }
+
   // ::v-deep .el-radio-group {
   //   align-items: center;
   //   display: inline-flex;

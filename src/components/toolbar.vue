@@ -174,6 +174,10 @@ const drawPolygon = () => {
   setPan()
   let draw = sysStore.draw as Draw
   map?.addInteraction(draw)
+  const mapContainer = document.getElementById('mapCon')
+  if (mapContainer) {
+    mapContainer.style.cursor = 'crosshair'
+  }
 }
 const setFullMap = () => {
   if (sysStore.map) {
@@ -197,6 +201,12 @@ const setPan = () => {
     map?.removeInteraction(draw)
   }
   map?.un('singleclick', clickHandler)
+  // 改变鼠标样式为grab
+  // document.body.style.cursor = 'grab';
+  const mapContainer = document.getElementById('mapCon')
+  if (mapContainer) {
+    mapContainer.style.cursor = 'grab'
+  }
 }
 
 //市选择

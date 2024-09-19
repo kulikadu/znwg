@@ -51,7 +51,11 @@
     <ElButton @click="mapping">成图</ElButton>
     <ElButton @click="screenshot">出图</ElButton>
   </div>
-  <div class="overPan"></div>
+  <div class="test">
+    <div class="overPan"></div>
+    <div class="hole"></div>
+    <div class="mapping-title">XXXXXXXXXXXXXX</div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -222,6 +226,22 @@ const mapping = () => {
   height: 30px;
   bottom: 100px;
 }
+@--left: 10%;
+@--right: 10%;
+@--top: 10%;
+@--bottom: 10%;
+
+.test {
+  // position: absolute;
+  // width: 1678px;
+  // height: 873px;
+  // top: 56px;
+  // left: 242px;
+  // border: 1px red solid;
+  // background-color: rgb(249, 248, 246);
+  // pointer-events: none;
+}
+
 .overPan {
   position: absolute;
   width: 1678px;
@@ -229,8 +249,35 @@ const mapping = () => {
   top: 56px;
   left: 242px;
   border: 1px red solid;
-  background-color: rgba(223, 175, 175, 0.582);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* 裁剪出中心的长方形洞 */
-  pointer-events: none; /* 忽略鼠标事件 */
+  background-color: rgb(249, 248, 246);
+  clip-path: polygon(
+    0 0,
+    150px 100px,
+    1500px 100px,
+    1500px 770px,
+    150px 770px,
+    150px 100px,
+    0 0,
+    0 100%,
+    100% 100%,
+    100% 0,
+    0 0
+  );
+}
+.hole {
+  position: absolute;
+  width: 510px;
+  height: 600px;
+  border: 3px black solid;
+  top: 220px;
+  left: 450px;
+  pointer-events: none;
+}
+.mapping-title {
+  color: black;
+  position: absolute;
+  top: 150px;
+  left: 450px;
+  font-size: 28px;
 }
 </style>

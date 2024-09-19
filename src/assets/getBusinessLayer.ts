@@ -278,8 +278,8 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
         })
       })
       return new Style({
-        // fill: new Fill({ color: feature.get('color') }),
-        fill: fill,
+        fill: new Fill({ color: feature.get('color') }),
+        // fill: fill,
         stroke: new Stroke({ color: 'black', width: 1 }),
         text: text
       })
