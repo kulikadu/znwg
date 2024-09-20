@@ -7,7 +7,7 @@
       <Five v-show="isShowFive" />
       <Six v-show="isShowSix" /> -->
       <OlMap class="map" v-show="false" />
-      <!-- <ToolBar class="toolbar" /> -->
+      <ToolBar class="toolbar"></ToolBar>
     </div>
     <div class="title">
       <!-- <img src="../assets/images/title-icon.png" alt="" /> -->
@@ -50,8 +50,9 @@
   <div class="mapping">
     <ElButton @click="mapping">成图</ElButton>
     <ElButton @click="screenshot">出图</ElButton>
+    <a id="image-download" download="map.png"></a>
   </div>
-  <div class="test">
+  <div id="test" class="test" v-show="showTest">
     <div class="overPan"></div>
     <div class="hole"></div>
     <div class="mapping-title">XXXXXXXXXXXXXX</div>
@@ -73,6 +74,10 @@ import { ElButton } from 'element-plus'
 import { Fill, Stroke, Style, Text, Circle as CircleStyle } from 'ol/style'
 import { useSysStore } from '@/stores/sys'
 import { Map } from 'ol'
+import Graticule from 'ol/layer/Graticule'
+import html2canvas from 'html2canvas'
+import fs from 'file-saver'
+import domtoimage from 'dom-to-image'
 
 const sysStore = useSysStore()
 
@@ -81,7 +86,7 @@ const isShowThree = ref(false)
 const isShowFour = ref(false)
 const isShowFive = ref(false)
 const isShowSix = ref(false)
-
+const showTest = ref(false)
 onMounted(() => {
   // boxName.value = '要素'
 })
@@ -115,10 +120,126 @@ const take6View = () => {
 }
 
 const mapping = () => {
+  showTest.value = true
   let map = sysStore.map as Map
   map.getLayers().forEach((layer) => {
-    if (layer.get('title') === 'china') map.removeLayer(layer)
+    if (layer?.get('title') === 'china') map.removeLayer(layer)
   })
+
+  //经纬度网
+  const graticule = new Graticule({
+    // the style to use for the lines, optional.
+    strokeStyle: new Stroke({
+      color: 'rgba(255,120,0,0)',
+      width: 2,
+      lineDash: [0.5, 4]
+    }),
+    showLabels: true,
+    wrapX: true,
+    intervals: [1, 2],
+    lonLabelPosition: 0.09,
+    latLabelPosition: 0.1,
+    lonLabelStyle: new Text({
+      font: '28px Calibri,sans-serif',
+      textBaseline: 'middle',
+      fill: new Fill({
+        color: 'rgba(0,0,0,1)'
+      }),
+      stroke: new Stroke({
+        color: 'rgba(255,255,255,1)',
+        width: 3
+      })
+    }),
+    latLabelStyle: new Text({
+      font: '28px Calibri,sans-serif',
+      textBaseline: 'middle',
+      fill: new Fill({
+        color: 'rgba(0,0,0,1)'
+      }),
+      stroke: new Stroke({
+        color: 'rgba(255,255,255,1)',
+        width: 3
+      })
+    })
+  })
+  map.addLayer(graticule)
+}
+
+const screenshot = () => {
+  html2canvas(document.querySelector('#mapCon'), { useCORS: true }).then((canvas) => {
+    canvas.toBlob((blob) => {
+      fs.saveAs(blob, '地图截图.png')
+    })
+  })
+
+  let map = sysStore.map as Map
+  // map.once('postcompose', function (event) {
+  //   var canvas = event.context?.canvas
+  //   canvas?.toBlob(function (blob) {
+  //     fs.saveAs(blob, 'map2.png')
+  //   })
+  // })
+  // map.renderSync()
+
+  // domtoimage
+  //   .toPng(document.querySelector('#mapCon'))
+  //   .then((dataUrl) => {
+  //     console.log(dataUrl)
+  //   })
+  //   .catch(function (error) {
+  //     console.error('oops, something went wrong!', error)
+  //   })
+
+  // map.once('rendercomplete', function () {
+  //   const mapCanvas = document.createElement('canvas')
+  //   const size = map.getSize()
+  //   // mapCanvas.width = size[0]
+  //   // mapCanvas.height = size[1]
+  //   mapCanvas.width = 1270
+  //   mapCanvas.height = 740
+  //   const mapContext = mapCanvas.getContext('2d')
+  //   Array.prototype.forEach.call(
+  //     map.getViewport().querySelectorAll('.ol-layer canvas, canvas.ol-layer'),
+  //     function (canvas) {
+  //       if (canvas.width > 0) {
+  //         const opacity = canvas.parentNode.style.opacity || canvas.style.opacity
+  //         mapContext.globalAlpha = opacity === '' ? 1 : Number(opacity)
+  //         let matrix
+  //         const transform = canvas.style.transform
+  //         if (transform) {
+  //           // Get the transform parameters from the style's transform matrix
+  //           matrix = transform
+  //             .match(/^matrix\(([^\(]*)\)$/)[1]
+  //             .split(',')
+  //             .map(Number)
+  //         } else {
+  //           matrix = [
+  //             parseFloat(canvas.style.width) / canvas.width,
+  //             0,
+  //             0,
+  //             parseFloat(canvas.style.height) / canvas.height,
+  //             0,
+  //             0
+  //           ]
+  //         }
+  //         // Apply the transform to the export map context
+  //         CanvasRenderingContext2D.prototype.setTransform.apply(mapContext, matrix)
+  //         const backgroundColor = canvas.parentNode.style.backgroundColor
+  //         if (backgroundColor) {
+  //           mapContext.fillStyle = backgroundColor
+  //           mapContext.fillRect(0, 0, canvas.width, canvas.height)
+  //         }
+  //         mapContext.drawImage(canvas, 0, 0)
+  //       }
+  //     }
+  //   )
+  //   mapContext.globalAlpha = 1
+  //   mapContext.setTransform(1, 0, 0, 1, 0, 0)
+  //   const link = document.getElementById('image-download')
+  //   link.href = mapCanvas.toDataURL()
+  //   link.click()
+  // })
+  // map.renderSync()
 }
 </script>
 
@@ -249,14 +370,14 @@ const mapping = () => {
   top: 56px;
   left: 242px;
   border: 1px red solid;
-  background-color: rgb(249, 248, 246);
+  background-color: #f9f8f6;
   clip-path: polygon(
     0 0,
-    150px 100px,
-    1500px 100px,
-    1500px 770px,
-    150px 770px,
-    150px 100px,
+    130px 70px,
+    1400px 70px,
+    1400px 810px,
+    130px 810px,
+    130px 70px,
     0 0,
     0 100%,
     100% 100%,
@@ -266,17 +387,17 @@ const mapping = () => {
 }
 .hole {
   position: absolute;
-  width: 510px;
-  height: 600px;
+  width: 1200px;
+  height: 710px;
   border: 3px black solid;
-  top: 220px;
-  left: 450px;
+  top: 123px;
+  left: 445px;
   pointer-events: none;
 }
 .mapping-title {
   color: black;
   position: absolute;
-  top: 150px;
+  top: 70px;
   left: 450px;
   font-size: 28px;
 }

@@ -278,10 +278,10 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
         })
       })
       return new Style({
-        fill: new Fill({ color: feature.get('color') }),
+        // fill: new Fill({ color: feature.get('color') }),
         // fill: fill,
-        stroke: new Stroke({ color: 'black', width: 1 }),
-        text: text
+        // stroke: new Stroke({ color: 'black', width: 1 }),
+        // text: text
       })
     }
   })
@@ -299,13 +299,15 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       return new Style({
         image: new Icon({
           src: 'src/assets/images/雨夹雪.png',
-          size: [28, 28]
+          // size: [100, 100],
+          width: 50,
+          height: 50
           // rotation: 90
         })
       })
     }
   })
-  // sysStore.map?.addLayer(bus3)
+  sysStore.map?.addLayer(bus3)
 
   // var cnv = document.createElement('canvas')
   // var ctx = cnv.getContext('2d')

@@ -51,7 +51,8 @@ export const getView = () => {
     center: hunan,
     minZoom: 2,
     zoom: 7.3,
-    maxZoom: 18
+    maxZoom: 18,
+    projection: 'EPSG:3857'
   })
 }
 

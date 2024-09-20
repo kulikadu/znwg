@@ -1,7 +1,7 @@
 <template>
   <div ref="mapCon" id="mapCon"></div>
-  <!-- <el-button class="btn-mapping" @click="mapping">成图</el-button>
-  <el-button class="btn-screenshot" @click="screenshot">截屏</el-button> -->
+  <!-- <el-button class="btn-mapping" @click="mapping">成图</el-button>-->
+  <el-button class="btn-screenshot" @click="screenshot">截屏</el-button>
   <!-- <el-button class="btn-modi" @click="modi">订正</el-button> -->
 
   <div class="info" id="info" v-show="isshowInfo">
@@ -69,7 +69,7 @@ import { fromLonLat } from 'ol/proj'
 import { containsExtent } from 'ol/extent'
 import GeoJSON from 'ol/format/GeoJSON'
 import { Image as ImageLayer } from 'ol/layer'
-import { OSM, TileWMS, ImageWMS } from 'ol/source'
+import { OSM, TileWMS, ImageWMS, VectorTile } from 'ol/source'
 import { Fill, Stroke, Style, Text, Circle as CircleStyle } from 'ol/style'
 import Feature from 'ol/Feature'
 import { Circle, LineString, Point, Polygon } from 'ol/geom'
@@ -84,6 +84,7 @@ import { getView, getTileWms, getGridValueByClick } from '@/assets/Map/map'
 import { useSysStore } from '@/stores/sys'
 import { getBusinessLayer } from '@/assets/getBusinessLayer'
 import { fetchGet, fetchPost, getUpdateUrl } from '@/api'
+import { asArray } from 'ol/color.js'
 
 // import { fromLonLat } from 'ol/proj'
 import { Select } from 'ol/interaction'
@@ -243,47 +244,66 @@ const initMap = () => {
   })
 
   //经纬度网
-  const graticule = new Graticule({
-    // the style to use for the lines, optional.
-    strokeStyle: new Stroke({
-      color: 'rgba(255,120,0,0)',
-      width: 2,
-      lineDash: [0.5, 4]
-    }),
-    showLabels: true,
-    wrapX: true,
-    intervals: [10, 2],
-    lonLabelPosition: 0.12,
-    latLabelPosition: 0.1,
-    lonLabelStyle: new Text({
-      font: '30px Calibri,sans-serif',
-      textBaseline: 'middle',
-      fill: new Fill({
-        color: 'rgba(0,0,0,1)'
-      }),
-      stroke: new Stroke({
-        color: 'rgba(255,255,255,1)',
-        width: 3
-      })
-    }),
-    latLabelStyle: new Text({
-      font: '30px Calibri,sans-serif',
-      textBaseline: 'middle',
-      fill: new Fill({
-        color: 'rgba(0,0,0,1)'
-      }),
-      stroke: new Stroke({
-        color: 'rgba(255,255,255,1)',
-        width: 3
-      })
+  // const graticule = new Graticule({
+  //   // the style to use for the lines, optional.
+  //   strokeStyle: new Stroke({
+  //     color: 'rgba(255,120,0,0)',
+  //     width: 2,
+  //     lineDash: [0.5, 4]
+  //   }),
+  //   showLabels: true,
+  //   wrapX: true,
+  //   intervals: [1, 2],
+  //   lonLabelPosition: 0.09,
+  //   latLabelPosition: 0.1,
+  //   lonLabelStyle: new Text({
+  //     font: '28px Calibri,sans-serif',
+  //     textBaseline: 'middle',
+  //     fill: new Fill({
+  //       color: 'rgba(0,0,0,1)'
+  //     }),
+  //     stroke: new Stroke({
+  //       color: 'rgba(255,255,255,1)',
+  //       width: 3
+  //     })
+  //   }),
+  //   latLabelStyle: new Text({
+  //     font: '28px Calibri,sans-serif',
+  //     textBaseline: 'middle',
+  //     fill: new Fill({
+  //       color: 'rgba(0,0,0,1)'
+  //     }),
+  //     stroke: new Stroke({
+  //       color: 'rgba(255,255,255,1)',
+  //       width: 3
+  //     })
+  //   })
+  // })
+  const style = new Style({
+    fill: new Fill({
+      color: '#eeeeee'
     })
   })
   map = new Map({
-    layers: [],
+    layers: [
+      // new VectorLayer({
+      //   source: new VectorSource({
+      //     url: 'https://openlayers.org/data/vector/ecoregions.json',
+      //     format: new GeoJSON()
+      //   }),
+      //   background: 'white',
+      //   style: function (feature) {
+      //     const color = asArray(feature.get('COLOR_NNH') || '#eeeeee')
+      //     color[3] = 0.75
+      //     style.getFill().setColor(color)
+      //     return style
+      //   }
+      // })
+    ],
     target: mapCon.value,
     view: getView()
   })
-  map.addLayer(graticule)
+  // map.addLayer(graticule)
   // map.addLayer(tdtVectorLayer)
   // map.addLayer(tdtVectorLabelLayer)
   sysStore.setMap(map)
@@ -302,19 +322,34 @@ const initMap = () => {
     title: 'china',
     preload: Infinity,
     source: new TileWMS({
-      url: 'http://localhost:8080/geoserver/ZN/wms?service=WMS&version=1.1.0&request=GetMap&layers=ZN%3Achina&bbox=73.502355%2C3.39716187%2C135.09567%2C53.563269&width=768&height=625&srs=EPSG%3A4326&styles=&format=image%2Fpng'
+      url: 'http://localhost:8080/geoserver/ZN/wms?service=WMS&version=1.1.0&request=GetMap&layers=ZN%3Achina&bbox=73.502355%2C3.39716187%2C135.09567%2C53.563269&width=768&height=625&srs=EPSG%3A4326&styles=&format=image%2Fpng',
+      crossOrigin: 'anonymous'
     })
   })
+  let lll =
+    'http://10.110.173.206:8080/geoserver/basemap/wms?service=WMS&version=1.1.0&request=GetMap&layers=basemap:shi&bbox=1.2109958342968449E7,2831518.9270368395,1.271889020620294E7,3520161.4404783626&width=679&height=768&srs=EPSG:3857&styles=&format=image/jpeg'
   let wmsLayer2 = new TileLayer({
     className: 'wms-vector2',
     title: 'hunan',
     preload: Infinity,
     source: new TileWMS({
-      url: 'http://localhost:8080/geoserver/ZN/wms?service=WMS&version=1.1.0&request=GetMap&layers=ZN%3Ahunan&bbox=108.78612710158455%2C24.63925367381802%2C114.25650291427814%2C30.128722293199303&width=765&height=768&srs=EPSG%3A4326&styles=&format=image%2Fpng'
+      url: lll,
+      crossOrigin: 'anonymous'
     })
   })
-  map.addLayer(wmsLayer)
-  map.addLayer(wmsLayer2)
+  let wmsLayer3 = new TileLayer({
+    className: 'wms-vector2',
+    title: 'hunan',
+    preload: Infinity,
+    source: new VectorTile({
+      // url: lll,
+      crossOrigin: 'anonymous',
+      tileLoadFunction: customLoader(tile, lll)
+    })
+  })
+  // map.addLayer(wmsLayer)
+  // map.addLayer(wmsLayer2)
+  map.addLayer(wmsLayer3)
 
   //创建覆盖层
 
@@ -382,7 +417,30 @@ const initMap = () => {
 //       })
 //   }
 // }
-
+// 创建自定义的loaderFunction来添加请求头
+const customLoader = (tile, url) => {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  // 添加自定义响应头
+  xhr.setRequestHeader('Authorization', 'Basic em53Zzp6bndnQDIwMjM=');
+  xhr.onload = function () {
+    // 请求成功后处理
+    if (this.status === 200) {
+      tile.setLoader(function () {
+        const featureProjection = map.getView().getProjection();
+        return new Promise((resolve) => {
+          const format = new ol.format.MVT();
+          const features = format.readFeatures(this.response, {
+            featureProjection: featureProjection,
+          });
+          resolve(features);
+        });
+      });
+      tile.load();
+    }
+  };
+  xhr.send();
+}
 let draw = new Draw({
   source: new VectorSource(),
   type: 'Polygon',
