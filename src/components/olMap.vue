@@ -1,7 +1,7 @@
 <template>
   <div ref="mapCon" id="mapCon"></div>
   <!-- <el-button class="btn-mapping" @click="mapping">成图</el-button>-->
-  <el-button class="btn-screenshot" @click="screenshot">截屏</el-button>
+  <!-- <el-button class="btn-screenshot" @click="screenshot">截屏</el-button> -->
   <!-- <el-button class="btn-modi" @click="modi">订正</el-button> -->
 
   <div class="info" id="info" v-show="isshowInfo">
@@ -243,67 +243,16 @@ const initMap = () => {
     })
   })
 
-  //经纬度网
-  // const graticule = new Graticule({
-  //   // the style to use for the lines, optional.
-  //   strokeStyle: new Stroke({
-  //     color: 'rgba(255,120,0,0)',
-  //     width: 2,
-  //     lineDash: [0.5, 4]
-  //   }),
-  //   showLabels: true,
-  //   wrapX: true,
-  //   intervals: [1, 2],
-  //   lonLabelPosition: 0.09,
-  //   latLabelPosition: 0.1,
-  //   lonLabelStyle: new Text({
-  //     font: '28px Calibri,sans-serif',
-  //     textBaseline: 'middle',
-  //     fill: new Fill({
-  //       color: 'rgba(0,0,0,1)'
-  //     }),
-  //     stroke: new Stroke({
-  //       color: 'rgba(255,255,255,1)',
-  //       width: 3
-  //     })
-  //   }),
-  //   latLabelStyle: new Text({
-  //     font: '28px Calibri,sans-serif',
-  //     textBaseline: 'middle',
-  //     fill: new Fill({
-  //       color: 'rgba(0,0,0,1)'
-  //     }),
-  //     stroke: new Stroke({
-  //       color: 'rgba(255,255,255,1)',
-  //       width: 3
-  //     })
-  //   })
-  // })
   const style = new Style({
     fill: new Fill({
       color: '#eeeeee'
     })
   })
   map = new Map({
-    layers: [
-      // new VectorLayer({
-      //   source: new VectorSource({
-      //     url: 'https://openlayers.org/data/vector/ecoregions.json',
-      //     format: new GeoJSON()
-      //   }),
-      //   background: 'white',
-      //   style: function (feature) {
-      //     const color = asArray(feature.get('COLOR_NNH') || '#eeeeee')
-      //     color[3] = 0.75
-      //     style.getFill().setColor(color)
-      //     return style
-      //   }
-      // })
-    ],
+    layers: [],
     target: mapCon.value,
     view: getView()
   })
-  // map.addLayer(graticule)
   // map.addLayer(tdtVectorLayer)
   // map.addLayer(tdtVectorLabelLayer)
   sysStore.setMap(map)
@@ -311,45 +260,51 @@ const initMap = () => {
 
   // 创建WMS图层
   tileWms = getTileWms()
-  // let wmsLayer = new TileLayer({
-  //   className: 'wms-vector',
-  //   title: 'china',
-  //   preload: Infinity,
-  //   source: tileWms
-  // })
-  let wmsLayer = new TileLayer({
+  let wmsLayer0 = new TileLayer({
     className: 'wms-vector',
     title: 'china',
     preload: Infinity,
+    source: tileWms
+  })
+  let wmsLayer = new TileLayer({
+    className: 'wms-vector',
+    title: 'hunan',
+    preload: Infinity,
     source: new TileWMS({
-      url: 'http://localhost:8080/geoserver/ZN/wms?service=WMS&version=1.1.0&request=GetMap&layers=ZN%3Achina&bbox=73.502355%2C3.39716187%2C135.09567%2C53.563269&width=768&height=625&srs=EPSG%3A4326&styles=&format=image%2Fpng',
+      url: 'http://localhost:8080/geoserver/ZN/wms?service=WMS&version=1.1.0&request=GetMap&layers=ZN%3Ahunan&bbox=108.78612710158455%2C24.63925367381802%2C114.25650291427814%2C30.128722293199303&width=765&height=768&srs=EPSG%3A4326&styles=&format=application/openlayers',
       crossOrigin: 'anonymous'
     })
   })
   let lll =
-    'http://10.110.173.206:8080/geoserver/basemap/wms?service=WMS&version=1.1.0&request=GetMap&layers=basemap:shi&bbox=1.2109958342968449E7,2831518.9270368395,1.271889020620294E7,3520161.4404783626&width=679&height=768&srs=EPSG:3857&styles=&format=image/jpeg'
+    'http://znwg:znwg@2023@10.110.173.206:8080/geoserver/basemap/wms?service=WMS&version=1.1.0&request=GetMap&layers=basemap:shi&bbox=1.2109958342968449E7,2831518.9270368395,1.271889020620294E7,3520161.4404783626&width=679&height=768&srs=EPSG:3857&styles=&format=image/jpeg'
   let wmsLayer2 = new TileLayer({
     className: 'wms-vector2',
     title: 'hunan',
     preload: Infinity,
     source: new TileWMS({
       url: lll,
-      crossOrigin: 'anonymous'
+      crossOrigin: 'anonymous',
+      username: 'znwg', // 你的GeoServer用户名
+      password: 'znwg@2023', // 你的GeoServer密码
     })
   })
+  let source
   let wmsLayer3 = new TileLayer({
     className: 'wms-vector2',
     title: 'hunan',
     preload: Infinity,
-    source: new VectorTile({
-      // url: lll,
-      crossOrigin: 'anonymous',
-      tileLoadFunction: customLoader(tile, lll)
-    })
+    source: source
   })
-  // map.addLayer(wmsLayer)
+  source = new VectorTile({
+    // url: lll,
+    crossOrigin: 'anonymous',
+    tileLoadFunction: customLoader(wmsLayer3, lll)
+  })
+  map.addLayer(wmsLayer0)
+  map.addLayer(wmsLayer)
   // map.addLayer(wmsLayer2)
-  map.addLayer(wmsLayer3)
+
+  // map.addLayer(wmsLayer3)
 
   //创建覆盖层
 
@@ -370,54 +325,8 @@ const initMap = () => {
   })
   map.addLayer(selectedFeatures)
   sysStore.setSelectedFeatures(selectedFeatures)
-  // 监听点击事件(市、县格点订正)
-  // map.on('singleclick', async (event) => {
-  //   let status = await getGridValueByClick(event.coordinate, 'hunan_city')
-  //   status == 1 ? showBox2(event.coordinate) : null
-  // })
 }
-// const getGridValueByClick = (event, name) => {
-//   let geoPoint = new Point(event.coordinate)
-//   let url = tileWms.getFeatureInfoUrl(
-//     geoPoint.getCoordinates(),
-//     map.getView().getResolution(),
-//     map.getView().getProjection(),
-//     {
-//       // INFO_FORMAT: 'text/html',
-//       INFO_FORMAT: 'application/json',
-//       QUERY_LAYERS: `china:hunan_${name}`
-//     }
-//   )
-//   if (url) {
-//     fetch(url)
-//       .then((response) => response.json())
-//       // .then((response) => response.text())
-//       .then((json) => {
-//         const features = new GeoJSON().readFeatures(json)
 
-//         selectedFeatures.getSource().clear()
-//         selectedFeatures.getSource().addFeature(features[0])
-//         let text = new Text({
-//           text: features[0].get('name'),
-//           fill: new Fill({ color: 'black' }),
-//           stroke: new Stroke({ color: 'white', width: 1 })
-//         })
-//         selectedFeatures.getStyle().setText(text)
-
-//         let businessFullPoint = sysStore.businessFullPoint
-//         if (businessFullPoint == null) {
-//           alert('请先选择数据源！')
-//         } else {
-//           pids = []
-//           var ptsWithin = turf.pointsWithinPolygon(businessFullPoint, json)
-//           ptsWithin.features.map((item) => pids.push(item.properties.pid))
-//           console.log(pids)
-//           showBox2(event)
-//         }
-//       })
-//   }
-// }
-// 创建自定义的loaderFunction来添加请求头
 const customLoader = (tile, url) => {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', url);
@@ -426,16 +335,16 @@ const customLoader = (tile, url) => {
   xhr.onload = function () {
     // 请求成功后处理
     if (this.status === 200) {
-      tile.setLoader(function () {
-        const featureProjection = map.getView().getProjection();
-        return new Promise((resolve) => {
-          const format = new ol.format.MVT();
-          const features = format.readFeatures(this.response, {
-            featureProjection: featureProjection,
-          });
-          resolve(features);
+      // tile.setLoader(function () {
+      const featureProjection = map.getView().getProjection();
+      return new Promise((resolve) => {
+        const format = new Format.MVT();
+        const features = format.readFeatures(this.response, {
+          featureProjection: featureProjection,
         });
+        resolve(features);
       });
+      // });
       tile.load();
     }
   };
@@ -746,15 +655,5 @@ const screenshot = () => {
     margin-right: 5px;
   }
 
-  // ::v-deep .el-radio-group {
-  //   align-items: center;
-  //   display: inline-flex;
-  //   /* flex-wrap: wrap; */
-  //   font-size: 0;
-  // }
-
-  // ::v-deep .el-radio {
-  //   margin-right: 5px;
-  // }
 }
 </style>

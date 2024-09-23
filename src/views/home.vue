@@ -55,8 +55,9 @@
   <div id="test" class="test" v-show="showTest">
     <div class="overPan"></div>
     <div class="hole"></div>
-    <div class="mapping-title">XXXXXXXXXXXXXX</div>
+    <div id="mapping-title" class="mapping-title">XXXXXXXXXXXXXX</div>
   </div>
+  <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>
 </template>
 
 <script setup lang="ts">
@@ -130,10 +131,11 @@ const mapping = () => {
   const graticule = new Graticule({
     // the style to use for the lines, optional.
     strokeStyle: new Stroke({
-      color: 'rgba(255,120,0,0)',
+      color: 'rgba(255,120,0,7)',
       width: 2,
       lineDash: [0.5, 4]
     }),
+    targetSize: 100,
     showLabels: true,
     wrapX: true,
     intervals: [1, 2],
@@ -166,80 +168,45 @@ const mapping = () => {
 }
 
 const screenshot = () => {
-  html2canvas(document.querySelector('#mapCon'), { useCORS: true }).then((canvas) => {
-    canvas.toBlob((blob) => {
-      fs.saveAs(blob, '地图截图.png')
-    })
-  })
-
-  let map = sysStore.map as Map
-  // map.once('postcompose', function (event) {
-  //   var canvas = event.context?.canvas
-  //   canvas?.toBlob(function (blob) {
-  //     fs.saveAs(blob, 'map2.png')
+  // html2canvas(document.querySelector('#mapCon'), { useCORS: true }).then((canvas) => {
+  //   canvas.toBlob((blob) => {
+  //     fs.saveAs(blob, '地图截图.png')
   //   })
   // })
-  // map.renderSync()
 
-  // domtoimage
-  //   .toPng(document.querySelector('#mapCon'))
-  //   .then((dataUrl) => {
-  //     console.log(dataUrl)
-  //   })
-  //   .catch(function (error) {
-  //     console.error('oops, something went wrong!', error)
-  //   })
+  // let map = sysStore.map as Map
 
-  // map.once('rendercomplete', function () {
-  //   const mapCanvas = document.createElement('canvas')
-  //   const size = map.getSize()
-  //   // mapCanvas.width = size[0]
-  //   // mapCanvas.height = size[1]
-  //   mapCanvas.width = 1270
-  //   mapCanvas.height = 740
-  //   const mapContext = mapCanvas.getContext('2d')
-  //   Array.prototype.forEach.call(
-  //     map.getViewport().querySelectorAll('.ol-layer canvas, canvas.ol-layer'),
-  //     function (canvas) {
-  //       if (canvas.width > 0) {
-  //         const opacity = canvas.parentNode.style.opacity || canvas.style.opacity
-  //         mapContext.globalAlpha = opacity === '' ? 1 : Number(opacity)
-  //         let matrix
-  //         const transform = canvas.style.transform
-  //         if (transform) {
-  //           // Get the transform parameters from the style's transform matrix
-  //           matrix = transform
-  //             .match(/^matrix\(([^\(]*)\)$/)[1]
-  //             .split(',')
-  //             .map(Number)
-  //         } else {
-  //           matrix = [
-  //             parseFloat(canvas.style.width) / canvas.width,
-  //             0,
-  //             0,
-  //             parseFloat(canvas.style.height) / canvas.height,
-  //             0,
-  //             0
-  //           ]
-  //         }
-  //         // Apply the transform to the export map context
-  //         CanvasRenderingContext2D.prototype.setTransform.apply(mapContext, matrix)
-  //         const backgroundColor = canvas.parentNode.style.backgroundColor
-  //         if (backgroundColor) {
-  //           mapContext.fillStyle = backgroundColor
-  //           mapContext.fillRect(0, 0, canvas.width, canvas.height)
-  //         }
-  //         mapContext.drawImage(canvas, 0, 0)
-  //       }
-  //     }
-  //   )
-  //   mapContext.globalAlpha = 1
-  //   mapContext.setTransform(1, 0, 0, 1, 0, 0)
-  //   const link = document.getElementById('image-download')
-  //   link.href = mapCanvas.toDataURL()
-  //   link.click()
-  // })
-  // map.renderSync()
+  const areas = [document.querySelector('#mapCon'), document.querySelector('#mapping-title')]; // 选择多个区域
+  const canvases: any = [];
+
+  areas.forEach(area => {
+    html2canvas(area, {
+      useCORS: true,
+      scale: 2 // 提高清晰度
+    }).then(canvas => {
+      canvases.push(canvas);
+      if (canvases.length === areas.length) {
+        // 合并所有canvas
+        const finalCanvas = document.createElement('canvas');
+        const context = finalCanvas.getContext('2d');
+        finalCanvas.width = canvases[0].width; // 假设所有canvas宽度相同
+        finalCanvas.height = canvases.reduce((sum: number, c: any) => sum + c.height, 0); // 计算总高度
+
+        let offsetY = 0;
+        canvases.forEach((c: any) => {
+          context?.drawImage(c, 0, offsetY);
+          offsetY += c.height; // 更新Y轴偏移量
+        });
+
+        // 将合并后的canvas转换为图片
+        const imgData = finalCanvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = imgData;
+        link.download = 'screenshot.png';
+        link.click();
+      }
+    });
+  });
 }
 </script>
 
@@ -251,11 +218,13 @@ const screenshot = () => {
   left: 15%;
   bottom: 15%;
 }
+
 .main {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
+
   .title {
     position: absolute;
     width: 100%;
@@ -264,11 +233,13 @@ const screenshot = () => {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
     img {
       // width: @titleImgWidth;
       width: 36px;
       height: 36px;
     }
+
     span {
       font-family: 'PingFang SC ', 'PingFang SC', sans-serif;
       font-weight: 650;
@@ -278,6 +249,7 @@ const screenshot = () => {
       width: @sideWidth;
       text-align: center;
     }
+
     .title_menu {
       margin-left: 50px;
       margin-right: 50px;
@@ -286,6 +258,7 @@ const screenshot = () => {
       justify-content: left;
       align-items: center;
       color: #ffff;
+
       span {
         font-family: '微软雅黑 Bold', '微软雅黑 Regular', '微软雅黑', sans-serif;
         font-weight: 700;
@@ -293,34 +266,41 @@ const screenshot = () => {
         font-size: 17px;
         margin-right: 40px;
       }
+
       span:hover {
         cursor: pointer;
         color: rgba(119, 233, 255, 1);
       }
     }
+
     .title_end {
       width: @sideWidth;
     }
   }
+
   .content-left {
     position: relative;
     top: @titleHeight;
     width: @sideWidth;
     height: calc(100% - @titleHeight);
     // border: red solid 1px;
-    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3); /* 外部阴影 */
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3);
+    /* 外部阴影 */
   }
+
   .content {
     position: absolute;
     top: @titleHeight;
     left: @sideWidth;
     width: calc(100% - @sideWidth);
     height: calc(100% - @titleHeight);
+
     .toolbar {
       position: absolute;
       top: 60px;
       left: 5px;
     }
+
     .map {
       position: relative;
       width: 100%;
@@ -328,6 +308,7 @@ const screenshot = () => {
     }
   }
 }
+
 .splitView {
   position: absolute;
   width: 242px;
@@ -341,12 +322,14 @@ const screenshot = () => {
   justify-content: space-evenly;
   align-items: flex-end;
 }
+
 .mapping {
   position: absolute;
   width: 242px;
   height: 30px;
   bottom: 100px;
 }
+
 @--left: 10%;
 @--right: 10%;
 @--top: 10%;
@@ -371,20 +354,19 @@ const screenshot = () => {
   left: 242px;
   border: 1px red solid;
   background-color: #f9f8f6;
-  clip-path: polygon(
-    0 0,
-    130px 70px,
-    1400px 70px,
-    1400px 810px,
-    130px 810px,
-    130px 70px,
-    0 0,
-    0 100%,
-    100% 100%,
-    100% 0,
-    0 0
-  );
+  clip-path: polygon(0 0,
+      130px 70px,
+      1400px 70px,
+      1400px 810px,
+      130px 810px,
+      130px 70px,
+      0 0,
+      0 100%,
+      100% 100%,
+      100% 0,
+      0 0);
 }
+
 .hole {
   position: absolute;
   width: 1200px;
@@ -394,6 +376,7 @@ const screenshot = () => {
   left: 445px;
   pointer-events: none;
 }
+
 .mapping-title {
   color: black;
   position: absolute;
