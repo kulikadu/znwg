@@ -53,11 +53,10 @@
     <a id="image-download" download="map.png"></a>
   </div>
   <div id="test" class="test" v-show="showTest">
-    <div class="overPan"></div>
-    <div class="hole"></div>
+    <div id="overPan" class="overPan"></div>
+    <div id="hole" class="hole"></div>
     <div id="mapping-title" class="mapping-title">XXXXXXXXXXXXXX</div>
   </div>
-  <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>
 </template>
 
 <script setup lang="ts">
@@ -176,7 +175,7 @@ const screenshot = () => {
 
   // let map = sysStore.map as Map
 
-  const areas = [document.querySelector('#mapCon'), document.querySelector('#mapping-title')]; // 选择多个区域
+  const areas = [document.querySelector('#mapCon'), document.querySelector('#hole'), document.querySelector('#mapping-title'),]; // 选择多个区域
   const canvases: any = [];
 
   areas.forEach(area => {
@@ -195,7 +194,7 @@ const screenshot = () => {
         let offsetY = 0;
         canvases.forEach((c: any) => {
           context?.drawImage(c, 0, offsetY);
-          offsetY += c.height; // 更新Y轴偏移量
+          // offsetY += c.height; // 更新Y轴偏移量
         });
 
         // 将合并后的canvas转换为图片
@@ -375,6 +374,7 @@ const screenshot = () => {
   top: 123px;
   left: 445px;
   pointer-events: none;
+  opacity: 0.5;
 }
 
 .mapping-title {

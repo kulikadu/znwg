@@ -51,7 +51,7 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   // let startlon = data.startlon
   // let endlon = data.endlon + lonGap
 
-  //以格点值为中心构建网格
+  //以格点值为中心构建网格,原始点要偏移
   let startlat = data.startlat - latGap / 2
   let endlat = data.endlat + latGap / 2
   let startlon = data.startlon - lonGap / 2
@@ -120,8 +120,29 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
           ]
         }
       })
+    }
+  }
+  // sysStore.setBusinessPolygon(geojsonData_Polygon)
 
-      //创建格点
+  //格点不做偏移
+  startlat = data.startlat
+  endlat = data.endlat + latGap
+  startlon = data.startlon
+  endlon = data.endlon + lonGap
+
+  //抽稀后格点
+  for (let i = 0; i < newNumY; i++) {
+    for (let j = 0; j < newNumX; j++) {
+      let pid = j == 0 && i == 0 ? 0 : i * numX + j - 1
+      let color = getColor(id, values1[pid])
+
+      let minLat, maxLat, minLon, maxLon
+      minLat = startlat + latGap * i * gap
+      maxLat = minLat + latGap * gap
+      minLon = startlon + lonGap * j * gap
+      maxLon = minLon + lonGap * gap
+
+      //创建格点(抽稀后)
       geojsonData_Point.features.push({
         type: 'Feature',
         properties: {
@@ -137,13 +158,8 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       })
     }
   }
-  // sysStore.setBusinessPolygon(geojsonData_Polygon)
 
-  //原始格点不做偏移
-  startlat = data.startlat
-  endlat = data.endlat + latGap
-  startlon = data.startlon
-  endlon = data.endlon + lonGap
+  //全数据量
   for (let i = 0; i < numY; i++) {
     for (let j = 0; j < numX; j++) {
       let pid = j == 0 && i == 0 ? 0 : i * numX + j - 1
@@ -246,47 +262,74 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
 
   // let fill = new Fill()
   let lll: number
+  let businessLayer
   //格点图层
-  let businessLayer = new VectorLayer({
-    title: 'grid_VectorLayer',
-    opacity: 0.8,
-    source: new VectorSource({
-      features: new GeoJSON().readFeatures(geojsonData_Polygon)
-    }),
-    style: (feature, resolution) => {
-      // let img = new Image()
-      // img.src = 'src/assets/images/雨夹雪.png'
-      lll = getSquarePixelSideLength(sysStore.map, feature)
-      // img.style.width = `${lll}px`
-      // img.style.height = `${lll}px`
-      let fill = new Fill()
-      fill.setColor(img)
-      let text = new Text({
-        text: [
-          // `${feature.get('value1')}`,
-          // `12px Calibri,sans-serif`,
-          // '\n',
-          // '',
-          // `${feature.get('value2')}`,
-          // '10px Calibri,sans-serif'
-        ],
-        overflow: true,
-        fill: new Fill({ color: 'black' }),
-        stroke: new Stroke({
-          color: '#fff',
-          width: 3
+  if (id != '7') {
+    businessLayer = new VectorLayer({
+      title: 'grid_VectorLayer',
+      opacity: 0.8,
+      source: new VectorSource({
+        features: new GeoJSON().readFeatures(geojsonData_Polygon)
+      }),
+      style: (feature, resolution) => {
+        // lll = getSquarePixelSideLength(sysStore.map, feature)
+        let fill = new Fill()
+        fill.setColor(img)
+        let text = new Text({
+          text: [
+            `${feature.get('value1')}`,
+            `12px Calibri,sans-serif`,
+            '\n',
+            '',
+            `${feature.get('value2')}`,
+            '10px Calibri,sans-serif'
+          ],
+          overflow: true,
+          fill: new Fill({ color: 'black' }),
+          stroke: new Stroke({
+            color: '#fff',
+            width: 3
+          })
         })
-      })
-      return new Style({
-        // fill: new Fill({ color: feature.get('color') }),
-        // fill: fill,
-        // stroke: new Stroke({ color: 'black', width: 1 }),
-        // text: text
-      })
-    }
-  })
+        return new Style({
+          fill: new Fill({ color: feature.get('color') }),
+          // fill: fill,
+          stroke: new Stroke({ color: 'black', width: 1 }),
+          text: text
+        })
+      }
+    })
 
-  let bus3 = new VectorLayer({
+    sysStore.map?.addLayer(businessLayer)
+  }
+
+  //风向图
+  if (id == '7') {
+    businessLayer = new VectorLayer({
+      title: 'wind',
+      opacity: 0.8,
+      zIndex: 99,
+      source: new VectorSource({
+        features: new GeoJSON().readFeatures(geojsonData_Point)
+      }),
+      style: (feature, resolution) => {
+        const iconSize = (12.5 / resolution) * 500 * gap
+        console.log({ resolution }, { iconSize })
+        return new Style({
+          image: new Icon({
+            src: 'src/assets/images/wind/11-12级风Marker.png',
+            width: iconSize,
+            height: iconSize
+            // rotation: 90
+          })
+        })
+      }
+    })
+
+    sysStore.map?.addLayer(businessLayer)
+  }
+
+  let bus3Full = new VectorLayer({
     title: 'grid_VectorLayer3',
     opacity: 0.8,
     zIndex: 99,
@@ -294,40 +337,27 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       features: new GeoJSON().readFeatures(geojsonData_Point_full)
     }),
     style: (feature, resolution) => {
-      let fill = new Fill()
-      // fill.setColor(img)
+      const iconSize = (12.5 / resolution) * 500
       return new Style({
         image: new Icon({
           src: 'src/assets/images/雨夹雪.png',
-          // size: [100, 100],
-          width: 50,
-          height: 50
+          width: iconSize,
+          height: iconSize
           // rotation: 90
+        }),
+        text: new Text({
+          text: feature.get('value1'),
+          overflow: true,
+          fill: new Fill({ color: 'black' }),
+          stroke: new Stroke({
+            color: '#fff',
+            width: 3
+          })
         })
       })
     }
   })
-  sysStore.map?.addLayer(bus3)
-
-  // var cnv = document.createElement('canvas')
-  // var ctx = cnv.getContext('2d')
-  // var img2 = new Image()
-  // img2.src = 'src/assets/images/雨夹雪.png'
-  // img2.onload = function () {
-  //   var pattern = ctx?.createPattern(img2, 'repeat')
-  //   businessLayer.setStyle(
-  //     new Style({
-  //       stroke: new Stroke({
-  //         color: 'red',
-  //         lineDash: [5],
-  //         width: 2
-  //       }),
-  //       fill: new Fill({
-  //         color: pattern
-  //       })
-  //     })
-  //   )
-  // }
+  // sysStore.map?.addLayer(bus3Full)
 
   //等直面图层,相态和风向没有
   let businessLayer2

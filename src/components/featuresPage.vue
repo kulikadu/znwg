@@ -123,10 +123,12 @@ const handleClick = async (value: string, index: number) => {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+
   .content-left-feature-item {
     width: 220px;
     height: 290px;
     border: 1px solid #d7d7d7;
+
     .items {
       top: 10px;
       position: relative;
@@ -138,6 +140,7 @@ const handleClick = async (value: string, index: number) => {
         justify-content: space-around;
         align-items: center;
         font-size: 0.8rem;
+
         div {
           width: 100px;
           height: 25px;
@@ -153,6 +156,7 @@ const handleClick = async (value: string, index: number) => {
             background-color: #2f9bf8;
             font-size: 0.9rem;
           }
+
           // &:active {
           //   background-color: #2f9bf8;
           //   font-size: 0.9rem;
@@ -161,12 +165,14 @@ const handleClick = async (value: string, index: number) => {
             color: #333333;
           }
         }
+
         span {
           color: #b3bcca;
         }
       }
     }
   }
+
   &::after {
     content: '';
     display: block;
@@ -175,11 +181,13 @@ const handleClick = async (value: string, index: number) => {
     background-color: #d7d7d7;
   }
 }
+
 .legend {
   position: fixed;
   bottom: 350px;
   right: 0;
 }
+
 .active {
   background-color: #2f9bf8;
   // color: white;
