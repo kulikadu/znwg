@@ -300,9 +300,9 @@ const initMap = () => {
     crossOrigin: 'anonymous',
     tileLoadFunction: customLoader(wmsLayer3, lll)
   })
-  map.addLayer(wmsLayer0)
-  map.addLayer(wmsLayer)
-  // map.addLayer(wmsLayer2)
+  // map.addLayer(wmsLayer0)
+  // map.addLayer(wmsLayer)
+  map.addLayer(wmsLayer2)
 
   // map.addLayer(wmsLayer3)
 

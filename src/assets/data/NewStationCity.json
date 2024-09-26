@@ -1,1 +1,2305 @@
-{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57976","OBTName":"ÒËÕÂ","CityName":"³»ÖİÊĞ","CountyName":"ÒËÕÂÏØ","Height":222.8,"TownShipNa":"ÓñÏªÕò","Lon":112.95,"Lat":25.416667,"remark":""},"geometry":{"type":"Point","coordinates":[112.95,25.416667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57768","OBTName":"ĞÂÉÛ","CityName":"ÉÛÑôÊĞ","CountyName":"ĞÂÉÛÏØ","Height":294.1,"TownShipNa":"ÄğÏªÕò","Lon":111.45,"Lat":27.316667,"remark":""},"geometry":{"type":"Point","coordinates":[111.45,27.316667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57769","OBTName":"ÉÛ¶«","CityName":"ÉÛÑôÊĞ","CountyName":"ÉÛ¶«ÊĞ","Height":252.6,"TownShipNa":"Á½ÊĞÌÁ½ÖµÀ","Lon":111.733333,"Lat":27.233333,"remark":""},"geometry":{"type":"Point","coordinates":[111.733333,27.233333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57766","OBTName":"ÉÛÑô","CityName":"ÉÛÑôÊĞ","CountyName":"´óÏéÇø","Height":311.0,"TownShipNa":"Ì´½­½ÖµÀ","Lon":111.45,"Lat":27.183333,"remark":""},"geometry":{"type":"Point","coordinates":[111.45,27.183333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57772","OBTName":"ÏæÏç","CityName":"ÏæÌ¶ÊĞ","CountyName":"ÏæÏçÊĞ","Height":86.9,"TownShipNa":"ĞÂÏæÂ·½ÖµÀ","Lon":112.5,"Lat":27.75,"remark":""},"geometry":{"type":"Point","coordinates":[112.5,27.75]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57773","OBTName":"ÏæÌ¶","CityName":"ÏæÌ¶ÊĞ","CountyName":"ÓêºşÇø","Height":63.8,"TownShipNa":"³¤³ÇÏç","Lon":112.833333,"Lat":27.883333,"remark":""},"geometry":{"type":"Point","coordinates":[112.833333,27.883333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57767","OBTName":"Â¡»Ø","CityName":"ÉÛÑôÊĞ","CountyName":"Â¡»ØÏØ","Height":308.4,"TownShipNa":"»¨ÃÅ½ÖµÀ","Lon":111.0,"Lat":27.116667,"remark":""},"geometry":{"type":"Point","coordinates":[111.0,27.116667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57771","OBTName":"ÉØÉ½","CityName":"ÏæÌ¶ÊĞ","CountyName":"ÉØÉ½ÊĞ","Height":88.3,"TownShipNa":"ÇåÏªÕò","Lon":112.533333,"Lat":27.933333,"remark":""},"geometry":{"type":"Point","coordinates":[112.533333,27.933333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57758","OBTName":"¶´¿Ú","CityName":"ÉÛÑôÊĞ","CountyName":"¶´¿ÚÏØ","Height":339.5,"TownShipNa":"»¨¹Å½ÖµÀ","Lon":110.6,"Lat":27.033333,"remark":""},"geometry":{"type":"Point","coordinates":[110.6,27.033333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57760","OBTName":"ÀäË®½­","CityName":"Â¦µ×ÊĞ","CountyName":"ÀäË®½­ÊĞ","Height":249.2,"TownShipNa":"ÀäË®½­½ÖµÀ","Lon":111.433333,"Lat":27.7,"remark":""},"geometry":{"type":"Point","coordinates":[111.433333,27.7]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57762","OBTName":"Á°Ô´","CityName":"Â¦µ×ÊĞ","CountyName":"Á°Ô´ÊĞ","Height":249.2,"TownShipNa":"À¶Ìï½ÖµÀ","Lon":111.7,"Lat":27.683333,"remark":""},"geometry":{"type":"Point","coordinates":[111.7,27.683333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57763","OBTName":"Â¦µ×","CityName":"Â¦µ×ÊĞ","CountyName":"Â¦ĞÇÇø","Height":205.8,"TownShipNa":"´ó¿Æ½ÖµÀ","Lon":112.0,"Lat":27.683333,"remark":""},"geometry":{"type":"Point","coordinates":[112.0,27.683333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57781","OBTName":"õ·Áê","CityName":"ÖêÖŞÊĞ","CountyName":"õ·ÁêÊĞ","Height":74.4,"TownShipNa":"×óÈ¨Õò","Lon":113.5,"Lat":27.65,"remark":""},"geometry":{"type":"Point","coordinates":[113.5,27.65]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57851","OBTName":"ĞÂÄş","CityName":"ÉÛÑôÊĞ","CountyName":"ĞÂÄşÏØ","Height":346.1,"TownShipNa":"½ğÊ¯Õò","Lon":110.833333,"Lat":26.466667,"remark":""},"geometry":{"type":"Point","coordinates":[110.833333,26.466667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57853","OBTName":"Îä¸Ô","CityName":"ÉÛÑôÊĞ","CountyName":"Îä¸ÔÊĞ","Height":341.0,"TownShipNa":"Ó­´ºÍ¤½ÖµÀ","Lon":110.633333,"Lat":26.733333,"remark":""},"geometry":{"type":"Point","coordinates":[110.633333,26.733333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57846","OBTName":"ËçÄş","CityName":"ÉÛÑôÊĞ","CountyName":"ËçÄşÏØ","Height":310.3,"TownShipNa":"³¤ÆÌÕò","Lon":110.15,"Lat":26.583333,"remark":""},"geometry":{"type":"Point","coordinates":[110.15,26.583333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57776","OBTName":"ÄÏÔÀ","CityName":"ºâÑôÊĞ","CountyName":"ÄÏÔÀÇø","Height":1265.9,"TownShipNa":"ÊÙÔÀÏç","Lon":112.7,"Lat":27.3,"remark":""},"geometry":{"type":"Point","coordinates":[112.7,27.3]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57777","OBTName":"ºâÉ½","CityName":"ºâÑôÊĞ","CountyName":"ºâÉ½ÏØ","Height":159.1,"TownShipNa":"¿ªÔÆÕò","Lon":112.866667,"Lat":27.233333,"remark":""},"geometry":{"type":"Point","coordinates":[112.866667,27.233333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57761","OBTName":"ĞÂ»¯","CityName":"Â¦µ×ÊĞ","CountyName":"ĞÂ»¯ÏØ","Height":211.9,"TownShipNa":"ÉÏÃ·½ÖµÀ","Lon":111.3,"Lat":27.75,"remark":""},"geometry":{"type":"Point","coordinates":[111.3,27.75]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57779","OBTName":"ØüÏØ","CityName":"ÖêÖŞÊĞ","CountyName":"ØüÏØ","Height":115.2,"TownShipNa":"ÁªĞÇ½ÖµÀ","Lon":113.35,"Lat":27.0,"remark":""},"geometry":{"type":"Point","coordinates":[113.35,27.0]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57780","OBTName":"ÖêÖŞ","CityName":"ÖêÖŞÊĞ","CountyName":"ºÉÌÁÇø","Height":74.6,"TownShipNa":"¹ğ»¨½ÖµÀ","Lon":113.166667,"Lat":27.866667,"remark":""},"geometry":{"type":"Point","coordinates":[113.166667,27.866667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57774","OBTName":"Ë«·å","CityName":"Â¦µ×ÊĞ","CountyName":"Ë«·åÏØ","Height":100.0,"TownShipNa":"ÓÀ·á½ÖµÀ","Lon":112.166667,"Lat":27.45,"remark":""},"geometry":{"type":"Point","coordinates":[112.166667,27.45]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57778","OBTName":"ºâ¶«","CityName":"ºâÑôÊĞ","CountyName":"ºâ¶«ÏØ","Height":70.3,"TownShipNa":"›¦Ë®Õò","Lon":112.95,"Lat":27.1,"remark":""},"geometry":{"type":"Point","coordinates":[112.95,27.1]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57662","OBTName":"³£µÂ","CityName":"³£µÂÊĞ","CountyName":"ÁøÒ¶ºşÂÃÓÎ¶È¼ÙÇø","Height":150.6,"TownShipNa":"ÁøÒ¶ºş½ÖµÀ","Lon":111.683333,"Lat":29.116667,"remark":""},"geometry":{"type":"Point","coordinates":[111.683333,29.116667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57663","OBTName":"ººÊÙ","CityName":"³£µÂÊĞ","CountyName":"ººÊÙÏØ","Height":31.9,"TownShipNa":"³½Ñô½ÖµÀ","Lon":111.95,"Lat":28.916667,"remark":""},"geometry":{"type":"Point","coordinates":[111.95,28.916667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57669","OBTName":"°²»¯","CityName":"ÒæÑôÊĞ","CountyName":"°²»¯ÏØ","Height":196.0,"TownShipNa":"¶«ÆºÕò","Lon":111.245833,"Lat":28.376111,"remark":""},"geometry":{"type":"Point","coordinates":[111.245833,28.376111]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57671","OBTName":"ãä½­","CityName":"ÒæÑôÊĞ","CountyName":"ãä½­ÊĞ","Height":37.0,"TownShipNa":"Çíºş½ÖµÀ","Lon":112.372222,"Lat":28.85,"remark":""},"geometry":{"type":"Point","coordinates":[112.372222,28.85]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57661","OBTName":"ÌÒÔ´","CityName":"³£µÂÊĞ","CountyName":"ÌÒÔ´ÏØ","Height":48.7,"TownShipNa":"ÕÄ½­½ÖµÀ","Lon":111.483333,"Lat":28.916667,"remark":""},"geometry":{"type":"Point","coordinates":[111.483333,28.916667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57666","OBTName":"ÌÒ½­","CityName":"ÒæÑôÊĞ","CountyName":"ÌÒ½­ÏØ","Height":136.9,"TownShipNa":"ÌÒ»¨½­Õò","Lon":112.171111,"Lat":28.506111,"remark":""},"geometry":{"type":"Point","coordinates":[112.171111,28.506111]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57643","OBTName":"ÓÀË³","CityName":"ÏæÎ÷Öİ","CountyName":"ÓÀË³ÏØ","Height":268.2,"TownShipNa":"ÁéÏªÕò","Lon":109.833333,"Lat":29.0,"remark":""},"geometry":{"type":"Point","coordinates":[109.833333,29.0]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57646","OBTName":"¹ÅÕÉ","CityName":"ÏæÎ÷Öİ","CountyName":"¹ÅÕÉÏØ","Height":302.1,"TownShipNa":"¹ÅÑôÕò","Lon":109.966667,"Lat":28.666667,"remark":""},"geometry":{"type":"Point","coordinates":[109.966667,28.666667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57640","OBTName":"»¨Ô«","CityName":"ÏæÎ÷Öİ","CountyName":"»¨Ô«ÏØ","Height":341.0,"TownShipNa":"»¨Ô«Õò","Lon":109.45,"Lat":28.583333,"remark":""},"geometry":{"type":"Point","coordinates":[109.45,28.583333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57657","OBTName":"ãòÏª","CityName":"ÏæÎ÷Öİ","CountyName":"ãòÏªÏØ","Height":186.0,"TownShipNa":"ÎäÏªÕò","Lon":110.2,"Lat":28.233333,"remark":""},"geometry":{"type":"Point","coordinates":[110.2,28.233333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57642","OBTName":"±£¾¸","CityName":"ÏæÎ÷Öİ","CountyName":"±£¾¸ÏØ","Height":438.1,"TownShipNa":"Ç¨ÁêÕò","Lon":109.65,"Lat":28.683333,"remark":""},"geometry":{"type":"Point","coordinates":[109.65,28.683333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57740","OBTName":"·ï»Ë","CityName":"ÏæÎ÷Öİ","CountyName":"·ï»ËÏØ","Height":349.6,"TownShipNa":"ãû½­Õò","Lon":109.6,"Lat":27.95,"remark":""},"geometry":{"type":"Point","coordinates":[109.6,27.95]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57687","OBTName":"³¤É³","CityName":"³¤É³ÊĞ","CountyName":"ÔÀÂ´Çø","Height":119.0,"TownShipNa":"Á«»¨Õò","Lon":112.783333,"Lat":28.116667,"remark":""},"geometry":{"type":"Point","coordinates":[112.783333,28.116667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57688","OBTName":"ä¯Ñô","CityName":"³¤É³ÊĞ","CountyName":"ä¯ÑôÊĞ","Height":101.1,"TownShipNa":"»´´¨½ÖµÀ","Lon":113.633333,"Lat":28.15,"remark":""},"geometry":{"type":"Point","coordinates":[113.633333,28.15]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57674","OBTName":"ºÕÉ½","CityName":"ÒæÑôÊĞ","CountyName":"ºÕÉ½Çø","Height":46.3,"TownShipNa":"ºÕÉ½½ÖµÀ","Lon":112.378056,"Lat":28.571944,"remark":""},"geometry":{"type":"Point","coordinates":[112.378056,28.571944]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57678","OBTName":"ÄşÏç","CityName":"³¤É³ÊĞ","CountyName":"ÄşÏçÊĞ","Height":74.7,"TownShipNa":"ÓñÌ¶½ÖµÀ","Lon":112.55,"Lat":28.25,"remark":""},"geometry":{"type":"Point","coordinates":[112.55,28.25]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57649","OBTName":"¼ªÊ×","CityName":"ÏæÎ÷Öİ","CountyName":"¼ªÊ×ÊĞ","Height":254.6,"TownShipNa":"Ç¬Öİ½ÖµÀ","Lon":109.683333,"Lat":28.233333,"remark":""},"geometry":{"type":"Point","coordinates":[109.683333,28.233333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57680","OBTName":"ãèÂŞ","CityName":"ÔÀÑôÊĞ","CountyName":"ãèÂŞÊĞ","Height":82.5,"TownShipNa":"Çü×ÓìôÕò","Lon":113.1,"Lat":28.85,"remark":""},"geometry":{"type":"Point","coordinates":[113.1,28.85]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57682","OBTName":"Æ½½­","CityName":"ÔÀÑôÊĞ","CountyName":"Æ½½­ÏØ","Height":106.3,"TownShipNa":"ºº²ıÕò","Lon":113.566667,"Lat":28.716667,"remark":""},"geometry":{"type":"Point","coordinates":[113.566667,28.716667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57673","OBTName":"ÏæÒõ","CityName":"ÔÀÑôÊĞ","CountyName":"ÏæÒõÏØ","Height":63.0,"TownShipNa":"Ê¯ÌÁÕò","Lon":112.933333,"Lat":28.733333,"remark":""},"geometry":{"type":"Point","coordinates":[112.933333,28.733333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57985","OBTName":"Èê³Ç","CityName":"³»ÖİÊĞ","CountyName":"Èê³ÇÏØ","Height":645.6,"TownShipNa":"Â¬ÑôÕò","Lon":113.683333,"Lat":25.566667,"remark":""},"geometry":{"type":"Point","coordinates":[113.683333,25.566667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"59063","OBTName":"½­»ª","CityName":"ÓÀÖİÊĞ","CountyName":"½­»ªÏØ","Height":265.7,"TownShipNa":"ãû½­Õò","Lon":111.566667,"Lat":25.183333,"remark":""},"geometry":{"type":"Point","coordinates":[111.566667,25.183333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57978","OBTName":"ÁÙÎä","CityName":"³»ÖİÊĞ","CountyName":"ÁÙÎäÏØ","Height":292.0,"TownShipNa":"Ë´·åÕò","Lon":112.55,"Lat":25.283333,"remark":""},"geometry":{"type":"Point","coordinates":[112.55,25.283333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57981","OBTName":"×ÊĞË","CityName":"³»ÖİÊĞ","CountyName":"×ÊĞËÊĞ","Height":139.3,"TownShipNa":"ÌÆ¶´½ÖµÀ","Lon":113.216667,"Lat":25.983333,"remark":""},"geometry":{"type":"Point","coordinates":[113.216667,25.983333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57872","OBTName":"ºâÑô","CityName":"ºâÑôÊĞ","CountyName":"ÕôÏæÇø","Height":104.9,"TownShipNa":"ÁªºÏ½ÖµÀ","Lon":112.6,"Lat":26.9,"remark":""},"geometry":{"type":"Point","coordinates":[112.6,26.9]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57874","OBTName":"³£Äş","CityName":"ºâÑôÊĞ","CountyName":"³£ÄşÊĞ","Height":116.6,"TownShipNa":"ÒËÑô½ÖµÀ","Lon":112.4,"Lat":26.416667,"remark":""},"geometry":{"type":"Point","coordinates":[112.4,26.416667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57870","OBTName":"Æî¶«","CityName":"ºâÑôÊĞ","CountyName":"Æî¶«ÏØ","Height":218.9,"TownShipNa":"ÓÀ²ı½ÖµÀ","Lon":112.1,"Lat":26.8,"remark":""},"geometry":{"type":"Point","coordinates":[112.1,26.8]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57876","OBTName":"ñçÑô","CityName":"ºâÑôÊĞ","CountyName":"ñçÑôÊĞ","Height":135.0,"TownShipNa":"ÎåÀïÅÆ½ÖµÀ","Lon":112.833333,"Lat":26.433333,"remark":""},"geometry":{"type":"Point","coordinates":[112.833333,26.433333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57881","OBTName":"°²ÈÊ","CityName":"³»ÖİÊĞ","CountyName":"°²ÈÊÏØ","Height":101.8,"TownShipNa":"ÓÀÀÖ½­Õò","Lon":113.25,"Lat":26.716667,"remark":""},"geometry":{"type":"Point","coordinates":[113.25,26.716667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57871","OBTName":"ºâÑôÏØ","CityName":"ºâÑôÊĞ","CountyName":"ºâÑôÏØ","Height":90.8,"TownShipNa":"Î÷¶ÉÕò","Lon":112.366667,"Lat":26.983333,"remark":""},"geometry":{"type":"Point","coordinates":[112.366667,26.983333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57875","OBTName":"ºâÄÏ","CityName":"ºâÑôÊĞ","CountyName":"ºâÄÏÏØ","Height":137.0,"TownShipNa":"ÔÆ¼¯½ÖµÀ","Lon":112.683333,"Lat":26.75,"remark":""},"geometry":{"type":"Point","coordinates":[112.683333,26.75]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57860","OBTName":"ÉÛÑôÏØ","CityName":"ÉÛÑôÊĞ","CountyName":"ÉÛÑôÏØ","Height":283.3,"TownShipNa":"ÌÁ¶É¿ÚÕò","Lon":111.283333,"Lat":27.0,"remark":""},"geometry":{"type":"Point","coordinates":[111.283333,27.0]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57865","OBTName":"ÀäË®Ì²","CityName":"ÓÀÖİÊĞ","CountyName":"ÀäË®Ì²Çø","Height":192.8,"TownShipNa":"·ï»Ë½ÖµÀ","Lon":111.616667,"Lat":26.5,"remark":""},"geometry":{"type":"Point","coordinates":[111.616667,26.5]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57679","OBTName":"»Æ»¨","CityName":"³¤É³ÊĞ","CountyName":"³¤É³ÏØ","Height":101.4,"TownShipNa":"»Æ»¨Õò","Lon":113.2,"Lat":28.216667,"remark":""},"geometry":{"type":"Point","coordinates":[113.2,28.216667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57867","OBTName":"¶«°²","CityName":"ÓÀÖİÊĞ","CountyName":"¶«°²ÏØ","Height":169.0,"TownShipNa":"°×ÑÀÊĞÕò","Lon":111.283333,"Lat":26.4,"remark":""},"geometry":{"type":"Point","coordinates":[111.283333,26.4]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57868","OBTName":"ÆîÑô","CityName":"ÓÀÖİÊĞ","CountyName":"ÆîÑôÊĞ","Height":113.2,"TownShipNa":"ÁúÉ½½ÖµÀ","Lon":111.866667,"Lat":26.6,"remark":""},"geometry":{"type":"Point","coordinates":[111.866667,26.6]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57857","OBTName":"³Ç²½","CityName":"ÉÛÑôÊĞ","CountyName":"³Ç²½ÏØ","Height":477.7,"TownShipNa":"ÈåÁÖÕò","Lon":110.316667,"Lat":26.366667,"remark":""},"geometry":{"type":"Point","coordinates":[110.316667,26.366667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57971","OBTName":"ĞÂÌï","CityName":"ÓÀÖİÊĞ","CountyName":"ĞÂÌïÏØ","Height":224.2,"TownShipNa":"ÁúÈª½ÖµÀ°ìÊÂ´¦","Lon":112.2,"Lat":25.916667,"remark":""},"geometry":{"type":"Point","coordinates":[112.2,25.916667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57972","OBTName":"³»Öİ","CityName":"³»ÖİÊĞ","CountyName":"±±ºşÇø","Height":368.6,"TownShipNa":"Ôö¸£½ÖµÀ","Lon":113.033333,"Lat":25.8,"remark":""},"geometry":{"type":"Point","coordinates":[113.033333,25.8]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57966","OBTName":"ÄşÔ¶","CityName":"ÓÀÖİÊĞ","CountyName":"ÄşÔ¶ÏØ","Height":244.2,"TownShipNa":"¶«Ïª½ÖµÀ","Lon":111.966667,"Lat":25.6,"remark":""},"geometry":{"type":"Point","coordinates":[111.966667,25.6]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57974","OBTName":"¼ÎºÌ","CityName":"³»ÖİÊĞ","CountyName":"¼ÎºÌÏØ","Height":214.5,"TownShipNa":"ÖéÈªÕò","Lon":112.366667,"Lat":25.583333,"remark":""},"geometry":{"type":"Point","coordinates":[112.366667,25.583333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57975","OBTName":"À¶É½","CityName":"ÓÀÖİÊĞ","CountyName":"À¶É½ÏØ","Height":277.0,"TownShipNa":"Ëş·åÕò","Lon":112.2,"Lat":25.383333,"remark":""},"geometry":{"type":"Point","coordinates":[112.2,25.383333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57969","OBTName":"½­ÓÀ","CityName":"ÓÀÖİÊĞ","CountyName":"½­ÓÀÏØ","Height":269.0,"TownShipNa":"äìÆÖÕò","Lon":111.316667,"Lat":25.283333,"remark":""},"geometry":{"type":"Point","coordinates":[111.316667,25.283333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57973","OBTName":"¹ğÑô","CityName":"³»ÖİÊĞ","CountyName":"¹ğÑôÏØ","Height":329.1,"TownShipNa":"ÁúÌ¶½ÖµÀ","Lon":112.716667,"Lat":25.75,"remark":""},"geometry":{"type":"Point","coordinates":[112.716667,25.75]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57886","OBTName":"Ñ×Áê","CityName":"ÖêÖŞÊĞ","CountyName":"Ñ×ÁêÏØ","Height":268.8,"TownShipNa":"Ï¼ÑôÕò","Lon":113.8,"Lat":26.483333,"remark":""},"geometry":{"type":"Point","coordinates":[113.8,26.483333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57887","OBTName":"ÓÀĞË","CityName":"³»ÖİÊĞ","CountyName":"ÓÀĞËÏØ","Height":167.6,"TownShipNa":"±ã½­½ÖµÀ","Lon":113.116667,"Lat":26.116667,"remark":""},"geometry":{"type":"Point","coordinates":[113.116667,26.116667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57866","OBTName":"ÓÀÖİ","CityName":"ÓÀÖİÊĞ","CountyName":"ÁãÁêÇø","Height":172.6,"TownShipNa":"Ğì¼Ò¾®½ÖµÀ","Lon":111.616667,"Lat":26.233333,"remark":""},"geometry":{"type":"Point","coordinates":[111.616667,26.233333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57962","OBTName":"Ë«ÅÆ","CityName":"ÓÀÖİÊĞ","CountyName":"Ë«ÅÆÏØ","Height":205.0,"TownShipNa":"ãñ²´Õò","Lon":111.65,"Lat":26.033333,"remark":""},"geometry":{"type":"Point","coordinates":[111.65,26.033333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57965","OBTName":"µÀÏØ","CityName":"ÓÀÖİÊĞ","CountyName":"µÀÏØ","Height":192.2,"TownShipNa":"å¥Ïª½ÖµÀ","Lon":111.6,"Lat":25.533333,"remark":""},"geometry":{"type":"Point","coordinates":[111.6,25.533333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57882","OBTName":"²èÁê","CityName":"ÖêÖŞÊĞ","CountyName":"²èÁêÏØ","Height":136.2,"TownShipNa":"ÔÆÑô½ÖµÀ","Lon":113.55,"Lat":26.783333,"remark":""},"geometry":{"type":"Point","coordinates":[113.55,26.783333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57889","OBTName":"¹ğ¶«","CityName":"³»ÖİÊĞ","CountyName":"¹ğ¶«ÏØ","Height":835.9,"TownShipNa":"Å½½­Õò","Lon":113.95,"Lat":26.083333,"remark":""},"geometry":{"type":"Point","coordinates":[113.95,26.083333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57574","OBTName":"ÄÏÏØ","CityName":"ÒæÑôÊĞ","CountyName":"ÄÏÏØ","Height":40.3,"TownShipNa":"ÎÚ×ìÏç","Lon":112.431667,"Lat":29.351667,"remark":""},"geometry":{"type":"Point","coordinates":[112.431667,29.351667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57575","OBTName":"»ªÈİ","CityName":"ÔÀÑôÊĞ","CountyName":"»ªÈİÏØ","Height":49.5,"TownShipNa":"ÕÂ»ªÕò","Lon":112.6,"Lat":29.533333,"remark":""},"geometry":{"type":"Point","coordinates":[112.6,29.533333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57565","OBTName":"å¢ÏØ","CityName":"³£µÂÊĞ","CountyName":"å¢ÏØ","Height":38.1,"TownShipNa":"å¢Î÷½ÖµÀ","Lon":111.716667,"Lat":29.666667,"remark":""},"geometry":{"type":"Point","coordinates":[111.716667,29.666667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57584","OBTName":"ÔÀÑô","CityName":"ÔÀÑôÊĞ","CountyName":"ÔÀÑôÂ¥Çø","Height":53.0,"TownShipNa":"ÔÀÑôÂ¥½ÖµÀ","Lon":113.083333,"Lat":29.383333,"remark":""},"geometry":{"type":"Point","coordinates":[113.083333,29.383333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57585","OBTName":"ÁÙÏæ","CityName":"ÔÀÑôÊĞ","CountyName":"ÁÙÏæÊĞ","Height":60.4,"TownShipNa":"³¤°²½ÖµÀ","Lon":113.45,"Lat":29.483333,"remark":""},"geometry":{"type":"Point","coordinates":[113.45,29.483333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57566","OBTName":"ÁÙå¢","CityName":"³£µÂÊĞ","CountyName":"ÁÙå¢ÏØ","Height":89.3,"TownShipNa":"Ì«Æ½½ÖµÀ","Lon":111.666667,"Lat":29.466667,"remark":""},"geometry":{"type":"Point","coordinates":[111.666667,29.466667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57577","OBTName":"°²Ïç","CityName":"³£µÂÊĞ","CountyName":"°²ÏçÏØ","Height":33.6,"TownShipNa":"ÉîÁøÕò","Lon":112.2,"Lat":29.416667,"remark":""},"geometry":{"type":"Point","coordinates":[112.2,29.416667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57544","OBTName":"ÁúÉ½","CityName":"ÏæÎ÷Öİ","CountyName":"ÁúÉ½ÏØ","Height":488.7,"TownShipNa":"Ãñ°²½ÖµÀ","Lon":109.45,"Lat":29.45,"remark":""},"geometry":{"type":"Point","coordinates":[109.45,29.45]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57554","OBTName":"É£Ö²","CityName":"ÕÅ¼Ò½çÊĞ","CountyName":"É£Ö²ÏØ","Height":322.2,"TownShipNa":"å¢Ô´Õò","Lon":110.166667,"Lat":29.4,"remark":""},"geometry":{"type":"Point","coordinates":[110.166667,29.4]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57562","OBTName":"Ê¯ÃÅ","CityName":"³£µÂÊĞ","CountyName":"Ê¯ÃÅÏØ","Height":116.9,"TownShipNa":"³ş½­½ÖµÀ","Lon":111.366667,"Lat":29.583333,"remark":""},"geometry":{"type":"Point","coordinates":[111.366667,29.583333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57564","OBTName":"´ÈÀû","CityName":"ÕÅ¼Ò½çÊĞ","CountyName":"´ÈÀûÏØ","Height":174.1,"TownShipNa":"ÁãÑôÕò","Lon":111.083333,"Lat":29.433333,"remark":""},"geometry":{"type":"Point","coordinates":[111.083333,29.433333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57558","OBTName":"ÕÅ¼Ò½ç","CityName":"ÕÅ¼Ò½çÊĞ","CountyName":"ÓÀ¶¨Çø","Height":218.5,"TownShipNa":"ºóÆº½ÖµÀ","Lon":110.416667,"Lat":29.116667,"remark":""},"geometry":{"type":"Point","coordinates":[110.416667,29.116667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57658","OBTName":"³½Ïª","CityName":"»³»¯ÊĞ","CountyName":"³½ÏªÏØ","Height":152.8,"TownShipNa":"³½ÑôÕò","Lon":110.2,"Lat":28.016667,"remark":""},"geometry":{"type":"Point","coordinates":[110.2,28.016667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57845","OBTName":"Í¨µÀ","CityName":"»³»¯ÊĞ","CountyName":"Í¨µÀÏØ","Height":397.5,"TownShipNa":"Ë«½­Õò","Lon":109.783333,"Lat":26.166667,"remark":""},"geometry":{"type":"Point","coordinates":[109.783333,26.166667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57842","OBTName":"»áÍ¬","CityName":"»³»¯ÊĞ","CountyName":"»áÍ¬ÏØ","Height":281.4,"TownShipNa":"ÁÖ³ÇÕò","Lon":109.716667,"Lat":26.883333,"remark":""},"geometry":{"type":"Point","coordinates":[109.716667,26.883333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57841","OBTName":"¾¸Öİ","CityName":"»³»¯ÊĞ","CountyName":"¾¸ÖİÏØ","Height":320.3,"TownShipNa":"ÇşÑôÕò","Lon":109.666667,"Lat":26.566667,"remark":""},"geometry":{"type":"Point","coordinates":[109.666667,26.566667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57754","OBTName":"ºé½­","CityName":"»³»¯ÊĞ","CountyName":"ºé½­ÊĞ","Height":252.0,"TownShipNa":"Ç­³ÇÕò","Lon":109.833333,"Lat":27.216667,"remark":""},"geometry":{"type":"Point","coordinates":[109.833333,27.216667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57749","OBTName":"»³»¯","CityName":"»³»¯ÊĞ","CountyName":"º×³ÇÇø","Height":257.8,"TownShipNa":"Ó­·á½ÖµÀ","Lon":110.033333,"Lat":27.6,"remark":""},"geometry":{"type":"Point","coordinates":[110.033333,27.6]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57743","OBTName":"ÂéÑô","CityName":"»³»¯ÊĞ","CountyName":"ÂéÑôÏØ","Height":176.6,"TownShipNa":"¸ß´åÕò","Lon":109.8,"Lat":27.883333,"remark":""},"geometry":{"type":"Point","coordinates":[109.8,27.883333]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57752","OBTName":"äÓÆÖ","CityName":"»³»¯ÊĞ","CountyName":"äÓÆÖÏØ","Height":204.0,"TownShipNa":"Â¬·åÕò","Lon":110.6,"Lat":27.916667,"remark":""},"geometry":{"type":"Point","coordinates":[110.6,27.916667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57744","OBTName":"ĞÂ»Î","CityName":"»³»¯ÊĞ","CountyName":"ĞÂ»ÎÏØ","Height":355.5,"TownShipNa":"»ÎÖİÕò","Lon":109.166667,"Lat":27.366667,"remark":""},"geometry":{"type":"Point","coordinates":[109.166667,27.366667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57655","OBTName":"ãäÁê","CityName":"»³»¯ÊĞ","CountyName":"ãäÁêÏØ","Height":151.6,"TownShipNa":"ãäÁêÕò","Lon":110.4,"Lat":28.466667,"remark":""},"geometry":{"type":"Point","coordinates":[110.4,28.466667]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57745","OBTName":"ÜÆ½­","CityName":"»³»¯ÊĞ","CountyName":"ÜÆ½­ÏØ","Height":272.2,"TownShipNa":"ÜÆ½­Õò","Lon":109.683333,"Lat":27.45,"remark":""},"geometry":{"type":"Point","coordinates":[109.683333,27.45]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"P5600","OBTName":"Íû³ÇÇøÆøÏó¾Ö","CityName":"³¤É³ÊĞ","CountyName":"Íû³ÇÇø","Height":59.0,"TownShipNa":"¸ßÌÁÁë½ÖµÀ","Lon":112.783333,"Lat":28.35,"remark":""},"geometry":{"type":"Point","coordinates":[112.783333,28.35]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"P5599","OBTName":"³¤É³³ÇÊĞÕ¾","CityName":"³¤É³ÊĞ","CountyName":"ÔÀÂ´Çø","Height":37.0,"TownShipNa":"Ã·Ïªºş½ÖµÀ","Lon":112.916667,"Lat":28.2,"remark":""},"geometry":{"type":"Point","coordinates":[112.916667,28.2]}},{"type":"Feature","properties":{"UserID":0,"ÇøÓòÕ¾¼¶±ğ":"¹ú¼ÒÕ¾","OBTID":"57587","OBTName":"ÔÀÑô¹ú¼ÒÆøºò¹ÛÏóÌ¨","CityName":"ÔÀÑôÊĞ","CountyName":"ÔÀÑôÏØ","Height":27.0,"TownShipNa":"ÈÙ¼ÒÍåÕò","Lon":113.11,"Lat":29.19,"remark":""},"geometry":{"type":"Point","coordinates":[113.110000024519,29.1900000220363]}}]}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57976",
+        "OBTName": "å®œç« ",
+        "CityName": "éƒ´å·å¸‚",
+        "CountyName": "å®œç« å¿",
+        "Height": 222.8,
+        "TownShipNa": "ç‰æºªé•‡",
+        "Lon": 112.95,
+        "Lat": 25.416667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.95,
+          25.416667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57768",
+        "OBTName": "æ–°é‚µ",
+        "CityName": "é‚µé˜³å¸‚",
+        "CountyName": "æ–°é‚µå¿",
+        "Height": 294.1,
+        "TownShipNa": "é…¿æºªé•‡",
+        "Lon": 111.45,
+        "Lat": 27.316667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.45,
+          27.316667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57769",
+        "OBTName": "é‚µä¸œ",
+        "CityName": "é‚µé˜³å¸‚",
+        "CountyName": "é‚µä¸œå¸‚",
+        "Height": 252.6,
+        "TownShipNa": "ä¸¤å¸‚å¡˜è¡—é“",
+        "Lon": 111.733333,
+        "Lat": 27.233333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.733333,
+          27.233333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57766",
+        "OBTName": "é‚µé˜³",
+        "CityName": "é‚µé˜³å¸‚",
+        "CountyName": "å¤§ç¥¥åŒº",
+        "Height": 311.0,
+        "TownShipNa": "æª€æ±Ÿè¡—é“",
+        "Lon": 111.45,
+        "Lat": 27.183333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.45,
+          27.183333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57772",
+        "OBTName": "æ¹˜ä¹¡",
+        "CityName": "æ¹˜æ½­å¸‚",
+        "CountyName": "æ¹˜ä¹¡å¸‚",
+        "Height": 86.9,
+        "TownShipNa": "æ–°æ¹˜è·¯è¡—é“",
+        "Lon": 112.5,
+        "Lat": 27.75,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.5,
+          27.75
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57773",
+        "OBTName": "æ¹˜æ½­",
+        "CityName": "æ¹˜æ½­å¸‚",
+        "CountyName": "é›¨æ¹–åŒº",
+        "Height": 63.8,
+        "TownShipNa": "é•¿åŸä¹¡",
+        "Lon": 112.833333,
+        "Lat": 27.883333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.833333,
+          27.883333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57767",
+        "OBTName": "éš†å›",
+        "CityName": "é‚µé˜³å¸‚",
+        "CountyName": "éš†å›å¿",
+        "Height": 308.4,
+        "TownShipNa": "èŠ±é—¨è¡—é“",
+        "Lon": 111.0,
+        "Lat": 27.116667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.0,
+          27.116667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57771",
+        "OBTName": "éŸ¶å±±",
+        "CityName": "æ¹˜æ½­å¸‚",
+        "CountyName": "éŸ¶å±±å¸‚",
+        "Height": 88.3,
+        "TownShipNa": "æ¸…æºªé•‡",
+        "Lon": 112.533333,
+        "Lat": 27.933333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.533333,
+          27.933333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57758",
+        "OBTName": "æ´å£",
+        "CityName": "é‚µé˜³å¸‚",
+        "CountyName": "æ´å£å¿",
+        "Height": 339.5,
+        "TownShipNa": "èŠ±å¤è¡—é“",
+        "Lon": 110.6,
+        "Lat": 27.033333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.6,
+          27.033333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57760",
+        "OBTName": "å†·æ°´æ±Ÿ",
+        "CityName": "å¨„åº•å¸‚",
+        "CountyName": "å†·æ°´æ±Ÿå¸‚",
+        "Height": 249.2,
+        "TownShipNa": "å†·æ°´æ±Ÿè¡—é“",
+        "Lon": 111.433333,
+        "Lat": 27.7,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.433333,
+          27.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57762",
+        "OBTName": "æ¶Ÿæº",
+        "CityName": "å¨„åº•å¸‚",
+        "CountyName": "æ¶Ÿæºå¸‚",
+        "Height": 249.2,
+        "TownShipNa": "è“ç”°è¡—é“",
+        "Lon": 111.7,
+        "Lat": 27.683333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.7,
+          27.683333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57763",
+        "OBTName": "å¨„åº•",
+        "CityName": "å¨„åº•å¸‚",
+        "CountyName": "å¨„æ˜ŸåŒº",
+        "Height": 205.8,
+        "TownShipNa": "å¤§ç§‘è¡—é“",
+        "Lon": 112.0,
+        "Lat": 27.683333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.0,
+          27.683333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57781",
+        "OBTName": "é†´é™µ",
+        "CityName": "æ ªæ´²å¸‚",
+        "CountyName": "é†´é™µå¸‚",
+        "Height": 74.4,
+        "TownShipNa": "å·¦æƒé•‡",
+        "Lon": 113.5,
+        "Lat": 27.65,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.5,
+          27.65
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57851",
+        "OBTName": "æ–°å®",
+        "CityName": "é‚µé˜³å¸‚",
+        "CountyName": "æ–°å®å¿",
+        "Height": 346.1,
+        "TownShipNa": "é‡‘çŸ³é•‡",
+        "Lon": 110.833333,
+        "Lat": 26.466667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.833333,
+          26.466667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57853",
+        "OBTName": "æ­¦å†ˆ",
+        "CityName": "é‚µé˜³å¸‚",
+        "CountyName": "æ­¦å†ˆå¸‚",
+        "Height": 341.0,
+        "TownShipNa": "è¿æ˜¥äº­è¡—é“",
+        "Lon": 110.633333,
+        "Lat": 26.733333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.633333,
+          26.733333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57846",
+        "OBTName": "ç»¥å®",
+        "CityName": "é‚µé˜³å¸‚",
+        "CountyName": "ç»¥å®å¿",
+        "Height": 310.3,
+        "TownShipNa": "é•¿é“ºé•‡",
+        "Lon": 110.15,
+        "Lat": 26.583333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.15,
+          26.583333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57776",
+        "OBTName": "å—å²³",
+        "CityName": "è¡¡é˜³å¸‚",
+        "CountyName": "å—å²³åŒº",
+        "Height": 1265.9,
+        "TownShipNa": "å¯¿å²³ä¹¡",
+        "Lon": 112.7,
+        "Lat": 27.3,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7,
+          27.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57777",
+        "OBTName": "è¡¡å±±",
+        "CityName": "è¡¡é˜³å¸‚",
+        "CountyName": "è¡¡å±±å¿",
+        "Height": 159.1,
+        "TownShipNa": "å¼€äº‘é•‡",
+        "Lon": 112.866667,
+        "Lat": 27.233333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.866667,
+          27.233333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57761",
+        "OBTName": "æ–°åŒ–",
+        "CityName": "å¨„åº•å¸‚",
+        "CountyName": "æ–°åŒ–å¿",
+        "Height": 211.9,
+        "TownShipNa": "ä¸Šæ¢…è¡—é“",
+        "Lon": 111.3,
+        "Lat": 27.75,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.3,
+          27.75
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57779",
+        "OBTName": "æ”¸å¿",
+        "CityName": "æ ªæ´²å¸‚",
+        "CountyName": "æ”¸å¿",
+        "Height": 115.2,
+        "TownShipNa": "è”æ˜Ÿè¡—é“",
+        "Lon": 113.35,
+        "Lat": 27.0,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.35,
+          27.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57780",
+        "OBTName": "æ ªæ´²",
+        "CityName": "æ ªæ´²å¸‚",
+        "CountyName": "è·å¡˜åŒº",
+        "Height": 74.6,
+        "TownShipNa": "æ¡‚èŠ±è¡—é“",
+        "Lon": 113.166667,
+        "Lat": 27.866667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.166667,
+          27.866667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57774",
+        "OBTName": "åŒå³°",
+        "CityName": "å¨„åº•å¸‚",
+        "CountyName": "åŒå³°å¿",
+        "Height": 100.0,
+        "TownShipNa": "æ°¸ä¸°è¡—é“",
+        "Lon": 112.166667,
+        "Lat": 27.45,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.166667,
+          27.45
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57778",
+        "OBTName": "è¡¡ä¸œ",
+        "CityName": "è¡¡é˜³å¸‚",
+        "CountyName": "è¡¡ä¸œå¿",
+        "Height": 70.3,
+        "TownShipNa": "æ´£æ°´é•‡",
+        "Lon": 112.95,
+        "Lat": 27.1,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.95,
+          27.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57662",
+        "OBTName": "å¸¸å¾·",
+        "CityName": "å¸¸å¾·å¸‚",
+        "CountyName": "æŸ³å¶æ¹–æ—…æ¸¸åº¦å‡åŒº",
+        "Height": 150.6,
+        "TownShipNa": "æŸ³å¶æ¹–è¡—é“",
+        "Lon": 111.683333,
+        "Lat": 29.116667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.683333,
+          29.116667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57663",
+        "OBTName": "æ±‰å¯¿",
+        "CityName": "å¸¸å¾·å¸‚",
+        "CountyName": "æ±‰å¯¿å¿",
+        "Height": 31.9,
+        "TownShipNa": "è¾°é˜³è¡—é“",
+        "Lon": 111.95,
+        "Lat": 28.916667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.95,
+          28.916667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57669",
+        "OBTName": "å®‰åŒ–",
+        "CityName": "ç›Šé˜³å¸‚",
+        "CountyName": "å®‰åŒ–å¿",
+        "Height": 196.0,
+        "TownShipNa": "ä¸œåªé•‡",
+        "Lon": 111.245833,
+        "Lat": 28.376111,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.245833,
+          28.376111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57671",
+        "OBTName": "æ²…æ±Ÿ",
+        "CityName": "ç›Šé˜³å¸‚",
+        "CountyName": "æ²…æ±Ÿå¸‚",
+        "Height": 37.0,
+        "TownShipNa": "ç¼æ¹–è¡—é“",
+        "Lon": 112.372222,
+        "Lat": 28.85,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.372222,
+          28.85
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57661",
+        "OBTName": "æ¡ƒæº",
+        "CityName": "å¸¸å¾·å¸‚",
+        "CountyName": "æ¡ƒæºå¿",
+        "Height": 48.7,
+        "TownShipNa": "æ¼³æ±Ÿè¡—é“",
+        "Lon": 111.483333,
+        "Lat": 28.916667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.483333,
+          28.916667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57666",
+        "OBTName": "æ¡ƒæ±Ÿ",
+        "CityName": "ç›Šé˜³å¸‚",
+        "CountyName": "æ¡ƒæ±Ÿå¿",
+        "Height": 136.9,
+        "TownShipNa": "æ¡ƒèŠ±æ±Ÿé•‡",
+        "Lon": 112.171111,
+        "Lat": 28.506111,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.171111,
+          28.506111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57643",
+        "OBTName": "æ°¸é¡º",
+        "CityName": "æ¹˜è¥¿å·",
+        "CountyName": "æ°¸é¡ºå¿",
+        "Height": 268.2,
+        "TownShipNa": "çµæºªé•‡",
+        "Lon": 109.833333,
+        "Lat": 29.0,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.833333,
+          29.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57646",
+        "OBTName": "å¤ä¸ˆ",
+        "CityName": "æ¹˜è¥¿å·",
+        "CountyName": "å¤ä¸ˆå¿",
+        "Height": 302.1,
+        "TownShipNa": "å¤é˜³é•‡",
+        "Lon": 109.966667,
+        "Lat": 28.666667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.966667,
+          28.666667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57640",
+        "OBTName": "èŠ±å£",
+        "CityName": "æ¹˜è¥¿å·",
+        "CountyName": "èŠ±å£å¿",
+        "Height": 341.0,
+        "TownShipNa": "èŠ±å£é•‡",
+        "Lon": 109.45,
+        "Lat": 28.583333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.45,
+          28.583333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57657",
+        "OBTName": "æ³¸æºª",
+        "CityName": "æ¹˜è¥¿å·",
+        "CountyName": "æ³¸æºªå¿",
+        "Height": 186.0,
+        "TownShipNa": "æ­¦æºªé•‡",
+        "Lon": 110.2,
+        "Lat": 28.233333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.2,
+          28.233333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57642",
+        "OBTName": "ä¿é–",
+        "CityName": "æ¹˜è¥¿å·",
+        "CountyName": "ä¿é–å¿",
+        "Height": 438.1,
+        "TownShipNa": "è¿é™µé•‡",
+        "Lon": 109.65,
+        "Lat": 28.683333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.65,
+          28.683333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57740",
+        "OBTName": "å‡¤å‡°",
+        "CityName": "æ¹˜è¥¿å·",
+        "CountyName": "å‡¤å‡°å¿",
+        "Height": 349.6,
+        "TownShipNa": "æ²±æ±Ÿé•‡",
+        "Lon": 109.6,
+        "Lat": 27.95,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.6,
+          27.95
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57687",
+        "OBTName": "é•¿æ²™",
+        "CityName": "é•¿æ²™å¸‚",
+        "CountyName": "å²³éº“åŒº",
+        "Height": 119.0,
+        "TownShipNa": "è²èŠ±é•‡",
+        "Lon": 112.783333,
+        "Lat": 28.116667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.783333,
+          28.116667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57688",
+        "OBTName": "æµé˜³",
+        "CityName": "é•¿æ²™å¸‚",
+        "CountyName": "æµé˜³å¸‚",
+        "Height": 101.1,
+        "TownShipNa": "æ·®å·è¡—é“",
+        "Lon": 113.633333,
+        "Lat": 28.15,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.633333,
+          28.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57674",
+        "OBTName": "èµ«å±±",
+        "CityName": "ç›Šé˜³å¸‚",
+        "CountyName": "èµ«å±±åŒº",
+        "Height": 46.3,
+        "TownShipNa": "èµ«å±±è¡—é“",
+        "Lon": 112.378056,
+        "Lat": 28.571944,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.378056,
+          28.571944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57678",
+        "OBTName": "å®ä¹¡",
+        "CityName": "é•¿æ²™å¸‚",
+        "CountyName": "å®ä¹¡å¸‚",
+        "Height": 74.7,
+        "TownShipNa": "ç‰æ½­è¡—é“",
+        "Lon": 112.55,
+        "Lat": 28.25,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.55,
+          28.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57649",
+        "OBTName": "å‰é¦–",
+        "CityName": "æ¹˜è¥¿å·",
+        "CountyName": "å‰é¦–å¸‚",
+        "Height": 254.6,
+        "TownShipNa": "ä¹¾å·è¡—é“",
+        "Lon": 109.683333,
+        "Lat": 28.233333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.683333,
+          28.233333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57680",
+        "OBTName": "æ±¨ç½—",
+        "CityName": "å²³é˜³å¸‚",
+        "CountyName": "æ±¨ç½—å¸‚",
+        "Height": 82.5,
+        "TownShipNa": "å±ˆå­ç¥ é•‡",
+        "Lon": 113.1,
+        "Lat": 28.85,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.1,
+          28.85
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57682",
+        "OBTName": "å¹³æ±Ÿ",
+        "CityName": "å²³é˜³å¸‚",
+        "CountyName": "å¹³æ±Ÿå¿",
+        "Height": 106.3,
+        "TownShipNa": "æ±‰æ˜Œé•‡",
+        "Lon": 113.566667,
+        "Lat": 28.716667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.566667,
+          28.716667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57673",
+        "OBTName": "æ¹˜é˜´",
+        "CityName": "å²³é˜³å¸‚",
+        "CountyName": "æ¹˜é˜´å¿",
+        "Height": 63.0,
+        "TownShipNa": "çŸ³å¡˜é•‡",
+        "Lon": 112.933333,
+        "Lat": 28.733333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.933333,
+          28.733333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57985",
+        "OBTName": "æ±åŸ",
+        "CityName": "éƒ´å·å¸‚",
+        "CountyName": "æ±åŸå¿",
+        "Height": 645.6,
+        "TownShipNa": "å¢é˜³é•‡",
+        "Lon": 113.683333,
+        "Lat": 25.566667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.683333,
+          25.566667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "59063",
+        "OBTName": "æ±Ÿå",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "æ±Ÿåå¿",
+        "Height": 265.7,
+        "TownShipNa": "æ²±æ±Ÿé•‡",
+        "Lon": 111.566667,
+        "Lat": 25.183333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.566667,
+          25.183333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57978",
+        "OBTName": "ä¸´æ­¦",
+        "CityName": "éƒ´å·å¸‚",
+        "CountyName": "ä¸´æ­¦å¿",
+        "Height": 292.0,
+        "TownShipNa": "èˆœå³°é•‡",
+        "Lon": 112.55,
+        "Lat": 25.283333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.55,
+          25.283333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57981",
+        "OBTName": "èµ„å…´",
+        "CityName": "éƒ´å·å¸‚",
+        "CountyName": "èµ„å…´å¸‚",
+        "Height": 139.3,
+        "TownShipNa": "å”æ´è¡—é“",
+        "Lon": 113.216667,
+        "Lat": 25.983333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.216667,
+          25.983333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57872",
+        "OBTName": "è¡¡é˜³",
+        "CityName": "è¡¡é˜³å¸‚",
+        "CountyName": "è’¸æ¹˜åŒº",
+        "Height": 104.9,
+        "TownShipNa": "è”åˆè¡—é“",
+        "Lon": 112.6,
+        "Lat": 26.9,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.6,
+          26.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57874",
+        "OBTName": "å¸¸å®",
+        "CityName": "è¡¡é˜³å¸‚",
+        "CountyName": "å¸¸å®å¸‚",
+        "Height": 116.6,
+        "TownShipNa": "å®œé˜³è¡—é“",
+        "Lon": 112.4,
+        "Lat": 26.416667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.4,
+          26.416667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57870",
+        "OBTName": "ç¥ä¸œ",
+        "CityName": "è¡¡é˜³å¸‚",
+        "CountyName": "ç¥ä¸œå¿",
+        "Height": 218.9,
+        "TownShipNa": "æ°¸æ˜Œè¡—é“",
+        "Lon": 112.1,
+        "Lat": 26.8,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.1,
+          26.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57876",
+        "OBTName": "è€’é˜³",
+        "CityName": "è¡¡é˜³å¸‚",
+        "CountyName": "è€’é˜³å¸‚",
+        "Height": 135.0,
+        "TownShipNa": "äº”é‡Œç‰Œè¡—é“",
+        "Lon": 112.833333,
+        "Lat": 26.433333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.833333,
+          26.433333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57881",
+        "OBTName": "å®‰ä»",
+        "CityName": "éƒ´å·å¸‚",
+        "CountyName": "å®‰ä»å¿",
+        "Height": 101.8,
+        "TownShipNa": "æ°¸ä¹æ±Ÿé•‡",
+        "Lon": 113.25,
+        "Lat": 26.716667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.25,
+          26.716667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57871",
+        "OBTName": "è¡¡é˜³å¿",
+        "CityName": "è¡¡é˜³å¸‚",
+        "CountyName": "è¡¡é˜³å¿",
+        "Height": 90.8,
+        "TownShipNa": "è¥¿æ¸¡é•‡",
+        "Lon": 112.366667,
+        "Lat": 26.983333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.366667,
+          26.983333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57875",
+        "OBTName": "è¡¡å—",
+        "CityName": "è¡¡é˜³å¸‚",
+        "CountyName": "è¡¡å—å¿",
+        "Height": 137.0,
+        "TownShipNa": "äº‘é›†è¡—é“",
+        "Lon": 112.683333,
+        "Lat": 26.75,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.683333,
+          26.75
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57860",
+        "OBTName": "é‚µé˜³å¿",
+        "CityName": "é‚µé˜³å¸‚",
+        "CountyName": "é‚µé˜³å¿",
+        "Height": 283.3,
+        "TownShipNa": "å¡˜æ¸¡å£é•‡",
+        "Lon": 111.283333,
+        "Lat": 27.0,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.283333,
+          27.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57865",
+        "OBTName": "å†·æ°´æ»©",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "å†·æ°´æ»©åŒº",
+        "Height": 192.8,
+        "TownShipNa": "å‡¤å‡°è¡—é“",
+        "Lon": 111.616667,
+        "Lat": 26.5,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.616667,
+          26.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57679",
+        "OBTName": "é»„èŠ±",
+        "CityName": "é•¿æ²™å¸‚",
+        "CountyName": "é•¿æ²™å¿",
+        "Height": 101.4,
+        "TownShipNa": "é»„èŠ±é•‡",
+        "Lon": 113.2,
+        "Lat": 28.216667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.2,
+          28.216667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57867",
+        "OBTName": "ä¸œå®‰",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "ä¸œå®‰å¿",
+        "Height": 169.0,
+        "TownShipNa": "ç™½ç‰™å¸‚é•‡",
+        "Lon": 111.283333,
+        "Lat": 26.4,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.283333,
+          26.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57868",
+        "OBTName": "ç¥é˜³",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "ç¥é˜³å¸‚",
+        "Height": 113.2,
+        "TownShipNa": "é¾™å±±è¡—é“",
+        "Lon": 111.866667,
+        "Lat": 26.6,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.866667,
+          26.6
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57857",
+        "OBTName": "åŸæ­¥",
+        "CityName": "é‚µé˜³å¸‚",
+        "CountyName": "åŸæ­¥å¿",
+        "Height": 477.7,
+        "TownShipNa": "å„’æ—é•‡",
+        "Lon": 110.316667,
+        "Lat": 26.366667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.316667,
+          26.366667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57971",
+        "OBTName": "æ–°ç”°",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "æ–°ç”°å¿",
+        "Height": 224.2,
+        "TownShipNa": "é¾™æ³‰è¡—é“åŠäº‹å¤„",
+        "Lon": 112.2,
+        "Lat": 25.916667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.2,
+          25.916667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57972",
+        "OBTName": "éƒ´å·",
+        "CityName": "éƒ´å·å¸‚",
+        "CountyName": "åŒ—æ¹–åŒº",
+        "Height": 368.6,
+        "TownShipNa": "å¢ç¦è¡—é“",
+        "Lon": 113.033333,
+        "Lat": 25.8,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.033333,
+          25.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57966",
+        "OBTName": "å®è¿œ",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "å®è¿œå¿",
+        "Height": 244.2,
+        "TownShipNa": "ä¸œæºªè¡—é“",
+        "Lon": 111.966667,
+        "Lat": 25.6,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.966667,
+          25.6
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57974",
+        "OBTName": "å˜‰ç¦¾",
+        "CityName": "éƒ´å·å¸‚",
+        "CountyName": "å˜‰ç¦¾å¿",
+        "Height": 214.5,
+        "TownShipNa": "ç æ³‰é•‡",
+        "Lon": 112.366667,
+        "Lat": 25.583333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.366667,
+          25.583333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57975",
+        "OBTName": "è“å±±",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "è“å±±å¿",
+        "Height": 277.0,
+        "TownShipNa": "å¡”å³°é•‡",
+        "Lon": 112.2,
+        "Lat": 25.383333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.2,
+          25.383333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57969",
+        "OBTName": "æ±Ÿæ°¸",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "æ±Ÿæ°¸å¿",
+        "Height": 269.0,
+        "TownShipNa": "æ½‡æµ¦é•‡",
+        "Lon": 111.316667,
+        "Lat": 25.283333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.316667,
+          25.283333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57973",
+        "OBTName": "æ¡‚é˜³",
+        "CityName": "éƒ´å·å¸‚",
+        "CountyName": "æ¡‚é˜³å¿",
+        "Height": 329.1,
+        "TownShipNa": "é¾™æ½­è¡—é“",
+        "Lon": 112.716667,
+        "Lat": 25.75,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.716667,
+          25.75
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57886",
+        "OBTName": "ç‚é™µ",
+        "CityName": "æ ªæ´²å¸‚",
+        "CountyName": "ç‚é™µå¿",
+        "Height": 268.8,
+        "TownShipNa": "éœé˜³é•‡",
+        "Lon": 113.8,
+        "Lat": 26.483333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.8,
+          26.483333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57887",
+        "OBTName": "æ°¸å…´",
+        "CityName": "éƒ´å·å¸‚",
+        "CountyName": "æ°¸å…´å¿",
+        "Height": 167.6,
+        "TownShipNa": "ä¾¿æ±Ÿè¡—é“",
+        "Lon": 113.116667,
+        "Lat": 26.116667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.116667,
+          26.116667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57866",
+        "OBTName": "æ°¸å·",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "é›¶é™µåŒº",
+        "Height": 172.6,
+        "TownShipNa": "å¾å®¶äº•è¡—é“",
+        "Lon": 111.616667,
+        "Lat": 26.233333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.616667,
+          26.233333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57962",
+        "OBTName": "åŒç‰Œ",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "åŒç‰Œå¿",
+        "Height": 205.0,
+        "TownShipNa": "æ³·æ³Šé•‡",
+        "Lon": 111.65,
+        "Lat": 26.033333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.65,
+          26.033333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57965",
+        "OBTName": "é“å¿",
+        "CityName": "æ°¸å·å¸‚",
+        "CountyName": "é“å¿",
+        "Height": 192.2,
+        "TownShipNa": "æ¿‚æºªè¡—é“",
+        "Lon": 111.6,
+        "Lat": 25.533333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.6,
+          25.533333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57882",
+        "OBTName": "èŒ¶é™µ",
+        "CityName": "æ ªæ´²å¸‚",
+        "CountyName": "èŒ¶é™µå¿",
+        "Height": 136.2,
+        "TownShipNa": "äº‘é˜³è¡—é“",
+        "Lon": 113.55,
+        "Lat": 26.783333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.55,
+          26.783333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57889",
+        "OBTName": "æ¡‚ä¸œ",
+        "CityName": "éƒ´å·å¸‚",
+        "CountyName": "æ¡‚ä¸œå¿",
+        "Height": 835.9,
+        "TownShipNa": "æ²¤æ±Ÿé•‡",
+        "Lon": 113.95,
+        "Lat": 26.083333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.95,
+          26.083333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57574",
+        "OBTName": "å—å¿",
+        "CityName": "ç›Šé˜³å¸‚",
+        "CountyName": "å—å¿",
+        "Height": 40.3,
+        "TownShipNa": "ä¹Œå˜´ä¹¡",
+        "Lon": 112.431667,
+        "Lat": 29.351667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.431667,
+          29.351667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57575",
+        "OBTName": "åå®¹",
+        "CityName": "å²³é˜³å¸‚",
+        "CountyName": "åå®¹å¿",
+        "Height": 49.5,
+        "TownShipNa": "ç« åé•‡",
+        "Lon": 112.6,
+        "Lat": 29.533333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.6,
+          29.533333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57565",
+        "OBTName": "æ¾§å¿",
+        "CityName": "å¸¸å¾·å¸‚",
+        "CountyName": "æ¾§å¿",
+        "Height": 38.1,
+        "TownShipNa": "æ¾§è¥¿è¡—é“",
+        "Lon": 111.716667,
+        "Lat": 29.666667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.716667,
+          29.666667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57584",
+        "OBTName": "å²³é˜³",
+        "CityName": "å²³é˜³å¸‚",
+        "CountyName": "å²³é˜³æ¥¼åŒº",
+        "Height": 53.0,
+        "TownShipNa": "å²³é˜³æ¥¼è¡—é“",
+        "Lon": 113.083333,
+        "Lat": 29.383333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.083333,
+          29.383333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57585",
+        "OBTName": "ä¸´æ¹˜",
+        "CityName": "å²³é˜³å¸‚",
+        "CountyName": "ä¸´æ¹˜å¸‚",
+        "Height": 60.4,
+        "TownShipNa": "é•¿å®‰è¡—é“",
+        "Lon": 113.45,
+        "Lat": 29.483333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.45,
+          29.483333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57566",
+        "OBTName": "ä¸´æ¾§",
+        "CityName": "å¸¸å¾·å¸‚",
+        "CountyName": "ä¸´æ¾§å¿",
+        "Height": 89.3,
+        "TownShipNa": "å¤ªå¹³è¡—é“",
+        "Lon": 111.666667,
+        "Lat": 29.466667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.666667,
+          29.466667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57577",
+        "OBTName": "å®‰ä¹¡",
+        "CityName": "å¸¸å¾·å¸‚",
+        "CountyName": "å®‰ä¹¡å¿",
+        "Height": 33.6,
+        "TownShipNa": "æ·±æŸ³é•‡",
+        "Lon": 112.2,
+        "Lat": 29.416667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.2,
+          29.416667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57544",
+        "OBTName": "é¾™å±±",
+        "CityName": "æ¹˜è¥¿å·",
+        "CountyName": "é¾™å±±å¿",
+        "Height": 488.7,
+        "TownShipNa": "æ°‘å®‰è¡—é“",
+        "Lon": 109.45,
+        "Lat": 29.45,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.45,
+          29.45
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57554",
+        "OBTName": "æ¡‘æ¤",
+        "CityName": "å¼ å®¶ç•Œå¸‚",
+        "CountyName": "æ¡‘æ¤å¿",
+        "Height": 322.2,
+        "TownShipNa": "æ¾§æºé•‡",
+        "Lon": 110.166667,
+        "Lat": 29.4,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.166667,
+          29.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57562",
+        "OBTName": "çŸ³é—¨",
+        "CityName": "å¸¸å¾·å¸‚",
+        "CountyName": "çŸ³é—¨å¿",
+        "Height": 116.9,
+        "TownShipNa": "æ¥šæ±Ÿè¡—é“",
+        "Lon": 111.366667,
+        "Lat": 29.583333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.366667,
+          29.583333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57564",
+        "OBTName": "æ…ˆåˆ©",
+        "CityName": "å¼ å®¶ç•Œå¸‚",
+        "CountyName": "æ…ˆåˆ©å¿",
+        "Height": 174.1,
+        "TownShipNa": "é›¶é˜³é•‡",
+        "Lon": 111.083333,
+        "Lat": 29.433333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.083333,
+          29.433333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57558",
+        "OBTName": "å¼ å®¶ç•Œ",
+        "CityName": "å¼ å®¶ç•Œå¸‚",
+        "CountyName": "æ°¸å®šåŒº",
+        "Height": 218.5,
+        "TownShipNa": "ååªè¡—é“",
+        "Lon": 110.416667,
+        "Lat": 29.116667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.416667,
+          29.116667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57658",
+        "OBTName": "è¾°æºª",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "è¾°æºªå¿",
+        "Height": 152.8,
+        "TownShipNa": "è¾°é˜³é•‡",
+        "Lon": 110.2,
+        "Lat": 28.016667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.2,
+          28.016667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57845",
+        "OBTName": "é€šé“",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "é€šé“å¿",
+        "Height": 397.5,
+        "TownShipNa": "åŒæ±Ÿé•‡",
+        "Lon": 109.783333,
+        "Lat": 26.166667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.783333,
+          26.166667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57842",
+        "OBTName": "ä¼šåŒ",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "ä¼šåŒå¿",
+        "Height": 281.4,
+        "TownShipNa": "æ—åŸé•‡",
+        "Lon": 109.716667,
+        "Lat": 26.883333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.716667,
+          26.883333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57841",
+        "OBTName": "é–å·",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "é–å·å¿",
+        "Height": 320.3,
+        "TownShipNa": "æ¸ é˜³é•‡",
+        "Lon": 109.666667,
+        "Lat": 26.566667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.666667,
+          26.566667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57754",
+        "OBTName": "æ´ªæ±Ÿ",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "æ´ªæ±Ÿå¸‚",
+        "Height": 252.0,
+        "TownShipNa": "é»”åŸé•‡",
+        "Lon": 109.833333,
+        "Lat": 27.216667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.833333,
+          27.216667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57749",
+        "OBTName": "æ€€åŒ–",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "é¹¤åŸåŒº",
+        "Height": 257.8,
+        "TownShipNa": "è¿ä¸°è¡—é“",
+        "Lon": 110.033333,
+        "Lat": 27.6,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.033333,
+          27.6
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57743",
+        "OBTName": "éº»é˜³",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "éº»é˜³å¿",
+        "Height": 176.6,
+        "TownShipNa": "é«˜æ‘é•‡",
+        "Lon": 109.8,
+        "Lat": 27.883333,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.8,
+          27.883333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57752",
+        "OBTName": "æº†æµ¦",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "æº†æµ¦å¿",
+        "Height": 204.0,
+        "TownShipNa": "å¢å³°é•‡",
+        "Lon": 110.6,
+        "Lat": 27.916667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.6,
+          27.916667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57744",
+        "OBTName": "æ–°æ™ƒ",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "æ–°æ™ƒå¿",
+        "Height": 355.5,
+        "TownShipNa": "æ™ƒå·é•‡",
+        "Lon": 109.166667,
+        "Lat": 27.366667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.166667,
+          27.366667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57655",
+        "OBTName": "æ²…é™µ",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "æ²…é™µå¿",
+        "Height": 151.6,
+        "TownShipNa": "æ²…é™µé•‡",
+        "Lon": 110.4,
+        "Lat": 28.466667,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4,
+          28.466667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57745",
+        "OBTName": "èŠ·æ±Ÿ",
+        "CityName": "æ€€åŒ–å¸‚",
+        "CountyName": "èŠ·æ±Ÿå¿",
+        "Height": 272.2,
+        "TownShipNa": "èŠ·æ±Ÿé•‡",
+        "Lon": 109.683333,
+        "Lat": 27.45,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.683333,
+          27.45
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "P5600",
+        "OBTName": "æœ›åŸåŒºæ°”è±¡å±€",
+        "CityName": "é•¿æ²™å¸‚",
+        "CountyName": "æœ›åŸåŒº",
+        "Height": 59.0,
+        "TownShipNa": "é«˜å¡˜å²­è¡—é“",
+        "Lon": 112.783333,
+        "Lat": 28.35,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.783333,
+          28.35
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "P5599",
+        "OBTName": "é•¿æ²™åŸå¸‚ç«™",
+        "CityName": "é•¿æ²™å¸‚",
+        "CountyName": "å²³éº“åŒº",
+        "Height": 37.0,
+        "TownShipNa": "æ¢…æºªæ¹–è¡—é“",
+        "Lon": 112.916667,
+        "Lat": 28.2,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.916667,
+          28.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "UserID": 0,
+        "åŒºåŸŸç«™çº§åˆ«": "å›½å®¶ç«™",
+        "OBTID": "57587",
+        "OBTName": "å²³é˜³å›½å®¶æ°”å€™è§‚è±¡å°",
+        "CityName": "å²³é˜³å¸‚",
+        "CountyName": "å²³é˜³å¿",
+        "Height": 27.0,
+        "TownShipNa": "è£å®¶æ¹¾é•‡",
+        "Lon": 113.11,
+        "Lat": 29.19,
+        "remark": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.110000024519,
+          29.1900000220363
+        ]
+      }
+    }
+  ]
+}

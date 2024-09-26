@@ -314,13 +314,15 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       }),
       style: (feature, resolution) => {
         const iconSize = (12.5 / resolution) * 500 * gap
+        let rotation = feature.get('value1')
         console.log({ resolution }, { iconSize })
         return new Style({
           image: new Icon({
             src: 'src/assets/images/wind/11-12级风Marker.png',
             width: iconSize,
-            height: iconSize
-            // rotation: 90
+            height: iconSize,
+            opacity: 0.3,
+            rotation: rotation
           })
         })
       }

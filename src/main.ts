@@ -4,8 +4,8 @@ import 'tailwindcss/tailwind.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-// import App from './views/home.vue'
-import App from './components/wind.vue'
+import App from './views/home.vue'
+// import App from './components/wind.vue'
 import router from './router'
 // import axios from './http/index'
 
