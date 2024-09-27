@@ -1,0 +1,38 @@
+*{
+	margin:0;
+	padding:0;
+	border:0;
+}
+body{
+	font-size:12px;
+	font-family:Arial;
+}
+table{
+	border:solid 1px #1282f2;
+	text-align:center;
+	border-collapse:collapse;
+}
+table caption{
+	font-size:18px;
+	background-color:#d0ece6;
+}
+th{
+	border:solid #7bbdff;
+	border-width:0px 0px 0px 1px;
+	padding:1px;
+	background-color:#dedede;
+}
+td{
+	border:solid #7bbdff;
+	border-width:1px 0px 0px 1px;
+	padding:1px;
+	background-color:#ffffff;
+}
+tr:nth-child(even) td{
+	background-color:#dedede;
+}
+input[type="button"]{
+	padding:2px;
+	margin-left:5px;
+	margin-top:2px;
+}

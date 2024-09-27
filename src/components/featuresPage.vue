@@ -97,7 +97,7 @@ const handleClick = async (value: string, index: number) => {
     map?.removeLayer(businessLayer2)
     // let layers = getBusinessLayer(data, 6 - index)
 
-    let layers = getBusinessLayer(data, 5, value) //data：原始数据;gap：抽稀系数;value：要素编号
+    let layers = getBusinessLayer(data, 1, value) //data：原始数据;gap：抽稀系数;value：要素编号
     index++
     //layers[0]：格点值；layers[1]：等值面
     if (sysStore.showGrid) {

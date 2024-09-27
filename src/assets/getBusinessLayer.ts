@@ -46,11 +46,6 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   let latGap = data.lat
   let lonGap = data.lon
 
-  // let startlat = data.startlat
-  // let endlat = data.endlat + latGap
-  // let startlon = data.startlon
-  // let endlon = data.endlon + lonGap
-
   //以格点值为中心构建网格,原始点要偏移
   let startlat = data.startlat - latGap / 2
   let endlat = data.endlat + latGap / 2
@@ -126,21 +121,19 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
 
   //格点不做偏移
   startlat = data.startlat
-  endlat = data.endlat + latGap
+  endlat = data.endlat
   startlon = data.startlon
-  endlon = data.endlon + lonGap
+  endlon = data.endlon
 
   //抽稀后格点
-  for (let i = 0; i < newNumY; i++) {
-    for (let j = 0; j < newNumX; j++) {
+  for (let i = 0; i < numY; i++) {
+    for (let j = 0; j < numX; j++) {
       let pid = j == 0 && i == 0 ? 0 : i * numX + j - 1
       let color = getColor(id, values1[pid])
 
-      let minLat, maxLat, minLon, maxLon
-      minLat = startlat + latGap * i * gap
-      maxLat = minLat + latGap * gap
-      minLon = startlon + lonGap * j * gap
-      maxLon = minLon + lonGap * gap
+      let minLat, minLon
+      minLat = startlat + latGap * i
+      minLon = startlon + lonGap * j
 
       //创建格点(抽稀后)
       geojsonData_Point.features.push({
@@ -165,11 +158,9 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       let pid = j == 0 && i == 0 ? 0 : i * numX + j - 1
       let color = getColor(id, values1[pid])
 
-      let minLat, maxLat, minLon, maxLon
+      let minLat, minLon
       minLat = startlat + latGap * i
-      maxLat = minLat + latGap
       minLon = startlon + lonGap * j
-      maxLon = minLon + lonGap
 
       //创建格点(总数据)
       geojsonData_Point_full.features.push({
@@ -313,13 +304,13 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
         features: new GeoJSON().readFeatures(geojsonData_Point)
       }),
       style: (feature, resolution) => {
-        const iconSize = (12.5 / resolution) * 500 * gap
+        const iconSize = (12.5 / resolution) * 440
         let rotation = feature.get('value1')
-        console.log({ resolution }, { iconSize })
+        // console.log({ resolution }, { iconSize })
         return new Style({
           image: new Icon({
-            src: 'src/assets/images/wind/11-12级风Marker.png',
-            width: iconSize,
+            src: 'src/assets/images/wind/11-12.svg',
+            width: iconSize / 2.5,
             height: iconSize,
             opacity: 0.3,
             rotation: rotation
@@ -339,13 +330,15 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       features: new GeoJSON().readFeatures(geojsonData_Point_full)
     }),
     style: (feature, resolution) => {
-      const iconSize = (12.5 / resolution) * 500
+      const iconSize = (12.5 / resolution) * 440
+      let rotation = feature.get('value1')
       return new Style({
         image: new Icon({
-          src: 'src/assets/images/雨夹雪.png',
-          width: iconSize,
-          height: iconSize
-          // rotation: 90
+          src: 'src/assets/images/wind/11-12.svg',
+          width: iconSize / 2.5,
+          height: iconSize,
+          opacity: 0.3,
+          rotation: rotation
         }),
         text: new Text({
           text: feature.get('value1'),

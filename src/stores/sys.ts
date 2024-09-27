@@ -25,6 +25,8 @@ export const useCounterStore = defineStore('counter', () => {
 export interface SysStore {
   // host: String
   geoserverHost: String
+  ICGeoserverWMSUrl: String
+  // showSourceSelect: Boolean | null
   showSourceSelect: Boolean | null
   businessLayer: BaseLayer | null
   businessLayer2: any
@@ -48,6 +50,7 @@ export const useSysStore = defineStore({
     // host: '10.111.101.246:3001',
     // geoserverHost: '10.111.101.246:8080', //geoserver地址和端口
     geoserverHost: 'localhost:8080', //geoserver地址和端口
+    ICGeoserverWMSUrl: 'http://10.110.173.206:8080/geoserver/basemap/wms',
     showSourceSelect: false,
     businessLayer: null,
     businessLayer2: null,

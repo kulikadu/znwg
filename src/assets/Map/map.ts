@@ -8,7 +8,7 @@
 
 import { ref, onMounted } from 'vue'
 import 'ol/ol.css'
-import { Map, View } from 'ol'
+import { Map, Tile, View } from 'ol'
 import * as olExtent from 'ol/extent'
 import { Draw, Extent } from 'ol/interaction'
 import * as Format from 'ol/format'
@@ -41,6 +41,7 @@ import { fetchGet } from '@/api'
 
 const beijing = fromLonLat([116.28, 39.54])
 const hunan = fromLonLat([112.07180996128585, 27.270889346140297])
+const hunan2 = [112.07180996128585, 27.270889346140297]
 
 /**
  * description: 初始的地图视图
@@ -53,20 +54,64 @@ export const getView = () => {
     zoom: 7.3,
     maxZoom: 18,
     projection: 'EPSG:3857'
+    // projection: 'EPSG:4326'
   })
 }
 
-export const getTileWms = () => {
+export const getTileWms = (layerName: string, title: string) => {
   let sysStore = useSysStore()
-  const wms = `http://${sysStore.geoserverHost}/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=chine%E5%9B%BE%E5%B1%82&bbox=73.498962%2C3.832541%2C135.087387%2C53.558498&width=768&height=620&srs=EPSG%3A4326&format=image%2Fpng`
-  return new TileWMS({
-    url: wms,
-    params: {
-      // LAYERS: 'china:china图层', // 指定WMS层名
-      // TILED: true // 请求分块的图片
-      // STYLE: ''
-    },
-    serverType: 'geoserver' // WMS服务器类型，可选
+  return new TileLayer({
+    className: 'wms-vector',
+    title: title,
+    preload: Infinity,
+    source: new TileWMS({
+      url: `http://${sysStore.geoserverHost}/geoserver/wms`,
+      params: {
+        LAYERS: layerName // 指定WMS层名
+        // TILED: true // 请求分块的图片
+        // STYLE: ''
+      },
+      serverType: 'geoserver', // WMS服务器类型，可选
+      crossOrigin: 'anonymous'
+    })
+  })
+}
+
+//信息中心-市界
+export const getInformationCenterWMS = (layerName: string, title: string) => {
+  let sysStore = useSysStore()
+  return new TileLayer({
+    className: 'wms-vector',
+    title: title,
+    preload: Infinity,
+    source: new TileWMS({
+      url: sysStore.ICGeoserverWMSUrl as string,
+      params: {
+        LAYERS: layerName
+        // FORMAT: 'image/png',
+        // TRANSPARENT: true,
+        // SRS: 'EPSG:4326',
+        // VERSION: '1.1.0',
+        // BBOX: '108.78571637271052,24.63934396381616,114.25618232715077,30.12909470046884',
+        // WIDTH: '679',
+        // HEIGHT: '768'
+      },
+      tileLoadFunction: function (tile, src) {
+        const xhr = new XMLHttpRequest()
+        xhr.responseType = 'blob'
+        xhr.open('GET', src)
+        xhr.setRequestHeader('Authorization', 'Basic em53Zzp6bndnQDIwMjM=')
+        xhr.onload = function () {
+          const url = URL.createObjectURL(xhr.response)
+          const img = tile.getImage()
+          img.addEventListener('load', function () {
+            URL.revokeObjectURL(url)
+          })
+          img.src = url
+        }
+        xhr.send()
+      }
+    })
   })
 }
 

@@ -80,7 +80,7 @@ import WebGLPointsLayer from 'ol/layer/WebGLPoints.js'
 import WebGLTile from 'ol/layer/WebGLTile.js'
 import html2canvas from 'html2canvas'
 import fs from 'file-saver'
-import { getView, getTileWms, getGridValueByClick } from '@/assets/Map/map'
+import { getView, getTileWms, getGridValueByClick, getInformationCenterWMS } from '@/assets/Map/map'
 import { useSysStore } from '@/stores/sys'
 import { getBusinessLayer } from '@/assets/getBusinessLayer'
 import { fetchGet, fetchPost, getUpdateUrl } from '@/api'
@@ -259,55 +259,21 @@ const initMap = () => {
   // WMS服务的URL
 
   // 创建WMS图层
-  tileWms = getTileWms()
-  let wmsLayer0 = new TileLayer({
-    className: 'wms-vector',
-    title: 'china',
-    preload: Infinity,
-    source: tileWms
-  })
-  let wmsLayer = new TileLayer({
-    className: 'wms-vector',
-    title: 'hunan',
-    preload: Infinity,
-    source: new TileWMS({
-      url: 'http://localhost:8080/geoserver/ZN/wms?service=WMS&version=1.1.0&request=GetMap&layers=ZN%3Ahunan&bbox=108.78612710158455%2C24.63925367381802%2C114.25650291427814%2C30.128722293199303&width=765&height=768&srs=EPSG%3A4326&styles=&format=application/openlayers',
-      crossOrigin: 'anonymous'
-    })
-  })
-  let lll =
-    'http://znwg:znwg@2023@10.110.173.206:8080/geoserver/basemap/wms?service=WMS&version=1.1.0&request=GetMap&layers=basemap:shi&bbox=1.2109958342968449E7,2831518.9270368395,1.271889020620294E7,3520161.4404783626&width=679&height=768&srs=EPSG:3857&styles=&format=image/jpeg'
-  let wmsLayer2 = new TileLayer({
-    className: 'wms-vector2',
-    title: 'hunan',
-    preload: Infinity,
-    source: new TileWMS({
-      url: lll,
-      crossOrigin: 'anonymous',
-      username: 'znwg', // 你的GeoServer用户名
-      password: 'znwg@2023', // 你的GeoServer密码
-    })
-  })
-  let source
-  let wmsLayer3 = new TileLayer({
-    className: 'wms-vector2',
-    title: 'hunan',
-    preload: Infinity,
-    source: source
-  })
-  source = new VectorTile({
-    // url: lll,
-    crossOrigin: 'anonymous',
-    tileLoadFunction: customLoader(wmsLayer3, lll)
-  })
-  // map.addLayer(wmsLayer0)
-  // map.addLayer(wmsLayer)
-  map.addLayer(wmsLayer2)
+  let chinaLayer = getTileWms('china:china_province', 'china')
+  let hunan_shiLayer = getTileWms('china:hunan_city', 'hunan_shi')
+  let hunan_xianLayer = getTileWms('china:hunan_country', 'hunan_xian')
 
-  // map.addLayer(wmsLayer3)
+  //信息中心的WMS服务
+  let IC_hunan_shi = getInformationCenterWMS('basemap:shi', 'IC_hunan_shi')
+  let IC_hunan_xian = getInformationCenterWMS('basemap:xian', 'IC_hunan_xian')
+
+  map.addLayer(chinaLayer)
+  map.addLayer(hunan_shiLayer)
+  map.addLayer(hunan_xianLayer)
+  // map.addLayer(IC_hunan_shi)
+  // map.addLayer(IC_hunan_xian)
 
   //创建覆盖层
-
   selectedFeatures = new VectorLayer({
     title: 'renderFeatures',
     source: new VectorSource(),
@@ -327,29 +293,6 @@ const initMap = () => {
   sysStore.setSelectedFeatures(selectedFeatures)
 }
 
-const customLoader = (tile, url) => {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', url);
-  // 添加自定义响应头
-  xhr.setRequestHeader('Authorization', 'Basic em53Zzp6bndnQDIwMjM=');
-  xhr.onload = function () {
-    // 请求成功后处理
-    if (this.status === 200) {
-      // tile.setLoader(function () {
-      const featureProjection = map.getView().getProjection();
-      return new Promise((resolve) => {
-        const format = new Format.MVT();
-        const features = format.readFeatures(this.response, {
-          featureProjection: featureProjection,
-        });
-        resolve(features);
-      });
-      // });
-      tile.load();
-    }
-  };
-  xhr.send();
-}
 let draw = new Draw({
   source: new VectorSource(),
   type: 'Polygon',
@@ -654,6 +597,5 @@ const screenshot = () => {
   :deep(.el-radio) {
     margin-right: 5px;
   }
-
 }
 </style>
