@@ -6,8 +6,8 @@
       <Four v-show="isShowFour" />
       <Five v-show="isShowFive" />
       <Six v-show="isShowSix" /> -->
-      <OlMap class="map" v-show="false" />
-      <ToolBar class="toolbar"></ToolBar>
+      <OlMap class="map" />
+      <ToolBar class="toolbar" v-show="showToolBar"></ToolBar>
     </div>
     <div class="title">
       <!-- <img src="../assets/images/title-icon.png" alt="" /> -->
@@ -25,9 +25,8 @@
     </div>
   </div>
 
-  <!-- <LayerManage class="layerManage" />
-  <div
-    style="
+  <LayerManage class="layerManage" v-show="showLayerManage" />
+  <div style="
       position: absolute;
       bottom: 5px;
       left: 287px;
@@ -36,10 +35,9 @@
       height: 78px;
       overflow: hidden;
       box-shadow: 1px 1px 34px 1px rgba(0, 0, 0, 0.3);
-    "
-  >
+    " v-show="showTime">
     <img src="@/assets/images/timeline.png" alt="" />
-  </div> -->
+  </div>
   <div class="splitView">
     <ElButton @click="take2View">二屏</ElButton>
     <ElButton @click="take3View">三屏</ElButton>
@@ -87,6 +85,9 @@ const isShowFour = ref(false)
 const isShowFive = ref(false)
 const isShowSix = ref(false)
 const showTest = ref(false)
+const showToolBar = ref(true)
+const showTime = ref(true)
+const showLayerManage = ref(true)
 onMounted(() => {
   // boxName.value = '要素'
 })
@@ -119,51 +120,63 @@ const take6View = () => {
   isShowSix.value = !isShowSix.value
 }
 
+let graticuleLayer = false
 const mapping = () => {
-  showTest.value = true
+  showTest.value = !showTest.value
+  showToolBar.value = !showToolBar.value
+  showTime.value = !showTime.value
+  showLayerManage.value = !showLayerManage.value
+
   let map = sysStore.map as Map
   map.getLayers().forEach((layer) => {
     if (layer?.get('title') === 'china') map.removeLayer(layer)
+    if (layer?.get('title') === 'graticuleLayer') {
+      map.removeLayer(layer)
+      graticuleLayer = false
+    }
   })
-
-  //经纬度网
-  const graticule = new Graticule({
-    // the style to use for the lines, optional.
-    strokeStyle: new Stroke({
-      color: 'rgba(255,120,0,7)',
-      width: 2,
-      lineDash: [0.5, 4]
-    }),
-    targetSize: 100,
-    showLabels: true,
-    wrapX: true,
-    intervals: [1, 2],
-    lonLabelPosition: 0.09,
-    latLabelPosition: 0.1,
-    lonLabelStyle: new Text({
-      font: '28px Calibri,sans-serif',
-      textBaseline: 'middle',
-      fill: new Fill({
-        color: 'rgba(0,0,0,1)'
+  if (!graticuleLayer) {
+    //经纬度网
+    const graticule = new Graticule({
+      // the style to use for the lines, optional.
+      title: 'graticuleLayer',
+      strokeStyle: new Stroke({
+        color: 'rgba(255,120,0,7)',
+        width: 2,
+        lineDash: [0.5, 4]
       }),
-      stroke: new Stroke({
-        color: 'rgba(255,255,255,1)',
-        width: 3
-      })
-    }),
-    latLabelStyle: new Text({
-      font: '28px Calibri,sans-serif',
-      textBaseline: 'middle',
-      fill: new Fill({
-        color: 'rgba(0,0,0,1)'
+      targetSize: 100,
+      showLabels: true,
+      wrapX: true,
+      intervals: [1, 2],
+      lonLabelPosition: 0.09,
+      latLabelPosition: 0.1,
+      lonLabelStyle: new Text({
+        font: '28px Calibri,sans-serif',
+        textBaseline: 'middle',
+        fill: new Fill({
+          color: 'rgba(0,0,0,1)'
+        }),
+        stroke: new Stroke({
+          color: 'rgba(255,255,255,1)',
+          width: 3
+        })
       }),
-      stroke: new Stroke({
-        color: 'rgba(255,255,255,1)',
-        width: 3
+      latLabelStyle: new Text({
+        font: '28px Calibri,sans-serif',
+        textBaseline: 'middle',
+        fill: new Fill({
+          color: 'rgba(0,0,0,1)'
+        }),
+        stroke: new Stroke({
+          color: 'rgba(255,255,255,1)',
+          width: 3
+        })
       })
     })
-  })
-  map.addLayer(graticule)
+    map.addLayer(graticule)
+    graticuleLayer = true
+  }
 }
 
 const screenshot = () => {
@@ -175,37 +188,41 @@ const screenshot = () => {
 
   // let map = sysStore.map as Map
 
-  const areas = [document.querySelector('#mapCon'), document.querySelector('#hole'), document.querySelector('#mapping-title'),]; // 选择多个区域
-  const canvases: any = [];
+  const areas = [
+    document.querySelector('#mapCon'),
+    document.querySelector('#hole'),
+    document.querySelector('#mapping-title')
+  ] // 选择多个区域
+  const canvases: any = []
 
-  areas.forEach(area => {
+  areas.forEach((area) => {
     html2canvas(area, {
       useCORS: true,
       scale: 2 // 提高清晰度
-    }).then(canvas => {
-      canvases.push(canvas);
+    }).then((canvas) => {
+      canvases.push(canvas)
       if (canvases.length === areas.length) {
         // 合并所有canvas
-        const finalCanvas = document.createElement('canvas');
-        const context = finalCanvas.getContext('2d');
-        finalCanvas.width = canvases[0].width; // 假设所有canvas宽度相同
-        finalCanvas.height = canvases.reduce((sum: number, c: any) => sum + c.height, 0); // 计算总高度
+        const finalCanvas = document.createElement('canvas')
+        const context = finalCanvas.getContext('2d')
+        finalCanvas.width = canvases[0].width // 假设所有canvas宽度相同
+        finalCanvas.height = canvases.reduce((sum: number, c: any) => sum + c.height, 0) // 计算总高度
 
-        let offsetY = 0;
+        let offsetY = 0
         canvases.forEach((c: any) => {
-          context?.drawImage(c, 0, offsetY);
+          context?.drawImage(c, 0, offsetY)
           // offsetY += c.height; // 更新Y轴偏移量
-        });
+        })
 
         // 将合并后的canvas转换为图片
-        const imgData = finalCanvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.href = imgData;
-        link.download = 'screenshot.png';
-        link.click();
+        const imgData = finalCanvas.toDataURL('image/png')
+        const link = document.createElement('a')
+        link.href = imgData
+        link.download = 'screenshot.png'
+        link.click()
       }
-    });
-  });
+    })
+  })
 }
 </script>
 

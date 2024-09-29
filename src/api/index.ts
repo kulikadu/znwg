@@ -6,13 +6,13 @@
  *
  */
 //原始格点数据，参数：time=6,elementId=1
-export const getSourceUrl = 'http://10.111.101.243:8083/znwg-api/grid/gridElementData'
+export const getSourceUrl = 'http://10.111.129.100:8083/znwg-api/grid/gridElementData'
 
 //查询要素可用时间，参数：elementId=1
-export const getSourceTimeUrl = 'http://10.111.101.243:8083/znwg-api/grid/ElementData'
+export const getSourceTimeUrl = 'http://10.111.129.100:8083/znwg-api/grid/ElementData'
 
 //要素订正更新地址
-export const getUpdateUrl = 'http://10.111.101.243:8083/znwg-api/grid/gridupdates'
+export const getUpdateUrl = 'http://10.111.129.100:8083/znwg-api/grid/gridupdates'
 //fetch的get请求
 export const fetchGet = (url: string, params: string = '') => {
   return new Promise((resolve, reject) => {

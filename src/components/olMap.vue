@@ -440,7 +440,8 @@ const changeValue2 = async (value) => {
   const params = {
     pid: pids,
     updatetype: radioValue.value,
-    val: val
+    val: val,
+    val1: null
   }
   const bodyData = JSON.stringify(params)
 

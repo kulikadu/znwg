@@ -126,14 +126,14 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
   endlon = data.endlon
 
   //抽稀后格点
-  for (let i = 0; i < numY; i++) {
-    for (let j = 0; j < numX; j++) {
+  for (let i = 0; i < newNumY; i++) {
+    for (let j = 0; j < newNumX; j++) {
       let pid = j == 0 && i == 0 ? 0 : i * numX + j - 1
       let color = getColor(id, values1[pid])
 
       let minLat, minLon
-      minLat = startlat + latGap * i
-      minLon = startlon + lonGap * j
+      minLat = startlat + latGap * i * gap
+      minLon = startlon + lonGap * j * gap
 
       //创建格点(抽稀后)
       geojsonData_Point.features.push({
@@ -242,18 +242,25 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
     }
   }
 
-  const repeatCanvas = document.createElement('canvas')
-  const repeatCtx = repeatCanvas.getContext('2d')!
-  let img = new Image()
-  img.src = 'src/assets/images/雨夹雪.png'
-  img.style.width = `${123}px`
-  img.style.height = `${123}px`
-
-  // repeatCtx.createPattern(img, 'repeat')
-
   // let fill = new Fill()
   let lll: number
   let businessLayer
+  const getText = (feature: any) => {
+    let text
+    if (id == '1') {
+      text = [
+        `${feature.get('value1')}`,
+        `12px Calibri,sans-serif`,
+        '\n',
+        '',
+        `${feature.get('value2')}`,
+        '10px Calibri,sans-serif'
+      ]
+    } else {
+      text = [`${feature.get('value1')}`, `12px Calibri,sans-serif`]
+    }
+    return text
+  }
   //格点图层
   if (id != '7') {
     businessLayer = new VectorLayer({
@@ -264,17 +271,8 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       }),
       style: (feature, resolution) => {
         // lll = getSquarePixelSideLength(sysStore.map, feature)
-        let fill = new Fill()
-        fill.setColor(img)
         let text = new Text({
-          text: [
-            `${feature.get('value1')}`,
-            `12px Calibri,sans-serif`,
-            '\n',
-            '',
-            `${feature.get('value2')}`,
-            '10px Calibri,sans-serif'
-          ],
+          text: getText(feature),
           overflow: true,
           fill: new Fill({ color: 'black' }),
           stroke: new Stroke({
@@ -284,20 +282,19 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
         })
         return new Style({
           fill: new Fill({ color: feature.get('color') }),
-          // fill: fill,
           stroke: new Stroke({ color: 'black', width: 1 }),
           text: text
         })
       }
     })
 
-    sysStore.map?.addLayer(businessLayer)
+    // sysStore.map?.addLayer(businessLayer)
   }
 
   //风向图
   if (id == '7') {
     businessLayer = new VectorLayer({
-      title: 'wind',
+      title: 'grid_VectorLayer',
       opacity: 0.8,
       zIndex: 99,
       source: new VectorSource({
@@ -312,14 +309,14 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
             src: 'src/assets/images/wind/11-12.svg',
             width: iconSize / 2.5,
             height: iconSize,
-            opacity: 0.3,
+            // opacity: 0.3,
             rotation: rotation
           })
         })
       }
     })
 
-    sysStore.map?.addLayer(businessLayer)
+    // sysStore.map?.addLayer(businessLayer)
   }
 
   let bus3Full = new VectorLayer({
@@ -373,7 +370,6 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
       style: (feature) => {
         let fill = new Fill()
         fill.setColor(getColor(id, feature.get('minValue')))
-        // fill.setColor('rgb(0,255,255)')
         return new Style({
           fill: fill
         })

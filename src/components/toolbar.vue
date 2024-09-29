@@ -3,13 +3,8 @@
     <div class="toolbar-title">
       <span>工具</span>
     </div>
-    <span
-      v-for="(item, index) in iconList"
-      :key="index"
-      class="toolbar-item"
-      @click="handleClick(item.iconName, index)"
-      :class="{ active: activeIndex === index }"
-    >
+    <span v-for="(item, index) in iconList" :key="index" class="toolbar-item" @click="handleClick(item.iconName, index)"
+      :class="{ active: activeIndex === index }">
       <div>
         <img :src="getImg(item.iconName)" />
       </div>
@@ -38,10 +33,10 @@ import { useSysStore } from '@/stores/sys'
 const sysStore = useSysStore()
 
 const activeIndex = ref(-1)
-const isDisabled = ref(false)
+const isDisabled = ref(true)
 const checked = ref(false)
 let map: Map | null
-onMounted(() => {})
+onMounted(() => { })
 let iconList = ref()
 const getImg = (name: string) => {
   let url = import.meta.env.BASE_URL + `src/assets/images/${name}.svg`
@@ -256,6 +251,7 @@ watch(
   height: calc(350 - 36);
   background-color: #ffffff;
   border: 1px solid #d7d7d7;
+
   .toolbar-title {
     width: 36px;
     height: 34px;
@@ -272,17 +268,20 @@ watch(
       background-color: #d7d7d7;
     }
   }
+
   .toolbar-item {
     width: 36px;
     height: 34px;
     display: flex;
     justify-content: center;
     align-items: center;
+
     &:hover {
       background-color: #abb9ce;
       cursor: pointer;
     }
   }
+
   .toolbar-check {
     display: none;
     width: 36px;
@@ -294,6 +293,7 @@ watch(
     flex-direction: column;
     position: relative;
     margin-top: 7px;
+
     :deep(.el-checkbox__inner:after) {
       height: 9px;
       left: 6px;
@@ -304,10 +304,12 @@ watch(
     :deep(.el-checkbox.el-checkbox--large) {
       height: 20px;
     }
+
     :deep(.el-checkbox.el-checkbox--large .el-checkbox__inner) {
       height: 18px;
       width: 18px;
     }
+
     &::before {
       content: '';
       width: 100%;
@@ -317,18 +319,22 @@ watch(
       top: -3px;
     }
   }
+
   .toolbar-check > span {
     text-align: center;
     margin-top: 5px;
   }
 }
+
 img {
   width: 18px;
   height: 18px;
 }
+
 .active {
   background-color: #abb9ce;
 }
+
 .disabled {
   color: rgb(220, 223, 230);
 }
