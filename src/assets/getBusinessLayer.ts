@@ -11,7 +11,7 @@ import { asColorLike } from 'ol/colorlike'
 import { getColorByType } from './getColorByType'
 import * as turf from '@turf/turf'
 import { transform } from 'ol/proj'
-import { getSquarePixelSideLength } from '@/assets/Map/map'
+import { getSquarePixelSideLength, convertGeojsonCoordinates } from '@/assets/Map/map'
 
 // import axios from 'axios'
 
@@ -208,18 +208,7 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
         features: maxValueFeatures
       }
       // 将FeatureCollection中的每个Feature的几何对象转换坐标系
-      fea.features.forEach(function (feature: any) {
-        let geometry = feature.geometry
-        if (geometry) {
-          var coordinates = geometry.coordinates
-          var transformedCoordinates = coordinates[0].map(function (coords: any) {
-            return coords.map((coord: any) => {
-              return transform(coord, 'EPSG:4326', 'EPSG:3857')
-            })
-          })
-          geometry.coordinates[0] = transformedCoordinates
-        }
-      })
+      fea = convertGeojsonCoordinates(fea, 'EPSG:4326', 'EPSG:3857')
 
       let ptsWithin = turf.pointsWithinPolygon(geojsonData_Point_full, fea)
       console.log('所有最大值的feature:', maxValueFeatures)
@@ -301,7 +290,7 @@ export const getBusinessLayer = (data: any, gap: number, id: string) => {
         features: new GeoJSON().readFeatures(geojsonData_Point)
       }),
       style: (feature, resolution) => {
-        const iconSize = (12.5 / resolution) * 440
+        const iconSize = (12.5 / resolution) * 440 * gap
         let rotation = feature.get('value1')
         // console.log({ resolution }, { iconSize })
         return new Style({

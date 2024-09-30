@@ -13,6 +13,7 @@ export const getSourceTimeUrl = 'http://10.111.129.100:8083/znwg-api/grid/Elemen
 
 //要素订正更新地址
 export const getUpdateUrl = 'http://10.111.129.100:8083/znwg-api/grid/gridupdates'
+
 //fetch的get请求
 export const fetchGet = (url: string, params: string = '') => {
   return new Promise((resolve, reject) => {

@@ -88,6 +88,7 @@ export const getInformationCenterWMS = (layerName: string, title: string) => {
       url: sysStore.ICGeoserverWMSUrl as string,
       params: {
         LAYERS: layerName
+        // STYLE: 'basemap:xian_cs_k'
         // FORMAT: 'image/png',
         // TRANSPARENT: true,
         // SRS: 'EPSG:4326',
@@ -177,4 +178,33 @@ export const getSquarePixelSideLength = (map: Map, squareFeature: Feature) => {
 
     return pixelSideLength
   }
+}
+
+//转换geojson中的坐标
+/**
+ *
+ * @param FeatureCollection geojson数据
+ * @param dataProjection 数据当前的坐标系
+ * @param featureProjection 目标坐标系
+ * @returns 返回转换后的数据
+ */
+export const convertGeojsonCoordinates = (
+  FeatureCollection: any,
+  dataProjection: string,
+  featureProjection: string
+) => {
+  // 将FeatureCollection中的每个Feature的几何对象转换坐标系
+  FeatureCollection.features.forEach(function (feature: any) {
+    let geometry = feature.geometry
+    if (geometry) {
+      var coordinates = geometry.coordinates
+      var transformedCoordinates = coordinates[0].map(function (coords: any) {
+        return coords.map((coord: any) => {
+          return transform(coord, dataProjection, featureProjection)
+        })
+      })
+      geometry.coordinates[0] = transformedCoordinates
+    }
+  })
+  return FeatureCollection
 }

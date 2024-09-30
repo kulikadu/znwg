@@ -260,18 +260,18 @@ const initMap = () => {
 
   // 创建WMS图层
   let chinaLayer = getTileWms('china:china_province', 'china')
-  let hunan_shiLayer = getTileWms('china:hunan_city', 'hunan_shi')
-  let hunan_xianLayer = getTileWms('china:hunan_country', 'hunan_xian')
+  // let hunan_shiLayer = getTileWms('china:hunan_city', 'hunan_shi')
+  // let hunan_xianLayer = getTileWms('china:hunan_country', 'hunan_xian')
 
   //信息中心的WMS服务
   let IC_hunan_shi = getInformationCenterWMS('basemap:shi', 'IC_hunan_shi')
   let IC_hunan_xian = getInformationCenterWMS('basemap:xian', 'IC_hunan_xian')
 
   map.addLayer(chinaLayer)
-  map.addLayer(hunan_shiLayer)
-  map.addLayer(hunan_xianLayer)
+  // map.addLayer(hunan_shiLayer)
+  // map.addLayer(hunan_xianLayer)
   // map.addLayer(IC_hunan_shi)
-  // map.addLayer(IC_hunan_xian)
+  map.addLayer(IC_hunan_xian)
 
   //创建覆盖层
   selectedFeatures = new VectorLayer({
