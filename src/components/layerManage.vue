@@ -156,7 +156,7 @@ const changeEvent = (value: string) => {
       }),
       style: new Style({
         image: new CircleStyle({
-          radius: 5,
+          radius: 2,
           fill: new Fill({
             color: 'red'
           })

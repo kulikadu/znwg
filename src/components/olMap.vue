@@ -84,11 +84,12 @@ import { getView, getTileWms, getGridValueByClick, getInformationCenterWMS } fro
 import { useSysStore } from '@/stores/sys'
 import { getBusinessLayer } from '@/assets/getBusinessLayer'
 import { fetchGet, fetchPost, getUpdateUrl } from '@/api'
+import { Control, defaults as defaultControls } from 'ol/control.js'
 import { asArray } from 'ol/color.js'
 
 // import { fromLonLat } from 'ol/proj'
 import { Select } from 'ol/interaction'
-import { MousePosition, OverviewMap, ScaleLine } from 'ol/control'
+import { MousePosition, FullScreen, OverviewMap, ScaleLine } from 'ol/control'
 import { singleClick } from 'ol/events/condition'
 
 const sysStore = useSysStore()
@@ -251,7 +252,18 @@ const initMap = () => {
   map = new Map({
     layers: [],
     target: mapCon.value,
-    view: getView()
+    view: getView(),
+    controls: defaultControls().extend([
+      // new FullScreen() // 添加全屏控件
+      new MousePosition(), // 添加全屏控件
+      new ScaleLine() // 添加全屏控件
+    ])
+    // controls: defaultControls({
+    //   zoom: true,
+    //   mousePosition: true,
+    //   scaleLine: true,
+    //   fullmap: true
+    // })
   })
   // map.addLayer(tdtVectorLayer)
   // map.addLayer(tdtVectorLabelLayer)
