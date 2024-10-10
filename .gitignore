@@ -27,6 +27,8 @@ coverage
 *.sln
 *.sw?
 
+*.svn/
+
 *.tsbuildinfo
 /src/auto-imports.d.ts
 /src/components.d.ts
