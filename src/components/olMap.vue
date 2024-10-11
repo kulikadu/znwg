@@ -105,7 +105,7 @@ let PID
 
 let map, tileWms
 let pids = []
-const key = '9d871cee845e322ca402f38ade03b7b2'
+const key = import.meta.env.VUE_APP_OL_KEY
 const radio = ref('赋值')
 const radioChange = (val) => {
   radioValue.value = val

@@ -8,25 +8,53 @@
       <el-tab-pane label="地图">
         <div class="content">
           <div>
-            <div>
+            <div class="content-item">
               <el-checkbox label="县名" />
               <div>
-                <span>字体:</span>
+                <span>字体：</span>
                 <el-select
-                  v-model="value"
+                  v-model="fontvalue"
                   filterable
                   placeholder="微软雅黑"
                   size="small"
-                  style="width: 80px"
+                  style="width: 60px"
                   @focus="handleFocus"
                 >
                   <el-option
-                    v-for="(item, index) in fontOptions2"
+                    v-for="(item, index) in fontOptions"
                     :key="index"
-                    :label="item"
-                    :value="item"
+                    :label="item.label"
+                    :value="item.value"
                   />
                 </el-select>
+              </div>
+
+              <div>
+                <span>字号：</span>
+                <el-select
+                  v-model="fontSizeValue"
+                  filterable
+                  placeholder="3"
+                  size="small"
+                  style="width: 40px"
+                >
+                  <el-option
+                    v-for="(item, index) in fontSizeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>颜色：</span>
+                <el-color-picker
+                  v-model="color"
+                  show-alpha
+                  :predefine="predefineColors"
+                  @change="handleColorChange"
+                />
               </div>
             </div>
           </div>
@@ -42,9 +70,11 @@
 </template>
 
 <script setup lang="ts">
-let value = ref('')
-let fontOptions2 = ref([])
-let fontOptions = [
+let fontvalue = ref('')
+let fontSizeValue = ref('')
+// let fontOptions = reactive([])
+let fontOptions: any[] = []
+let fontOptions2 = [
   {
     value: 'Microsoft YaHei',
     label: '微软雅黑'
@@ -78,12 +108,63 @@ let fontOptions = [
     label: 'Impact'
   }
 ]
+let fontSizeOptions = [
+  {
+    value: '3',
+    label: '3'
+  },
+  {
+    value: '4',
+    label: '4'
+  },
+  {
+    value: '5',
+    label: '5'
+  },
+  {
+    value: '6',
+    label: '6'
+  },
+  {
+    value: '7',
+    label: '7'
+  },
+  {
+    value: '8',
+    label: '8'
+  },
+  {
+    value: '9',
+    label: '9'
+  },
+  {
+    value: '10',
+    label: '10'
+  }
+]
+const color = ref('rgba(255, 69, 0, 0.68)')
+const predefineColors = ref([
+  '#ff4500',
+  '#ff8c00',
+  '#ffd700',
+  '#90ee90',
+  '#00ced1',
+  '#1e90ff',
+  '#c71585',
+  'rgba(255, 69, 0, 0.68)',
+  'rgb(255, 120, 0)',
+  'hsv(51, 100, 98)',
+  'hsva(120, 40, 94, 0.5)',
+  'hsl(181, 100%, 37%)',
+  'hsla(209, 100%, 56%, 0.73)',
+  '#c7158577'
+])
 const getSystemFonts = async () => {
   try {
     const availableFonts = await window.queryLocalFonts()
     // return availableFonts.map((font: any) => font.family)
-    return availableFonts.map((font: any) => {
-      fontOptions2.value.push({ value: font.family, label: font.fullName })
+    return await availableFonts.map((font: any) => {
+      fontOptions.push({ value: font.family, label: font.fullName })
     })
   } catch (err: any) {
     console.error(err.name, err.message)
@@ -95,8 +176,11 @@ const getSystemFonts = async () => {
 // ;(async () => {
 //   fontOptions.value = await getSystemFonts()
 // })()
-const handleFocus = () => {
-  if (fontOptions2.value.length === 0) getSystemFonts()
+const handleFocus = async () => {
+  if (fontOptions.length === 0) await getSystemFonts()
+}
+const handleColorChange = (color: any) => {
+  console.log(color)
 }
 </script>
 
@@ -119,6 +203,20 @@ const handleFocus = () => {
   .content {
     height: 400px;
     width: 100%;
+    .content-item {
+      display: flex;
+      margin-right: 30px;
+      color: #606266;
+      font-size: 14px;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 50px;
+
+      :deep(.el-color-picker, .el-color-picker__panel) {
+        --el-color-picker-alpha-bg-b: auto;
+        --el-color-picker-alpha-bg-a: auto;
+      }
+    }
   }
 }
 :deep(.el-tabs) {

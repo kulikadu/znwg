@@ -1,10 +1,3 @@
-/*
- * @Author: wangyilin
- * @Date: 2024-09-05 08:49:05
- * @LastEditors: wangyilin
- * @LastEditTime: 2024-09-11 11:39:32
- *
- */
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
