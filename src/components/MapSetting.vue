@@ -7,9 +7,323 @@
     <el-tabs type="border-card">
       <el-tab-pane label="地图">
         <div class="content">
-          <div>
+          <div class="content-title">
+            <span>基础地图</span>
+          </div>
+          <div class="content-region">
             <div class="content-item">
               <el-checkbox label="县名" />
+              <div>
+                <span>字体：</span>
+                <el-select
+                  v-model="fontvalue"
+                  filterable
+                  placeholder="微软雅黑"
+                  size="small"
+                  style="width: 60px"
+                  @focus="handleFocus"
+                >
+                  <el-option
+                    v-for="(item, index) in fontOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>字号：</span>
+                <el-select
+                  v-model="fontSizeValue"
+                  filterable
+                  placeholder="3"
+                  size="small"
+                  style="width: 40px"
+                >
+                  <el-option
+                    v-for="(item, index) in fontSizeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>颜色：</span>
+                <el-color-picker
+                  v-model="color"
+                  show-alpha
+                  :predefine="predefineColors"
+                  @change="handleColorChange"
+                />
+              </div>
+            </div>
+
+            <div class="content-item">
+              <el-checkbox label="市名" />
+              <div>
+                <span>字体：</span>
+                <el-select
+                  v-model="fontvalue"
+                  filterable
+                  placeholder="微软雅黑"
+                  size="small"
+                  style="width: 60px"
+                  @focus="handleFocus"
+                >
+                  <el-option
+                    v-for="(item, index) in fontOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>字号：</span>
+                <el-select
+                  v-model="fontSizeValue"
+                  filterable
+                  placeholder="3"
+                  size="small"
+                  style="width: 40px"
+                >
+                  <el-option
+                    v-for="(item, index) in fontSizeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>颜色：</span>
+                <el-color-picker
+                  v-model="color"
+                  show-alpha
+                  :predefine="predefineColors"
+                  @change="handleColorChange"
+                />
+              </div>
+            </div>
+
+            <div class="content-item">
+              <el-checkbox label="乡名" />
+              <div>
+                <span>字体：</span>
+                <el-select
+                  v-model="fontvalue"
+                  filterable
+                  placeholder="微软雅黑"
+                  size="small"
+                  style="width: 60px"
+                  @focus="handleFocus"
+                >
+                  <el-option
+                    v-for="(item, index) in fontOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>字号：</span>
+                <el-select
+                  v-model="fontSizeValue"
+                  filterable
+                  placeholder="3"
+                  size="small"
+                  style="width: 40px"
+                >
+                  <el-option
+                    v-for="(item, index) in fontSizeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>颜色：</span>
+                <el-color-picker
+                  v-model="color"
+                  show-alpha
+                  :predefine="predefineColors"
+                  @change="handleColorChange"
+                />
+              </div>
+            </div>
+
+            <div class="content-item">
+              <span>地图背景色：</span>
+              <el-color-picker
+                v-model="color"
+                show-alpha
+                :predefine="predefineColors"
+                @change="handleColorChange"
+              />
+            </div>
+          </div>
+
+          <div class="content-title">
+            <span>站点格点</span>
+          </div>
+          <div class="content-region2">
+            <div class="content-item">
+              <span>国家站点:</span>
+
+              <div>
+                <span>字号：</span>
+                <el-select
+                  v-model="fontSizeValue"
+                  filterable
+                  placeholder="3"
+                  size="small"
+                  style="width: 40px"
+                >
+                  <el-option
+                    v-for="(item, index) in fontSizeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>符号颜色：</span>
+                <el-color-picker
+                  v-model="color"
+                  show-alpha
+                  :predefine="predefineColors"
+                  @change="handleColorChange"
+                />
+              </div>
+            </div>
+
+            <div class="content-item">
+              <span>骨干站点:</span>
+
+              <div>
+                <span>字号：</span>
+                <el-select
+                  v-model="fontSizeValue"
+                  filterable
+                  placeholder="3"
+                  size="small"
+                  style="width: 40px"
+                >
+                  <el-option
+                    v-for="(item, index) in fontSizeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>符号颜色：</span>
+                <el-color-picker
+                  v-model="color"
+                  show-alpha
+                  :predefine="predefineColors"
+                  @change="handleColorChange"
+                />
+              </div>
+            </div>
+
+            <div class="content-item">
+              <span>乡镇站点：</span>
+
+              <div>
+                <span>符号大小：</span>
+                <el-select
+                  v-model="fontSizeValue"
+                  filterable
+                  placeholder="3"
+                  size="small"
+                  style="width: 40px"
+                >
+                  <el-option
+                    v-for="(item, index) in fontSizeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>符号颜色：</span>
+                <el-color-picker
+                  v-model="color"
+                  show-alpha
+                  :predefine="predefineColors"
+                  @change="handleColorChange"
+                />
+              </div>
+            </div>
+
+            <div class="content-item">
+              <span>站点名称：</span>
+              <div>
+                <span>字体：</span>
+                <el-select
+                  v-model="fontvalue"
+                  filterable
+                  placeholder="微软雅黑"
+                  size="small"
+                  style="width: 60px"
+                  @focus="handleFocus"
+                >
+                  <el-option
+                    v-for="(item, index) in fontOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>字号：</span>
+                <el-select
+                  v-model="fontSizeValue"
+                  filterable
+                  placeholder="3"
+                  size="small"
+                  style="width: 40px"
+                >
+                  <el-option
+                    v-for="(item, index) in fontSizeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </div>
+
+              <div>
+                <span>颜色：</span>
+                <el-color-picker
+                  v-model="color"
+                  show-alpha
+                  :predefine="predefineColors"
+                  @change="handleColorChange"
+                />
+              </div>
+            </div>
+
+            <div class="content-item">
+              <span>格点：</span>
               <div>
                 <span>字体：</span>
                 <el-select
@@ -62,14 +376,17 @@
       </el-tab-pane>
       <el-tab-pane label="色斑图">
         <div class="content">
-          <div>2</div>
+          <color-manage />
         </div>
       </el-tab-pane>
     </el-tabs>
+    <el-button class="btn-save" @click="handleConfirm">保存地图配置</el-button>
   </div>
 </template>
 
 <script setup lang="ts">
+import ColorManage from './ColorManage.vue'
+
 let fontvalue = ref('')
 let fontSizeValue = ref('')
 // let fontOptions = reactive([])
@@ -187,8 +504,14 @@ const handleColorChange = (color: any) => {
 <style scoped lang="less">
 .main {
   width: 400px;
-  height: 500px;
+  height: 510px;
   border: 1px red solid;
+  .btn-save {
+    margin-left: 70%;
+    width: 100px;
+    height: 30px;
+    margin-top: 2px;
+  }
   .title {
     height: 32px;
     background-color: white;
@@ -201,8 +524,21 @@ const handleColorChange = (color: any) => {
     }
   }
   .content {
-    height: 400px;
+    height: 410px;
     width: 100%;
+    .content-title {
+      font-size: 14px;
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+    .content-region {
+      height: 160px;
+      border: 1px #dcdfe6 solid;
+    }
+    .content-region2 {
+      height: 200px;
+      border: 1px #dcdfe6 solid;
+    }
     .content-item {
       display: flex;
       margin-right: 30px;
@@ -210,7 +546,7 @@ const handleColorChange = (color: any) => {
       font-size: 14px;
       justify-content: space-evenly;
       align-items: center;
-      height: 50px;
+      height: 40px;
 
       :deep(.el-color-picker, .el-color-picker__panel) {
         --el-color-picker-alpha-bg-b: auto;
